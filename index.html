@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trendcode — Decoding where computing is heading</title>
+  <meta name="description" content="Trendcode explains the biggest computer science trends — post-quantum cryptography, AI security, quantum computing and more — in plain language." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="#topics">Topics</a>
+      <a href="#latest">Latest</a>
+      <a href="#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">// computer science, decoded</p>
+      <h1>Understand the trends<br />shaping tomorrow's tech.</h1>
+      <p class="lead">Clear, honest explainers on post-quantum cryptography, AI security, quantum computing and whatever comes next. No hype, no jargon walls.</p>
+      <div class="hero-actions">
+        <a href="posts/what-is-post-quantum-cryptography.html" class="btn">Start with Post-Quantum →</a>
+        <a href="#topics" class="btn btn-ghost">Browse topics</a>
+      </div>
+    </section>
+
+    <section id="topics" class="section">
+      <h2>Topics</h2>
+      <div class="grid">
+        <article class="card">
+          <span class="tag">01</span>
+          <h3>Post-Quantum Cryptography</h3>
+          <p>Why today's encryption is at risk, and the new algorithms built to replace it.</p>
+        </article>
+        <article class="card">
+          <span class="tag">02</span>
+          <h3>AI Security</h3>
+          <p>Prompt injection, model risk, and how to deploy AI safely.</p>
+        </article>
+        <article class="card">
+          <span class="tag">03</span>
+          <h3>Quantum Computing</h3>
+          <p>Qubits, superposition and what quantum machines can really do today.</p>
+        </article>
+        <article class="card">
+          <span class="tag">04</span>
+          <h3>Emerging Tech</h3>
+          <p>The next wave, from edge computing to new programming paradigms.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="latest" class="section">
+      <h2>Latest posts</h2>
+      <ul class="post-list" id="post-list"></ul>
+    </section>
+
+    <section id="subscribe" class="section subscribe">
+      <h2>Get one trend, decoded, every week.</h2>
+      <form id="subscribe-form">
+        <input type="email" placeholder="you@example.com" required aria-label="Email address" />
+        <button type="submit" class="btn">Subscribe</button>
+      </form>
+      <p class="form-note" id="form-note"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

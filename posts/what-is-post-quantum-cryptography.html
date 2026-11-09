@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What is Post-Quantum Cryptography? — Trendcode</title>
+  <meta name="description" content="A plain-language introduction to post-quantum cryptography: the quantum threat, harvest-now-decrypt-later, and the new NIST standards." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Latest</a>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="article">
+      <p class="eyebrow">// post-quantum · 6 min read</p>
+      <h1>What is Post-Quantum Cryptography (and why should you care)?</h1>
+
+      <p>Every time you log in, pay online or send a message, encryption keeps your data private. Most of it relies on math problems, like factoring huge numbers, that classical computers can't solve in any reasonable time.</p>
+
+      <h2>The quantum problem</h2>
+      <p>A large enough quantum computer running <strong>Shor's algorithm</strong> could solve those problems quickly, breaking the public-key encryption used today: <code>RSA</code>, <code>ECC</code> and Diffie-Hellman.</p>
+
+      <div class="callout">
+        <strong>Harvest now, decrypt later:</strong> attackers can steal encrypted data today and store it until quantum computers can unlock it. Data that must stay secret for years is already at risk.
+      </div>
+
+      <h2>The fix: new math</h2>
+      <p>Post-quantum cryptography (PQC) uses math problems believed to be hard for both classical <em>and</em> quantum computers. It runs on today's normal hardware, so no quantum computer is needed to use it.</p>
+      <p>In 2024, NIST published the first PQC standards:</p>
+      <ul>
+        <li><strong>ML-KEM</strong> (FIPS 203): for securely exchanging keys, based on lattices.</li>
+        <li><strong>ML-DSA</strong> (FIPS 204): for digital signatures, also lattice-based.</li>
+        <li><strong>SLH-DSA</strong> (FIPS 205): a hash-based signature scheme, used as a conservative backup.</li>
+      </ul>
+
+      <h2>What should organizations do?</h2>
+      <ul>
+        <li><strong>Inventory</strong> where cryptography is used across systems.</li>
+        <li><strong>Prioritize</strong> long-lived sensitive data.</li>
+        <li><strong>Build crypto-agility</strong> so algorithms can be swapped without rebuilding systems.</li>
+        <li><strong>Test hybrid modes</strong> that combine classical and PQC algorithms during the transition.</li>
+      </ul>
+
+      <h2>The takeaway</h2>
+      <p>Quantum computers that can break encryption aren't here yet, but migrating cryptography takes years. The time to start is now.</p>
+
+      <p><a href="../index.html" class="btn btn-ghost">← Back to all posts</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Trendcode. Built to make tech make sense.</p>
+  </footer>
+</body>
+</html>
