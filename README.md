@@ -2,6 +2,8 @@
 
 > Computer science, decoded. Clear explainers on post-quantum cryptography, AI security, quantum computing and emerging tech.
 
+🌐 **Live site:** https://faridaaismaill12.github.io/Trendcode/
+
 A lightweight static website: plain HTML, CSS and JavaScript. No build step and no dependencies.
 
 ## Structure
@@ -34,14 +36,14 @@ python3 -m http.server 8000
 ## Push to GitHub
 
 ```bash
-git remote add origin https://github.com/<your-username>/trendcode.git
+git remote add origin https://github.com/faridaaismaill12/Trendcode.git
 git branch -M main
 git push -u origin main
 ```
 
 ## Publish for free (GitHub Pages)
 
-Repo **Settings → Pages → Source: Deploy from a branch → `main` / root**. The site goes live at `https://<your-username>.github.io/trendcode/`. You can add a custom domain like `trendcode.dev` later.
+Repo **Settings → Pages → Source: Deploy from a branch → `main` / root**. The site goes live at `https://faridaaismaill12.github.io/Trendcode/`. You can add a custom domain like `trendcode.dev` later.
 
 ## Next ideas
 
