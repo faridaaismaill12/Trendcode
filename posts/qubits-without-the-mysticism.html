@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qubits Without the Mysticism — Trendcode</title>
+  <meta name="description" content="What a quantum computer actually does: qubits, superposition, entanglement and interference, what the machines are good for, and how far away the useful ones are." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body data-base="../" data-slug="qubits-without-the-mysticism">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Latest</a>
+      <a href="../index.html#glossary">Glossary</a>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="article">
+      <p class="eyebrow">// <a href="../index.html?topic=quantum#latest">quantum computing</a> · 7 min read</p>
+      <h1>Qubits without the mysticism: what a quantum computer actually does</h1>
+      <p class="article-date">Published Nov 10, 2026</p>
+
+      <p>You have probably heard that a quantum computer "tries every answer at once". It is a catchy line, and it is wrong in a way that makes the whole field harder to understand. Here is a more honest picture, with no physics degree required.</p>
+
+      <h2>Bits and qubits</h2>
+      <p>A classical bit is a switch: <code>0</code> or <code>1</code>. A <strong>qubit</strong> is described by two numbers called amplitudes, one for 0 and one for 1. While the computation runs, both amplitudes matter. This is <strong>superposition</strong>.</p>
+      <p>The catch is that you can never read the amplitudes. When you <strong>measure</strong> a qubit you get a plain 0 or 1, with probabilities set by the amplitudes, and the superposition is gone.</p>
+
+      <div class="callout">
+        <strong>The key constraint:</strong> a quantum computer with 100 qubits works with an enormous number of amplitudes, but at the end it hands you just 100 ordinary bits.
+      </div>
+
+      <h2>So where does the power come from?</h2>
+      <p>Three ingredients, used together:</p>
+      <ul>
+        <li><strong>Superposition</strong> lets a register of qubits hold a weighted mix of many possible values.</li>
+        <li><strong>Entanglement</strong> links qubits so their outcomes are correlated in ways no set of independent bits can copy. It is what makes the state too large to simulate cheaply.</li>
+        <li><strong>Interference</strong> is the real trick. Amplitudes can be positive or negative, so they can cancel out or reinforce each other, like waves.</li>
+      </ul>
+      <p>A quantum algorithm is a carefully choreographed sequence that makes the amplitudes of wrong answers cancel and the amplitudes of right answers add up. Then you measure, and the right answer comes out with high probability.</p>
+      <p>That is why "tries everything at once" misleads. If that were all, measuring would just give you one random attempt. The speed-up only exists for problems with enough mathematical structure to set up the interference.</p>
+
+      <h2>What they are good for</h2>
+      <ul>
+        <li><strong>Simulating nature.</strong> Molecules and materials are quantum systems, so modelling them is the most natural use, with potential impact on chemistry, batteries and drug discovery.</li>
+        <li><strong>Factoring and discrete logarithms.</strong> Shor's algorithm solves these exponentially faster than any known classical method, which is what threatens RSA and elliptic-curve cryptography. See <a href="what-is-post-quantum-cryptography.html">our post-quantum explainer</a>.</li>
+        <li><strong>Unstructured search.</strong> Grover's algorithm gives a quadratic speed-up: a search over a trillion items takes about a million steps. Useful, but far from magic.</li>
+      </ul>
+      <p>What they are <em>not</em> good for: email, video, spreadsheets, or most everyday computing. A quantum computer is a specialized accelerator, closer in spirit to a GPU than to a replacement laptop.</p>
+
+      <h2>Why we don't have useful ones yet</h2>
+      <p>Qubits are fragile. Heat, vibration and stray electromagnetic fields nudge them, and errors pile up after a short sequence of operations. This is called <strong>decoherence</strong>, and it is why many machines run colder than outer space.</p>
+      <p>The answer is <strong>quantum error correction</strong>: spreading one reliable <strong>logical qubit</strong> across many noisy <strong>physical qubits</strong>. The overhead is large, often hundreds or thousands of physical qubits per logical one.</p>
+      <p>That overhead explains the gap between headlines and reality. Today's machines have somewhere between hundreds and a few thousand physical qubits. Published estimates for breaking RSA-2048 have fallen from around 20 million noisy qubits (2019) to under a million (2025), thanks to better algorithms and error correction. The target is moving closer from both sides, but it has not been reached.</p>
+
+      <h2>How to read quantum news</h2>
+      <ul>
+        <li><strong>Qubit count alone means little.</strong> Ask about error rates and how many <em>logical</em> qubits the machine can sustain.</li>
+        <li><strong>"Quantum advantage" claims are often about contrived benchmarks.</strong> Ask whether the task is useful and whether classical algorithms have caught up since.</li>
+        <li><strong>Timelines are uncertain.</strong> Nobody knows the year. That uncertainty is exactly why cryptography is being upgraded now, before the answer is known.</li>
+      </ul>
+
+      <h2>The takeaway</h2>
+      <p>A quantum computer is a machine for arranging interference so that wrong answers cancel. It will be transformative for a narrow set of important problems and irrelevant for most others. Both halves of that sentence are worth remembering.</p>
+
+      <div id="post-extras"></div>
+      <p><a href="../index.html#latest" class="btn btn-ghost">← Back to all posts</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

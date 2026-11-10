@@ -6,74 +6,150 @@
   <title>Trendcode — Decoding where computing is heading</title>
   <meta name="description" content="Trendcode explains the biggest computer science trends — post-quantum cryptography, AI security, quantum computing and more — in plain language." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-<body>
+<body data-base="">
   <header class="site-header">
     <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
     <nav>
       <a href="#topics">Topics</a>
       <a href="#latest">Latest</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#glossary">Glossary</a>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
       <a href="#subscribe" class="btn btn-small">Subscribe</a>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <p class="eyebrow">// computer science, decoded</p>
-      <h1>Understand the trends<br />shaping tomorrow's tech.</h1>
-      <p class="lead">Clear, honest explainers on post-quantum cryptography, AI security, quantum computing and whatever comes next. No hype, no jargon walls.</p>
-      <div class="hero-actions">
-        <a href="posts/what-is-post-quantum-cryptography.html" class="btn">Start with Post-Quantum →</a>
-        <a href="#topics" class="btn btn-ghost">Browse topics</a>
+      <div class="hero-text">
+        <p class="eyebrow">// computer science, decoded</p>
+        <h1>Understand the trends shaping <span class="rotator" id="rotator">post-quantum crypto</span><span class="caret" aria-hidden="true">|</span></h1>
+        <p class="lead">Clear, honest explainers on post-quantum cryptography, AI security, quantum computing and whatever comes next. No hype, no jargon walls.</p>
+        <div class="hero-actions">
+          <a href="posts/what-is-post-quantum-cryptography.html" class="btn">Start with Post-Quantum →</a>
+          <a href="#latest" class="btn btn-ghost">Browse all posts</a>
+        </div>
+        <ul class="stats">
+          <li><strong data-count="4">0</strong><span>in-depth explainers</span></li>
+          <li><strong data-count="4">0</strong><span>topics covered</span></li>
+          <li><strong data-count="7">0</strong><span>min average read</span></li>
+        </ul>
+      </div>
+
+      <div class="terminal" aria-label="Animated terminal">
+        <div class="terminal-bar"><i></i><i></i><i></i><span>~/trendcode</span></div>
+        <pre id="terminal-body" aria-live="off"></pre>
       </div>
     </section>
 
-    <section id="topics" class="section">
-      <h2>Topics</h2>
-      <div class="grid">
-        <article class="card">
+    <section id="topics" class="section reveal">
+      <div class="section-head">
+        <h2>Topics</h2>
+        <p class="muted">Pick a topic to filter the posts below.</p>
+      </div>
+      <div class="grid topic-grid">
+        <button class="card topic-card" data-topic="pqc" type="button">
           <span class="tag">01</span>
           <h3>Post-Quantum Cryptography</h3>
           <p>Why today's encryption is at risk, and the new algorithms built to replace it.</p>
-        </article>
-        <article class="card">
+          <span class="card-count" data-count-topic="pqc"></span>
+        </button>
+        <button class="card topic-card" data-topic="ai" type="button">
           <span class="tag">02</span>
           <h3>AI Security</h3>
           <p>Prompt injection, model risk, and how to deploy AI safely.</p>
-        </article>
-        <article class="card">
+          <span class="card-count" data-count-topic="ai"></span>
+        </button>
+        <button class="card topic-card" data-topic="quantum" type="button">
           <span class="tag">03</span>
           <h3>Quantum Computing</h3>
           <p>Qubits, superposition and what quantum machines can really do today.</p>
-        </article>
-        <article class="card">
+          <span class="card-count" data-count-topic="quantum"></span>
+        </button>
+        <button class="card topic-card" data-topic="emerging" type="button">
           <span class="tag">04</span>
           <h3>Emerging Tech</h3>
-          <p>The next wave, from edge computing to new programming paradigms.</p>
-        </article>
+          <p>The next wave, from WebAssembly to new programming paradigms.</p>
+          <span class="card-count" data-count-topic="emerging"></span>
+        </button>
       </div>
     </section>
 
-    <section id="latest" class="section">
-      <h2>Latest posts</h2>
+    <section id="latest" class="section reveal">
+      <div class="section-head">
+        <h2>Latest posts</h2>
+        <div class="toolbar">
+          <input type="search" id="post-search" placeholder="Search posts…" aria-label="Search posts" />
+        </div>
+      </div>
+      <div class="chips" id="topic-chips" role="group" aria-label="Filter by topic"></div>
       <ul class="post-list" id="post-list"></ul>
+      <p class="empty" id="post-empty" hidden>No posts match that yet. <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest it as a topic →</a></p>
     </section>
 
-    <section id="subscribe" class="section subscribe">
+    <section id="timeline" class="section reveal">
+      <div class="section-head">
+        <h2>The post-quantum timeline</h2>
+        <p class="muted">Click a milestone to see why it matters.</p>
+      </div>
+      <div class="timeline" id="timeline-list"></div>
+    </section>
+
+    <section id="quiz" class="section reveal">
+      <div class="section-head">
+        <h2>Quick check: how decoded are you?</h2>
+        <p class="muted">Five questions drawn from our explainers.</p>
+      </div>
+      <div class="quiz card" id="quiz-box"></div>
+    </section>
+
+    <section id="glossary" class="section reveal">
+      <div class="section-head">
+        <h2>Glossary</h2>
+        <div class="toolbar">
+          <input type="search" id="glossary-search" placeholder="Look up a term…" aria-label="Search glossary" />
+        </div>
+      </div>
+      <div class="glossary" id="glossary-list"></div>
+    </section>
+
+    <section id="subscribe" class="section subscribe reveal">
       <h2>Get one trend, decoded, every week.</h2>
+      <p class="muted">A short email, one topic, no spam. Unsubscribe any time.</p>
       <form id="subscribe-form">
         <input type="email" placeholder="you@example.com" required aria-label="Email address" />
         <button type="submit" class="btn">Subscribe</button>
       </form>
-      <p class="form-note" id="form-note"></p>
+      <p class="form-note" id="form-note" role="status"></p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>© <span id="year"></span> Trendcode. Built to make tech make sense.</p>
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Built to make tech make sense.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="#topics">Topics</a>
+        <a href="#latest">Latest posts</a>
+        <a href="#glossary">Glossary</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode.</p>
   </footer>
 
+  <button type="button" class="to-top" id="to-top" aria-label="Back to top">↑</button>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

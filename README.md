@@ -10,12 +10,15 @@ A lightweight static website: plain HTML, CSS and JavaScript. No build step and 
 
 ```
 trendcode/
-├── index.html              # Homepage (hero, topics, latest posts, subscribe)
+├── index.html              # Homepage (hero, topics, posts, timeline, quiz, glossary, subscribe)
 ├── posts/                  # One HTML file per article
-│   └── what-is-post-quantum-cryptography.html
+│   ├── what-is-post-quantum-cryptography.html
+│   ├── prompt-injection-explained.html
+│   ├── qubits-without-the-mysticism.html
+│   └── webassembly-beyond-the-browser.html
 ├── assets/
-│   ├── css/style.css       # All styles (colors are variables at the top)
-│   └── js/main.js          # Post list + subscribe form
+│   ├── css/style.css       # All styles (dark + light theme variables at the top)
+│   └── js/main.js          # Post data + all interactivity
 └── README.md
 ```
 
@@ -30,8 +33,18 @@ python3 -m http.server 8000
 
 ## Add a new post
 
-1. Copy `posts/what-is-post-quantum-cryptography.html` to `posts/your-post-slug.html` and edit the content.
-2. Add an entry at the top of the `posts` array in `assets/js/main.js`.
+1. Copy `posts/what-is-post-quantum-cryptography.html` to `posts/your-post-slug.html` and edit the content. Set `data-slug="your-post-slug"` on `<body>`.
+2. Add an entry at the top of the `posts` array in `assets/js/main.js` (`slug`, `title`, `excerpt`, `date`, `topic`, `readTime`). It then shows up in the homepage list, search, topic filters and "Keep reading" suggestions automatically.
+
+Post pages get a reading-progress bar, a table of contents (built from the `<h2>` headings), share buttons and related posts from `main.js`.
+
+## Homepage features
+
+- Rotating headline and animated terminal in the hero
+- Topic cards and chips that filter posts (shareable via `?topic=pqc|ai|quantum|emerging`)
+- Post search (press `/` to focus it), with ✓ marks on posts you've read
+- Clickable post-quantum timeline, a 5-question quiz and a searchable glossary (all data lives in `main.js`)
+- Light/dark theme toggle that remembers your choice
 
 ## Push to GitHub
 

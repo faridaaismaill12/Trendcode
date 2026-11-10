@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebAssembly Beyond the Browser — Trendcode</title>
+  <meta name="description" content="WebAssembly started as a way to run fast code in web pages. Here is why it is now showing up in servers, edge networks and plugin systems." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body data-base="../" data-slug="webassembly-beyond-the-browser">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Latest</a>
+      <a href="../index.html#glossary">Glossary</a>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="article">
+      <p class="eyebrow">// <a href="../index.html?topic=emerging#latest">emerging tech</a> · 6 min read</p>
+      <h1>WebAssembly is leaving the browser. Here's why that matters.</h1>
+      <p class="article-date">Published Nov 10, 2026</p>
+
+      <p>WebAssembly, or <strong>Wasm</strong>, was created so that web pages could run code at near-native speed: think photo editors, games and design tools in a browser tab. It became a W3C standard in 2019 and runs in every major browser.</p>
+      <p>The more interesting story is what happened next. The properties that made Wasm safe for browsers turned out to be just as valuable on servers, at the network edge and inside other applications.</p>
+
+      <h2>What Wasm actually is</h2>
+      <p>Wasm is a compact binary format for a simple virtual machine. You don't usually write it by hand. You write Rust, C, C++, Go or another language and <strong>compile to</strong> a <code>.wasm</code> module, which any Wasm runtime can then execute.</p>
+      <p>Three design choices do most of the work:</p>
+      <ul>
+        <li><strong>Portable.</strong> The same module runs on any operating system and CPU architecture that has a runtime.</li>
+        <li><strong>Fast to start.</strong> Modules are small and designed to be validated and compiled quickly, so they can start in well under a millisecond in good runtimes.</li>
+        <li><strong>Sandboxed by default.</strong> A module can only touch its own memory. It cannot open a file, read the clock or use the network unless the host explicitly hands it that ability.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Deny by default:</strong> a container starts with access to a whole (virtual) operating system and you take things away. A Wasm module starts with nothing and you grant what it needs.
+      </div>
+
+      <h2>WASI: giving modules a way to talk to the world</h2>
+      <p>Outside a browser there is no page and no JavaScript, so modules need another way to reach files, sockets and clocks. That is <strong>WASI</strong>, the WebAssembly System Interface: a standard set of APIs that hosts can offer to modules, one capability at a time.</p>
+      <p>Built on top of it, the <strong>Component Model</strong> lets modules written in different languages describe their interfaces and plug into each other, so a Rust component can call a Python one without either knowing how the other was built.</p>
+
+      <h2>Where it is showing up</h2>
+      <ul>
+        <li><strong>Edge and serverless functions.</strong> When code runs in hundreds of locations and must start on demand, near-instant start-up and tight isolation beat booting a container for every request.</li>
+        <li><strong>Plugin systems.</strong> Databases, proxies, editors and games can let users extend them with Wasm plugins. A buggy or malicious plugin stays inside its sandbox instead of crashing or compromising the host.</li>
+        <li><strong>Running untrusted code.</strong> Platforms that execute customer code, including code written by AI agents, use Wasm as a lightweight isolation layer.</li>
+        <li><strong>Portable libraries.</strong> One compiled module can be shipped to web, mobile and server instead of maintaining a separate build for each.</li>
+      </ul>
+
+      <h2>What it is not</h2>
+      <ul>
+        <li><strong>Not a JavaScript replacement.</strong> In the browser, JavaScript still handles the page. Wasm takes over the heavy computation.</li>
+        <li><strong>Not automatically faster.</strong> For ordinary web interfaces, modern JavaScript engines are already quick, and crossing between JS and Wasm has a cost.</li>
+        <li><strong>Not a container killer.</strong> Containers run existing software unchanged. Wasm needs code compiled for it, and some things, such as heavy threading or direct hardware access, are still maturing. The two are increasingly used side by side.</li>
+      </ul>
+
+      <h2>The takeaway</h2>
+      <p>WebAssembly's real contribution is a small, fast, portable unit of code that is isolated by default. As more software is assembled from pieces written by other people, and increasingly by machines, a cheap way to run code you don't fully trust is a very useful thing to have.</p>
+
+      <div id="post-extras"></div>
+      <p><a href="../index.html#latest" class="btn btn-ghost">← Back to all posts</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

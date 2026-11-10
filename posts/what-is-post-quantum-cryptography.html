@@ -6,27 +6,32 @@
   <title>What is Post-Quantum Cryptography? — Trendcode</title>
   <meta name="description" content="A plain-language introduction to post-quantum cryptography: the quantum threat, harvest-now-decrypt-later, and the new NIST standards." />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
-<body>
+<body data-base="../" data-slug="what-is-post-quantum-cryptography">
   <header class="site-header">
     <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
     <nav>
       <a href="../index.html#topics">Topics</a>
       <a href="../index.html#latest">Latest</a>
+      <a href="../index.html#glossary">Glossary</a>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
       <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
     </nav>
   </header>
 
   <main>
     <article class="article">
-      <p class="eyebrow">// post-quantum · 6 min read</p>
+      <p class="eyebrow">// <a href="../index.html?topic=pqc#latest">post-quantum</a> · 6 min read</p>
       <h1>What is Post-Quantum Cryptography (and why should you care)?</h1>
+      <p class="article-date">Published Nov 9, 2026</p>
 
       <p>Every time you log in, pay online or send a message, encryption keeps your data private. Most of it relies on math problems, like factoring huge numbers, that classical computers can't solve in any reasonable time.</p>
 
       <h2>The quantum problem</h2>
-      <p>A large enough quantum computer running <strong>Shor's algorithm</strong> could solve those problems quickly, breaking the public-key encryption used today: <code>RSA</code>, <code>ECC</code> and Diffie-Hellman.</p>
+      <p>A large enough quantum computer running <strong>Shor's algorithm</strong> could solve those problems quickly, breaking the public-key encryption used today: <code>RSA</code>, <code>ECC</code> and Diffie-Hellman. (New to qubits? Start with <a href="qubits-without-the-mysticism.html">our plain-English quantum explainer</a>.)</p>
+      <p>Symmetric encryption such as <code>AES</code> is in much better shape. The best known quantum attack, Grover's algorithm, only halves its effective strength, so moving to 256-bit keys is enough.</p>
 
       <div class="callout">
         <strong>Harvest now, decrypt later:</strong> attackers can steal encrypted data today and store it until quantum computers can unlock it. Data that must stay secret for years is already at risk.
@@ -40,6 +45,10 @@
         <li><strong>ML-DSA</strong> (FIPS 204): for digital signatures, also lattice-based.</li>
         <li><strong>SLH-DSA</strong> (FIPS 205): a hash-based signature scheme, used as a conservative backup.</li>
       </ul>
+      <p>In 2025 NIST also selected <strong>HQC</strong>, a key-exchange scheme built on different (code-based) math, as a backup in case a weakness is ever found in lattices.</p>
+
+      <h2>Is anyone using it yet?</h2>
+      <p>Yes. Major browsers and messaging apps already use <strong>hybrid</strong> key exchange, which combines a classical algorithm with ML-KEM so a connection stays secure as long as either one holds. If you use an up-to-date browser, some of your traffic is probably already post-quantum protected.</p>
 
       <h2>What should organizations do?</h2>
       <ul>
@@ -47,17 +56,21 @@
         <li><strong>Prioritize</strong> long-lived sensitive data.</li>
         <li><strong>Build crypto-agility</strong> so algorithms can be swapped without rebuilding systems.</li>
         <li><strong>Test hybrid modes</strong> that combine classical and PQC algorithms during the transition.</li>
+        <li><strong>Ask your vendors</strong> for their post-quantum roadmap, since much of your cryptography lives in products you buy.</li>
       </ul>
 
       <h2>The takeaway</h2>
       <p>Quantum computers that can break encryption aren't here yet, but migrating cryptography takes years. The time to start is now.</p>
 
-      <p><a href="../index.html" class="btn btn-ghost">← Back to all posts</a></p>
+      <div id="post-extras"></div>
+      <p><a href="../index.html#latest" class="btn btn-ghost">← Back to all posts</a></p>
     </article>
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 Trendcode. Built to make tech make sense.</p>
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
   </footer>
+
+  <script src="../assets/js/main.js"></script>
 </body>
 </html>
