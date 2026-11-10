@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorting Race — Trendcode</title>
+  <meta name="description" content="Race bubble, insertion, selection, merge and quick sort side by side on the same data and count every comparison." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/labs.css" />
+</head>
+<body data-base="../" data-lab="sorting-visualizer">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="index.html">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main class="lab-page">
+    <section class="lab-hero">
+      <p class="eyebrow">// <a href="index.html">lab</a> · algorithms</p>
+      <h1>Sorting Race</h1>
+      <p class="lead">Two algorithms, the same shuffled data, one step per tick. Every comparison and swap counts. Watch Big-O stop being a formula and become something you can see.</p>
+      <div class="lab-meta"><span class="pill">Beginner</span><span class="pill">~10 min</span><span class="lab-status">Not completed yet</span></div>
+    </section>
+
+    <section class="panel" id="missions"></section>
+
+    <section class="panel lab-section">
+      <div class="race-controls">
+        <label class="field"><span>Items: <b id="n-out">40</b></span><input type="range" id="n" min="10" max="120" step="5" value="40" /></label>
+        <label class="field"><span>Starting order</span>
+          <select id="pattern">
+            <option value="random">Random</option>
+            <option value="nearly">Nearly sorted</option>
+            <option value="sorted">Already sorted</option>
+            <option value="reversed">Reversed</option>
+          </select>
+        </label>
+        <label class="field"><span>Speed: <b id="speed-out">×4</b></span><input type="range" id="speed" min="1" max="7" value="3" /></label>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn" id="race">▶ Race!</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="shuffle">New data</button>
+      </div>
+
+      <div class="race">
+        <div class="lane" id="lane-a">
+          <div class="lane-head">
+            <select class="algo input"></select>
+            <span class="lane-stats"></span>
+          </div>
+          <div class="bars"></div>
+        </div>
+        <div class="lane" id="lane-b">
+          <div class="lane-head">
+            <select class="algo input"></select>
+            <span class="lane-stats"></span>
+          </div>
+          <div class="bars"></div>
+        </div>
+      </div>
+      <div id="race-result" aria-live="polite"></div>
+    </section>
+
+    <section class="panel lab-section lesson">
+      <h2>Cheat sheet</h2>
+      <div class="table-wrap">
+        <table class="cheat">
+          <thead><tr><th>Algorithm</th><th>Typical</th><th>Worst</th><th>Good at</th></tr></thead>
+          <tbody>
+            <tr><td>Bubble sort</td><td>O(n²)</td><td>O(n²)</td><td>Teaching. Little else.</td></tr>
+            <tr><td>Selection sort</td><td>O(n²)</td><td>O(n²)</td><td>Few swaps</td></tr>
+            <tr><td>Insertion sort</td><td>O(n²)</td><td>O(n²)</td><td>Small or nearly-sorted data: O(n) best case</td></tr>
+            <tr><td>Merge sort</td><td>O(n log n)</td><td>O(n log n)</td><td>Predictable, stable</td></tr>
+            <tr><td>Quick sort</td><td>O(n log n)</td><td>O(n²)</td><td>Fast in practice, with a smart pivot</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">This lab's quick sort uses the <strong>last element as the pivot</strong>, the textbook version. Real libraries pick pivots more cleverly to dodge the worst case.</p>
+    </section>
+
+    <section id="lab-extras" class="lab-extras"></section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/labs/sorting-visualizer.js"></script>
+</body>
+</html>

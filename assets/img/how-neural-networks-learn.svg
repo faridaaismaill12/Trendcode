@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="A small neural network with three layers, next to a loss curve where a ball rolls downhill toward the minimum">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#0f2420"/></linearGradient>
+    <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#1f2a3d"/></pattern>
+    <linearGradient id="curve" x1="0" x2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#fbbf24"/></marker>
+  </defs>
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  <rect width="1200" height="600" fill="url(#dots)"/>
+  <!-- network edges -->
+  <g stroke-width="3" stroke-linecap="round">
+    <g stroke="#22d3ee">
+      <path d="M140 180 L340 130" opacity=".9"/><path d="M140 180 L340 250" opacity=".3"/><path d="M140 180 L340 370" opacity=".6"/><path d="M140 180 L340 490" opacity=".2"/>
+      <path d="M140 300 L340 130" opacity=".4"/><path d="M140 300 L340 250" opacity=".9"/><path d="M140 300 L340 370" opacity=".3"/><path d="M140 300 L340 490" opacity=".7"/>
+      <path d="M140 420 L340 130" opacity=".2"/><path d="M140 420 L340 250" opacity=".6"/><path d="M140 420 L340 370" opacity=".9"/><path d="M140 420 L340 490" opacity=".4"/>
+    </g>
+    <g stroke="#a78bfa">
+      <path d="M340 130 L540 240" opacity=".8"/><path d="M340 130 L540 360" opacity=".3"/>
+      <path d="M340 250 L540 240" opacity=".5"/><path d="M340 250 L540 360" opacity=".9"/>
+      <path d="M340 370 L540 240" opacity=".9"/><path d="M340 370 L540 360" opacity=".4"/>
+      <path d="M340 490 L540 240" opacity=".3"/><path d="M340 490 L540 360" opacity=".8"/>
+    </g>
+  </g>
+  <g fill="#121826" stroke-width="4">
+    <g stroke="#22d3ee"><circle cx="140" cy="180" r="26"/><circle cx="140" cy="300" r="26"/><circle cx="140" cy="420" r="26"/></g>
+    <g stroke="#a78bfa"><circle cx="340" cy="130" r="26"/><circle cx="340" cy="250" r="26"/><circle cx="340" cy="370" r="26"/><circle cx="340" cy="490" r="26"/></g>
+    <g stroke="#34d399"><circle cx="540" cy="240" r="26"/><circle cx="540" cy="360" r="26"/></g>
+  </g>
+  <!-- loss landscape -->
+  <g font-family="ui-monospace,Consolas,monospace" font-size="20" fill="#9ca3af">
+    <path d="M680 520 H1120 M680 520 V90" stroke="#374151" stroke-width="3"/>
+    <text x="690" y="80">loss</text><text x="1050" y="555">weight</text>
+    <path d="M700 120 C 780 140, 820 470, 930 470 S 1060 260, 1110 200" fill="none" stroke="url(#curve)" stroke-width="6"/>
+    <path d="M760 190 L812 302" stroke="#fbbf24" stroke-width="3" stroke-dasharray="6 6" marker-end="url(#ar)"/>
+    <path d="M830 340 L878 420" stroke="#fbbf24" stroke-width="3" stroke-dasharray="6 6" marker-end="url(#ar)"/>
+    <circle cx="748" cy="166" r="16" fill="#fbbf24"/>
+    <circle cx="930" cy="470" r="9" fill="#34d399"/>
+    <text x="890" y="505" fill="#34d399">minimum</text>
+  </g>
+</svg>

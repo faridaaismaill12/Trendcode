@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crack the Cipher Lab — Trendcode</title>
+  <meta name="description" content="Encrypt with a Caesar cipher, brute-force it, then break one with frequency analysis. An interactive cryptography lab in your browser." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/labs.css" />
+</head>
+<body data-base="../" data-lab="cipher-lab">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="index.html">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main class="lab-page">
+    <section class="lab-hero">
+      <p class="eyebrow">// <a href="index.html">lab</a> · cryptography basics</p>
+      <h1>Crack the Cipher</h1>
+      <p class="lead">For a thousand years, secret messages were protected by shifting letters around. Here you'll use that trick, then break it the way codebreakers did: by counting.</p>
+      <div class="lab-meta"><span class="pill">Beginner</span><span class="pill">~10 min</span><span class="lab-status">Not completed yet</span></div>
+    </section>
+
+    <section class="panel" id="missions"></section>
+
+    <div class="lab-cols lab-section">
+      <section class="panel">
+        <h2>1. Encrypt a message</h2>
+        <p class="muted">A Caesar cipher shifts every letter the same number of places along the alphabet. Julius Caesar reportedly used a shift of 3.</p>
+        <label class="field"><span>Your message</span><textarea id="plain">Meet me at the library at noon</textarea></label>
+        <label class="field"><span>Shift: <b id="shift-out">3</b></span><input type="range" id="shift" min="0" max="25" value="3" /></label>
+        <div class="alphabet" id="alphabet" aria-hidden="true"></div>
+        <div class="field"><span>Ciphertext</span><div class="mono-out" id="cipher-out" aria-live="polite"></div></div>
+      </section>
+
+      <section class="panel">
+        <h2>2. Brute force it</h2>
+        <p class="muted">There are only 25 possible shifts. An attacker doesn't need to be clever. They can just try them all.</p>
+        <label class="field"><span>Ciphertext to attack</span><input type="text" id="brute-in" value="Phhw ph dw wkh oleudub dw qrrq" /></label>
+        <div class="btn-row"><button type="button" class="btn btn-sm" id="brute-go">Try all 25 keys</button><button type="button" class="btn btn-ghost btn-sm" id="brute-copy">Use my ciphertext</button></div>
+        <ol class="brute-list" id="brute-list"></ol>
+      </section>
+    </div>
+
+    <section class="panel lab-section">
+      <h2>3. Crack the intercepted message</h2>
+      <p class="muted">You've intercepted this message. Slide your guess until the <span class="key-violet">violet English-frequency markers</span> line up with the <span class="key-cyan">cyan bars</span> from the ciphertext. In English, E, T and A are the most common letters, and a shift can't hide that.</p>
+      <div class="mono-out secret" id="secret"></div>
+      <label class="field"><span>Your guess for the shift: <b id="guess-out">0</b></span><input type="range" id="guess" min="0" max="25" value="0" /></label>
+      <div class="freq" id="freq" aria-hidden="true"></div>
+      <div class="field"><span>Decrypted with your guess</span><div class="mono-out" id="attempt"></div></div>
+      <div class="btn-row">
+        <button type="button" class="btn btn-ghost btn-sm" id="new-msg">New message</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="auto">Auto-crack with statistics</button>
+      </div>
+      <div id="crack-result" aria-live="polite"></div>
+    </section>
+
+    <section class="panel lab-section lesson">
+      <h2>What this teaches about modern crypto</h2>
+      <ul>
+        <li><strong>Small key spaces die to brute force.</strong> 25 keys takes milliseconds. AES-256 has 2<sup>256</sup> keys, more than the number of atoms in the observable universe.</li>
+        <li><strong>Patterns leak.</strong> The Caesar cipher kept the shape of English intact. Modern ciphers are designed so ciphertext is indistinguishable from random noise. No letter counts, no patterns.</li>
+        <li><strong>Security must not depend on the method being secret.</strong> Everyone knows how AES and ML-KEM work. Only the key is secret. This is called <em>Kerckhoffs's principle</em>.</li>
+      </ul>
+    </section>
+
+    <section id="lab-extras" class="lab-extras"></section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/labs/cipher-lab.js"></script>
+</body>
+</html>

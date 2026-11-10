@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Neural Networks Learn — Trendcode</title>
+  <meta name="description" content="Weights, loss and gradient descent explained without calculus: how a neural network turns its dials until it gets the answer right." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body data-base="../" data-slug="how-neural-networks-learn">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="article">
+      <p class="eyebrow">// <a href="../index.html?topic=ml#latest">machine learning</a> · 7 min read</p>
+      <h1>How neural networks learn (gradient descent without the calculus)</h1>
+      <p class="article-date">Published Nov 11, 2026</p>
+      <figure class="post-hero"><img src="../assets/img/how-neural-networks-learn.svg" alt="A small three-layer neural network next to a loss curve, with a ball rolling downhill toward the minimum" width="1200" height="600" /></figure>
+
+      <p>"The model learned to recognise cats." It's a sentence we read every day, and it hides something surprisingly mechanical. No understanding switches on. A machine turns millions of tiny dials, one small nudge at a time, until its mistakes get smaller. Here is how that works.</p>
+
+      <h2>A model is a pile of dials</h2>
+      <p>Start with something small. Suppose you want to predict a flat's rent from its size. A simple guess is:</p>
+      <p><code>rent = w × size + b</code></p>
+      <p>The numbers <code>w</code> (a <strong>weight</strong>) and <code>b</code> (a <strong>bias</strong>) are the dials. Set them well and the predictions are good. Set them badly and they're nonsense. <strong>Training</strong> means finding good settings automatically from examples.</p>
+      <p>A <strong>neuron</strong> in a neural network is this same idea with more inputs: multiply each input by a weight, add them up, add a bias, then pass the result through a simple squashing function called an <em>activation</em>. Stack thousands of neurons in layers, feed each layer's outputs into the next, and you have a neural network. Large language models have billions of these dials.</p>
+
+      <h2>Step one: measure how wrong you are</h2>
+      <p>To improve, the model needs a score for its mistakes. That score is the <strong>loss</strong>. For rent prediction it might be the average of the squared differences between predicted and real rents. For classifying images it measures how much probability the model gave to the wrong labels.</p>
+      <p>Lower loss means better predictions. Training has one goal: make the loss as small as possible.</p>
+
+      <div class="callout">
+        <strong>The whole idea in one line:</strong> training is a search for the dial settings that make the loss small, and gradient descent is the search strategy.
+      </div>
+
+      <h2>Step two: walk downhill in the fog</h2>
+      <p>Picture every possible setting of the dials as a point in a landscape, where height is the loss. You are standing somewhere on a hillside, in thick fog, and you want to reach the valley floor. You can't see the valley, but you can feel which way the ground slopes under your feet.</p>
+      <p>So you take a small step downhill. Then you feel the slope again and take another step. That's <strong>gradient descent</strong>. The <em>gradient</em> is the direction of steepest uphill for every dial at once, so you step the opposite way.</p>
+      <p>The size of each step is the <strong>learning rate</strong>, and it matters a lot:</p>
+      <ul>
+        <li><strong>Too small</strong>, and training crawls along for ages.</li>
+        <li><strong>Too large</strong>, and you overshoot the valley, bounce up the other side, and the loss can even explode.</li>
+      </ul>
+
+      <h2>Step three: backpropagation does the bookkeeping</h2>
+      <p>With billions of dials, how does the network know which way to turn each one? <strong>Backpropagation</strong> answers that efficiently. It starts at the loss and works backwards through the layers, working out how much each weight contributed to the error. One backward pass gives the slope for every weight at once, at roughly the cost of one forward pass.</p>
+      <p>In practice the network doesn't look at all the training data before every step. It grabs a small random <strong>mini-batch</strong>, estimates the slope from that, and steps. This is <em>stochastic</em> gradient descent: noisier, but far faster, and the noise even helps it escape poor spots in the landscape.</p>
+
+      <h2>When learning goes wrong</h2>
+      <ul>
+        <li><strong>Overfitting.</strong> Given enough dials, a model can memorise its training examples, noise and all, instead of learning the pattern. It aces practice questions and fails the exam. The fix is to always check performance on <em>validation data</em> the model never trained on.</li>
+        <li><strong>Learning the shortcut.</strong> If every cow photo in your data has grass in the background, the model may learn "green means cow". It minimised the loss you gave it, not the goal you had in mind.</li>
+        <li><strong>A model too simple for the problem.</strong> A single neuron can only draw a straight line between classes. Some patterns, like the classic XOR problem, need hidden layers. You can see this for yourself in the lab.</li>
+      </ul>
+
+      <h2>The takeaway</h2>
+      <p>Neural networks don't learn the way people do. They follow a very effective recipe: guess, measure the error, nudge every dial slightly downhill, and repeat millions of times. Knowing that recipe tells you both why they're powerful and why they confidently learn the wrong lesson when the data points that way.</p>
+
+      <div id="post-extras"></div>
+      <p><a href="../index.html#latest" class="btn btn-ghost">← Back to all posts</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

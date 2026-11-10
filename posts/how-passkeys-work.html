@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Passkeys Work — Trendcode</title>
+  <meta name="description" content="Why passwords keep failing, how passkeys use public-key cryptography to sign you in, and why phishing sites can't steal them." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body data-base="../" data-slug="how-passkeys-work">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="article">
+      <p class="eyebrow">// <a href="../index.html?topic=websec#latest">web security</a> · 6 min read</p>
+      <h1>Passwords are dying. Here's how passkeys replace them.</h1>
+      <p class="article-date">Published Nov 11, 2026</p>
+      <figure class="post-hero"><img src="../assets/img/how-passkeys-work.svg" alt="A phone holds a private key and signs a challenge from a server, which verifies it with the matching public key" width="1200" height="600" /></figure>
+
+      <p>Passwords ask people to do something humans are bad at: invent long random strings, a different one for every site, and never type them into the wrong page. Unsurprisingly, stolen and phished credentials remain one of the most common ways attackers get in. <strong>Passkeys</strong> are the industry's answer, and they work very differently.</p>
+
+      <h2>What's wrong with passwords</h2>
+      <ul>
+        <li><strong>They're shared secrets.</strong> You know the password and so does the server, or at least a hash of it. A breach of the server leaks something an attacker can try to crack.</li>
+        <li><strong>They get reused.</strong> One leaked password unlocks every site where it was used. Attackers automate this as "credential stuffing".</li>
+        <li><strong>They can be phished.</strong> A convincing fake login page receives your real password, and you have no reliable way to tell.</li>
+      </ul>
+
+      <h2>The core idea: a key pair, not a secret</h2>
+      <p>A passkey uses <strong>public-key cryptography</strong>. When you create one for a site, your device generates two linked keys:</p>
+      <ul>
+        <li>A <strong>private key</strong> that stays on your device or in your password manager, ideally protected by secure hardware. It is never sent to the website.</li>
+        <li>A <strong>public key</strong> that is given to the website. It can check signatures but can't create them, so it's safe to store openly.</li>
+      </ul>
+      <p>Signing in then takes three steps:</p>
+      <ul>
+        <li>The website sends a random <strong>challenge</strong>, a one-time number.</li>
+        <li>Your device asks you to unlock it with a fingerprint, face or PIN. That check happens <em>locally</em>, so your biometrics never leave the device.</li>
+        <li>The device <strong>signs</strong> the challenge with the private key and sends back the signature, which the website verifies with your public key.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Nothing reusable crosses the network.</strong> Each signature is valid for exactly one challenge, so intercepting it gets an attacker nothing.
+      </div>
+
+      <h2>Why phishing stops working</h2>
+      <p>Every passkey is tied to the domain it was created for. Your browser, not you, checks which site is asking. If you land on <code>examp1e.com</code> instead of <code>example.com</code>, the browser simply doesn't offer the passkey. There is no password to type into the fake page, so there's nothing to steal, however convincing it looks.</p>
+      <p>Server breaches get less scary too. A stolen database of public keys doesn't help an attacker sign in anywhere.</p>
+
+      <h2>Under the hood</h2>
+      <p>Passkeys are built on the <strong>FIDO2</strong> standards, and in the browser on the <strong>WebAuthn</strong> API. Developers call <code>navigator.credentials.create()</code> to register a passkey and <code>navigator.credentials.get()</code> to sign in. Most password managers and the major phone and computer platforms can now sync passkeys between your devices, so losing one phone doesn't lock you out.</p>
+
+      <h2>The catches</h2>
+      <ul>
+        <li><strong>Account recovery</strong> is still the weak spot. If a site falls back to an SMS code or email link when you lose access, that fallback becomes the target.</li>
+        <li><strong>Moving between ecosystems</strong> has historically been awkward, though standards for exporting passkeys between providers are arriving.</li>
+        <li><strong>Shared and borrowed devices</strong> need extra steps, such as scanning a QR code with your phone.</li>
+      </ul>
+
+      <h2>The takeaway</h2>
+      <p>Passkeys remove the shared secret that makes passwords so fragile. Until every account supports them, a password manager with long random passwords is the next best thing. The lab shows how quickly weak passwords fall, and what "strong" actually means.</p>
+
+      <div id="post-extras"></div>
+      <p><a href="../index.html#latest" class="btn btn-ghost">← Back to all posts</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

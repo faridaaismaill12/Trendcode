@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hash Avalanche Lab — Trendcode</title>
+  <meta name="description" content="See the avalanche effect of SHA-256 bit by bit, then mine a proof-of-work hash in your browser." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/labs.css" />
+</head>
+<body data-base="../" data-lab="hash-lab">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="index.html">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main class="lab-page">
+    <section class="lab-hero">
+      <p class="eyebrow">// <a href="index.html">lab</a> · cryptography basics</p>
+      <h1>Hash Avalanche &amp; Mining</h1>
+      <p class="lead">Feed text into real SHA-256, computed by your browser's built-in crypto engine. Watch a tiny change scramble the whole fingerprint, then do the same work a Bitcoin miner does.</p>
+      <div class="lab-meta"><span class="pill">Beginner</span><span class="pill">~10 min</span><span class="lab-status">Not completed yet</span></div>
+    </section>
+
+    <section class="panel" id="missions"></section>
+
+    <section class="panel lab-section">
+      <h2>1. The avalanche effect</h2>
+      <p class="muted">Each square below is one of the 256 output bits. Squares light up where the two hashes <em>differ</em>. Try changing a single letter, a capital, or a full stop.</p>
+      <div class="lab-cols">
+        <label class="field"><span>Input A</span><input type="text" id="in-a" value="hello world" /></label>
+        <label class="field"><span>Input B</span><input type="text" id="in-b" value="hello world!" /></label>
+      </div>
+      <div class="field"><span>SHA-256(A)</span><div class="mono-out" id="hash-a"></div></div>
+      <div class="field"><span>SHA-256(B)</span><div class="mono-out hash-b" id="hash-b"></div></div>
+      <div class="bits-wrap">
+        <div class="bits" id="bits" aria-hidden="true"></div>
+        <div>
+          <div class="big-num" id="diff-count">0</div>
+          <p class="muted">of 256 bits differ</p>
+          <p class="note" id="diff-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel lab-section">
+      <h2>2. Mine a block (proof of work)</h2>
+      <p class="muted">Because a hash can't be predicted, the only way to find one that starts with zeros is to keep trying. Miners add a counter called a <strong>nonce</strong> to their data and hash again, and again, and again. Each extra zero makes it about 16× harder.</p>
+      <div class="lab-cols">
+        <label class="field"><span>Block data</span><input type="text" id="block" value="Alice pays Bob 5 coins" /></label>
+        <label class="field"><span>Difficulty (leading zeros): <b id="diff-out">3</b></span><input type="range" id="difficulty" min="1" max="5" value="3" /></label>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn btn-sm" id="mine">⛏ Start mining</button>
+        <span class="muted" id="expect"></span>
+      </div>
+      <div class="stat-row">
+        <div class="mini-stat"><small>nonce</small><strong id="nonce">0</strong></div>
+        <div class="mini-stat"><small>hashes / sec</small><strong id="rate">0</strong></div>
+        <div class="mini-stat"><small>time</small><strong id="elapsed">0.0s</strong></div>
+      </div>
+      <div class="mono-out" id="mine-hash">Press start…</div>
+      <div id="mine-result" aria-live="polite"></div>
+    </section>
+
+    <section class="panel lab-section lesson">
+      <h2>What you just saw</h2>
+      <ul>
+        <li><strong>Unpredictability is the point.</strong> If you could guess how the hash changes, you could forge data that matches a fingerprint. The avalanche effect makes that hopeless.</li>
+        <li><strong>Hard to find, easy to check.</strong> Mining took thousands of tries, but anyone can verify your answer with a single hash. That asymmetry is what proof-of-work and password hashing rely on.</li>
+        <li><strong>Real mining is the same idea at a vast scale.</strong> Bitcoin's network computes hundreds of quintillions of hashes per second, with a difficulty far beyond the 5 zeros here.</li>
+      </ul>
+    </section>
+
+    <section id="lab-extras" class="lab-extras"></section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/labs/hash-lab.js"></script>
+</body>
+</html>

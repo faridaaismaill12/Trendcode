@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="A phone keeps the private key and signs a challenge from a server, which checks the signature with the public key">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#1b1a2e"/></linearGradient>
+    <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#1f2a3d"/></pattern>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fbbf24" stop-opacity=".3"/><stop offset="1" stop-color="#fbbf24" stop-opacity="0"/></radialGradient>
+    <marker id="arc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#22d3ee"/></marker>
+    <marker id="arv" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a78bfa"/></marker>
+  </defs>
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  <rect width="1200" height="600" fill="url(#dots)"/>
+  <circle cx="290" cy="300" r="230" fill="url(#glow)"/>
+  <!-- phone -->
+  <rect x="190" y="90" width="200" height="400" rx="34" fill="#121826" stroke="#e5e7eb" stroke-width="5"/>
+  <rect x="255" y="110" width="70" height="10" rx="5" fill="#374151"/>
+  <g fill="none" stroke="#fbbf24" stroke-width="5" stroke-linecap="round" transform="translate(290 245)">
+    <path d="M-45 10 a45 45 0 0 1 90 0 v14"/><path d="M-30 30 v-20 a30 30 0 0 1 60 0 v30"/>
+    <path d="M-15 50 v-40 a15 15 0 0 1 30 0 v45"/><path d="M0 10 v55"/>
+  </g>
+  <g transform="translate(290 400)">
+    <circle cx="-22" r="20" fill="none" stroke="#fbbf24" stroke-width="6"/><path d="M-2 0 H46 M30 0 v16 M42 0 v12" stroke="#fbbf24" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <text x="290" y="530" text-anchor="middle" fill="#fbbf24" font-family="ui-monospace,Consolas,monospace" font-size="20">private key stays here</text>
+  <!-- server -->
+  <g transform="translate(910 300)">
+    <rect x="-110" y="-150" width="220" height="80" rx="14" fill="#121826" stroke="#1f2937" stroke-width="4"/>
+    <rect x="-110" y="-50" width="220" height="80" rx="14" fill="#121826" stroke="#1f2937" stroke-width="4"/>
+    <circle cx="-75" cy="-110" r="8" fill="#34d399"/><circle cx="-75" cy="-10" r="8" fill="#34d399"/>
+    <rect x="-45" y="-116" width="120" height="12" rx="6" fill="#374151"/><rect x="-45" y="-16" width="120" height="12" rx="6" fill="#374151"/>
+    <g transform="translate(0 110)"><circle cx="-22" r="20" fill="none" stroke="#22d3ee" stroke-width="6"/><path d="M-2 0 H46 M30 0 v16 M42 0 v12" stroke="#22d3ee" stroke-width="6" stroke-linecap="round"/></g>
+    <text y="180" text-anchor="middle" fill="#22d3ee" font-family="ui-monospace,Consolas,monospace" font-size="20">public key only</text>
+  </g>
+  <!-- flow -->
+  <g font-family="ui-monospace,Consolas,monospace" font-size="20">
+    <path d="M780 200 C 640 150, 540 150, 420 200" fill="none" stroke="#22d3ee" stroke-width="4" marker-end="url(#arc)"/>
+    <text x="600" y="145" text-anchor="middle" fill="#22d3ee">1. challenge</text>
+    <path d="M420 380 C 540 440, 640 440, 780 380" fill="none" stroke="#a78bfa" stroke-width="4" marker-end="url(#arv)"/>
+    <text x="600" y="470" text-anchor="middle" fill="#a78bfa">2. signature ✓</text>
+  </g>
+</svg>

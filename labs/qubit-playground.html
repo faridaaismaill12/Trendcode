@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qubit Playground — Trendcode</title>
+  <meta name="description" content="Apply H, X and Z gates to a simulated qubit, watch amplitudes interfere, measure it, and solve circuit puzzles." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/labs.css" />
+</head>
+<body data-base="../" data-lab="qubit-playground">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="index.html">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main class="lab-page">
+    <section class="lab-hero">
+      <p class="eyebrow">// <a href="index.html">lab</a> · quantum computing</p>
+      <h1>Qubit Playground</h1>
+      <p class="lead">A real (if tiny) quantum simulator. Your qubit starts as |0⟩. Apply gates, watch the two amplitudes move, including going <em>negative</em>, and then measure it.</p>
+      <div class="lab-meta"><span class="pill">Intermediate</span><span class="pill">~15 min</span><span class="lab-status">Not completed yet</span></div>
+    </section>
+
+    <section class="panel" id="missions"></section>
+
+    <section class="panel lab-section">
+      <h2>Your circuit</h2>
+      <div class="circuit" id="circuit" aria-live="polite"></div>
+      <div class="gate-row">
+        <button type="button" class="gate" data-gate="H" title="Hadamard: creates or undoes superposition"><b>H</b><small>Hadamard</small></button>
+        <button type="button" class="gate" data-gate="X" title="Pauli-X: quantum NOT, swaps the amplitudes"><b>X</b><small>NOT</small></button>
+        <button type="button" class="gate" data-gate="Z" title="Pauli-Z: flips the sign of the |1⟩ amplitude"><b>Z</b><small>phase flip</small></button>
+        <button type="button" class="gate gate-m" id="measure-once" title="Measure: collapses the qubit to 0 or 1"><b>M</b><small>measure</small></button>
+        <span class="gate-sep"></span>
+        <button type="button" class="btn btn-ghost btn-sm" id="undo">Undo</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="reset">Reset</button>
+      </div>
+      <p class="note" id="gate-note">Tip: H on |0⟩ gives an equal superposition. What happens if you apply H twice?</p>
+    </section>
+
+    <div class="lab-cols lab-section">
+      <section class="panel">
+        <h2>State</h2>
+        <p class="muted">The arrow's x-position is the amplitude of |0⟩ and its y-position is the amplitude of |1⟩. It always sits on the circle, because the probabilities must add up to 1.</p>
+        <svg class="state-circle" id="state-svg" viewBox="0 0 320 320" role="img" aria-label="State diagram"></svg>
+      </section>
+      <section class="panel">
+        <h2>Amplitudes &amp; probabilities</h2>
+        <p class="muted">Amplitudes can be negative. Probabilities are amplitudes <em>squared</em>, so the sign is invisible until two paths meet and interfere.</p>
+        <div id="amps"></div>
+        <h3 class="sub">Run it 100 times</h3>
+        <p class="muted">Measuring destroys the superposition, so real quantum computers run a circuit many times and count the results.</p>
+        <button type="button" class="btn btn-sm" id="shots">Measure 100 shots</button>
+        <div class="shots" id="shots-out"></div>
+      </section>
+    </div>
+
+    <section class="panel lab-section lesson">
+      <h2>Why this matters</h2>
+      <ul>
+        <li><strong>H · H = do nothing.</strong> After the first H the qubit is "both". After the second, the two routes to |1⟩ have opposite signs and <em>cancel</em>. That's interference, the engine behind every quantum speed-up.</li>
+        <li><strong>Signs you can't see still matter.</strong> |+⟩ and |−⟩ give identical 50/50 measurements, yet one H turns them into different definite answers.</li>
+        <li><strong>Real algorithms scale this up.</strong> Shor's and Grover's algorithms use many qubits to arrange interference so wrong answers cancel and right answers reinforce.</li>
+      </ul>
+    </section>
+
+    <section id="lab-extras" class="lab-extras"></section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/labs/qubit-playground.js"></script>
+</body>
+</html>

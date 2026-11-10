@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Injection Lab — Trendcode</title>
+  <meta name="description" content="Spot hidden prompt injections in everyday content, then toggle defenses on a simulated AI agent to see which ones stop data from leaking." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/labs.css" />
+</head>
+<body data-base="../" data-lab="injection-lab">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="index.html">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main class="lab-page">
+    <section class="lab-hero">
+      <p class="eyebrow">// <a href="index.html">lab</a> · ai security</p>
+      <h1>Prompt Injection Lab</h1>
+      <p class="lead">First, train your eye: which of these everyday inputs is secretly trying to give an AI orders? Then play security engineer and choose the defenses for an AI agent under attack.</p>
+      <div class="lab-meta"><span class="pill">Beginner</span><span class="pill">~12 min</span><span class="lab-status">Not completed yet</span></div>
+    </section>
+
+    <section class="panel" id="missions"></section>
+
+    <section class="panel lab-section">
+      <h2>Part 1: Spot the injection</h2>
+      <p class="muted">An AI assistant is about to read each of these. Decide whether it's <strong>safe</strong> or contains an <strong>injection</strong>. Hidden text is revealed after you answer.</p>
+      <div class="spot-score" id="spot-score"></div>
+      <div class="spot-grid" id="spot-grid"></div>
+    </section>
+
+    <section class="panel lab-section">
+      <h2>Part 2: Defend the agent</h2>
+      <p class="muted">A user asks their AI assistant: <em>“Summarise this web page for me.”</em> The assistant can read the page, read the user's private notes, send email and load web links. The page has been booby-trapped. Pick an attack, choose your defenses and run it.</p>
+      <p class="sim-badge">⚙ Simulated agent: scripted to behave like a gullible model. No real AI is called.</p>
+
+      <div class="lab-cols">
+        <div>
+          <h3 class="sub">1. Choose the attack</h3>
+          <div class="attack-tabs" id="attack-tabs" role="tablist"></div>
+          <div class="page-preview" id="page-preview"></div>
+        </div>
+        <div>
+          <h3 class="sub">2. Choose your defenses</h3>
+          <div class="defenses" id="defenses"></div>
+          <button type="button" class="btn" id="run-agent">▶ Run the agent</button>
+        </div>
+      </div>
+      <div class="agent-log" id="agent-log" aria-live="polite"></div>
+      <div class="scoreboard" id="scoreboard"></div>
+    </section>
+
+    <section class="panel lab-section lesson">
+      <h2>What the lab shows</h2>
+      <ul>
+        <li><strong>Keywords aren't the signal.</strong> A customer saying "ignore my previous ticket" is harmless. A polite request hidden in a CV is not. What matters is <em>untrusted text trying to direct the AI</em>.</li>
+        <li><strong>Filters catch some attacks, never all.</strong> "Spotlighting" stopped the blunt attack and missed the polite one.</li>
+        <li><strong>Architecture beats detection.</strong> Removing tools the task doesn't need, and blocking ways for data to leave, contain attacks <em>even when the model is fooled</em>.</li>
+      </ul>
+    </section>
+
+    <section id="lab-extras" class="lab-extras"></section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/labs/injection-lab.js"></script>
+</body>
+</html>

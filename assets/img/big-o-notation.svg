@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Growth curves for O(1), O(log n), O(n), O(n log n) and O(n squared)">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#221a14"/></linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0 H0 V60" fill="none" stroke="#1a2335" stroke-width="1.5"/></pattern>
+  </defs>
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  <rect x="160" y="60" width="900" height="460" fill="url(#grid)"/>
+  <path d="M160 60 V520 H1080" stroke="#4b5563" stroke-width="4" fill="none"/>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="22" fill="#9ca3af">
+    <text x="60" y="80">time</text><text x="1000" y="560">input size n</text>
+  </g>
+  <g fill="none" stroke-width="6" stroke-linecap="round">
+    <path d="M160 490 H1060" stroke="#34d399"/>
+    <path d="M160 520 C 220 440, 400 420, 1060 400" stroke="#22d3ee"/>
+    <path d="M160 520 L1060 250" stroke="#a78bfa"/>
+    <path d="M160 520 C 500 420, 800 260, 1060 130" stroke="#fbbf24"/>
+    <path d="M160 520 C 420 510, 560 300, 640 70" stroke="#f87171"/>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="24" font-weight="700">
+    <text x="1080" y="498" fill="#34d399">O(1)</text>
+    <text x="1080" y="408" fill="#22d3ee">O(log n)</text>
+    <text x="1080" y="258" fill="#a78bfa">O(n)</text>
+    <text x="1080" y="138" fill="#fbbf24">O(n log n)</text>
+    <text x="660" y="80" fill="#f87171">O(n²)</text>
+  </g>
+</svg>

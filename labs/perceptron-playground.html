@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Train a Neuron — Trendcode</title>
+  <meta name="description" content="Place points on a canvas and watch a single artificial neuron learn to separate them with gradient descent, then discover what it can't learn." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/labs.css" />
+</head>
+<body data-base="../" data-lab="perceptron-playground">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="index.html">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main class="lab-page">
+    <section class="lab-hero">
+      <p class="eyebrow">// <a href="index.html">lab</a> · machine learning</p>
+      <h1>Train a Neuron</h1>
+      <p class="lead">One artificial neuron, two inputs (the x and y position of a point), and gradient descent. Click to place points, press train, and watch the neuron learn where to draw the line.</p>
+      <div class="lab-meta"><span class="pill">Intermediate</span><span class="pill">~15 min</span><span class="lab-status">Not completed yet</span></div>
+    </section>
+
+    <section class="panel" id="missions"></section>
+
+    <div class="nn-layout lab-section">
+      <section class="panel nn-canvas-panel">
+        <div class="btn-row class-pick" role="group" aria-label="Class to place">
+          <button type="button" class="btn btn-ghost btn-sm on" data-class="0"><span class="dot c0"></span> Class A</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-class="1"><span class="dot c1"></span> Class B</button>
+          <span class="muted small">Click to add · Shift+click for the other class</span>
+        </div>
+        <canvas id="nn-canvas" class="nn-canvas" aria-label="Training canvas: click to add points"></canvas>
+      </section>
+
+      <section class="panel">
+        <h2>Controls</h2>
+        <label class="field"><span>Dataset</span>
+          <select id="preset">
+            <option value="blobs">Two blobs (easy)</option>
+            <option value="xor">XOR (the famous trap)</option>
+            <option value="ring">Ring inside a ring</option>
+            <option value="clear">Empty: draw your own</option>
+          </select>
+        </label>
+        <label class="field"><span>Learning rate: <b id="lr-out">0.50</b></span><input type="range" id="lr" min="-2" max="1" step="0.05" value="-0.3" /></label>
+        <label class="toggle compact">
+          <input type="checkbox" id="features" />
+          <span class="switch" aria-hidden="true"></span>
+          <span><strong>Extra features</strong><small>Also feed the neuron x·y, x² and y². It's still one neuron, just given better inputs.</small></span>
+        </label>
+        <div class="btn-row">
+          <button type="button" class="btn btn-sm" id="train">▶ Train</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="step">+1 step</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="reinit">Reset weights</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="undo-pt">Undo point</button>
+        </div>
+        <div class="stat-row">
+          <div class="mini-stat"><small>epoch</small><strong id="epoch">0</strong></div>
+          <div class="mini-stat"><small>loss</small><strong id="loss">–</strong></div>
+          <div class="mini-stat"><small>accuracy</small><strong id="acc">–</strong></div>
+        </div>
+        <svg class="loss-chart" id="loss-chart" viewBox="0 0 300 80" preserveAspectRatio="none" aria-label="Loss over time"></svg>
+        <div class="weights" id="weights"></div>
+        <p class="note" id="nn-note"></p>
+      </section>
+    </div>
+
+    <section class="panel lab-section lesson">
+      <h2>What's happening inside</h2>
+      <ul>
+        <li><strong>The neuron computes</strong> <code>p = sigmoid(w₁·x + w₂·y + b)</code>: a weighted sum squashed into a probability between 0 and 1 that the point is class B.</li>
+        <li><strong>Each training step</strong> measures the loss (how wrong the probabilities are), works out which way each weight should move to reduce it, and nudges them all a little. That's gradient descent.</li>
+        <li><strong>A single neuron can only draw a straight line.</strong> XOR and the ring can't be split by one line. Real networks fix this by stacking neurons in hidden layers, which learn useful features like x·y on their own.</li>
+      </ul>
+    </section>
+
+    <section id="lab-extras" class="lab-extras"></section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/labs/perceptron-playground.js"></script>
+</body>
+</html>

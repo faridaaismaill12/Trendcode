@@ -1,51 +1,7 @@
 // =============================================================
-// Trendcode — site script (shared by the homepage and post pages)
+// Trendcode — site script (homepage, post pages, lab pages)
+// Content lives in data.js, which must be loaded first.
 // =============================================================
-
-// Add new posts here — newest first. They appear on the homepage,
-// in the search, in topic filters and as "related posts" automatically.
-// `topic` must be one of the keys in TOPICS below.
-const posts = [
-  {
-    slug: "prompt-injection-explained",
-    title: "Prompt injection, explained: when an AI can't tell data from orders",
-    excerpt: "Why language models can be talked into ignoring their instructions, and the defenses that actually help.",
-    date: "2026-11-10",
-    topic: "ai",
-    readTime: 7,
-  },
-  {
-    slug: "qubits-without-the-mysticism",
-    title: "Qubits without the mysticism: what a quantum computer actually does",
-    excerpt: "Superposition, entanglement and interference in plain words, plus how to read quantum headlines.",
-    date: "2026-11-10",
-    topic: "quantum",
-    readTime: 7,
-  },
-  {
-    slug: "webassembly-beyond-the-browser",
-    title: "WebAssembly is leaving the browser. Here's why that matters.",
-    excerpt: "A small, fast, sandboxed unit of code is turning up in servers, edge networks and plugin systems.",
-    date: "2026-11-10",
-    topic: "emerging",
-    readTime: 6,
-  },
-  {
-    slug: "what-is-post-quantum-cryptography",
-    title: "What is Post-Quantum Cryptography (and why should you care)?",
-    excerpt: "The quantum threat to today's encryption, harvest-now-decrypt-later, and the new NIST standards.",
-    date: "2026-11-09",
-    topic: "pqc",
-    readTime: 6,
-  },
-];
-
-const TOPICS = {
-  pqc: "Post-Quantum",
-  ai: "AI Security",
-  quantum: "Quantum",
-  emerging: "Emerging Tech",
-};
 
 const BASE = document.body.dataset.base || "";
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -70,6 +26,119 @@ const formatDate = (iso) =>
   new Date(iso + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 
 const postUrl = (p) => `${BASE}posts/${p.slug}.html`;
+const labUrl = (l) => `${BASE}labs/${l.slug}.html`;
+const imgUrl = (slug) => `${BASE}assets/img/${slug}.svg`;
+const topicLabel = (k) => (TOPICS[k] ? TOPICS[k].label : k);
+const icon = (k, cls = "icon") =>
+  `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true"><path d="${TOPICS[k] ? TOPICS[k].icon : ""}"/></svg>`;
+
+// =============================================================
+// PROGRESS: XP, levels, badges
+// =============================================================
+const progress = {
+  read: () => store.get("tc-read", []),
+  labs: () => store.get("tc-labs", []),
+  quizBest: () => store.get("tc-quiz-best", 0),
+  stepDone([kind, slug]) {
+    return kind === "post" ? this.read().includes(slug) : this.labs().includes(slug);
+  },
+  xp() {
+    return this.read().filter((s) => posts.some((p) => p.slug === s)).length * 10 +
+      this.labs().filter((s) => labs.some((l) => l.slug === s)).length * 25 +
+      this.quizBest() * 5;
+  },
+};
+
+const LEVELS = [
+  [0, "Newcomer"], [30, "Explorer"], [80, "Builder"], [150, "Engineer"], [230, "Decoder"],
+];
+const levelFor = (xp) => {
+  let i = 0;
+  LEVELS.forEach(([min], j) => { if (xp >= min) i = j; });
+  return { index: i, name: LEVELS[i][1], min: LEVELS[i][0], next: LEVELS[i + 1] ? LEVELS[i + 1][0] : null };
+};
+
+const BADGES = [
+  ["first-read", "📖", "First read", "Read your first explainer", () => progress.read().length >= 1],
+  ["bookworm", "📚", "Bookworm", "Read 5 explainers", () => progress.read().length >= 5],
+  ["first-lab", "🧪", "Hands-on", "Complete your first lab", () => progress.labs().length >= 1],
+  ["lab-rat", "🔬", "Lab rat", "Complete every lab", () => labs.every((l) => progress.labs().includes(l.slug))],
+  ["quiz-whiz", "🎯", "Quiz whiz", "Score 5/5 on the quiz", () => progress.quizBest() >= 5],
+  ["pathfinder", "🧭", "Pathfinder", "Finish a learning path", () => paths.some((p) => p.steps.every((s) => progress.stepDone(s)))],
+  ["polymath", "🌐", "Polymath", "Read a post in 6 different topics", () =>
+    new Set(posts.filter((p) => progress.read().includes(p.slug)).map((p) => p.topic)).size >= 6],
+  ["completionist", "🏆", "Completionist", "Read every explainer", () => posts.every((p) => progress.read().includes(p.slug))],
+];
+
+// ---------- Toasts ----------
+function toast(html) {
+  let wrap = $(".toasts");
+  if (!wrap) {
+    wrap = document.createElement("div");
+    wrap.className = "toasts";
+    wrap.setAttribute("aria-live", "polite");
+    document.body.append(wrap);
+  }
+  const t = document.createElement("div");
+  t.className = "toast";
+  t.innerHTML = html;
+  wrap.append(t);
+  setTimeout(() => t.classList.add("out"), 3800);
+  setTimeout(() => t.remove(), 4300);
+}
+
+// Called by lab scripts when the learner finishes a lab's challenge.
+function awardAndAnnounce(update) {
+  const beforeBadges = BADGES.filter((b) => b[4]()).map((b) => b[0]);
+  const beforeLevel = levelFor(progress.xp()).index;
+  update();
+  const lvl = levelFor(progress.xp());
+  BADGES.filter((b) => b[4]() && !beforeBadges.includes(b[0])).forEach((b) =>
+    toast(`<span class="toast-icon">${b[1]}</span><div><strong>Badge unlocked: ${b[2]}</strong><br />${b[3]}</div>`));
+  if (lvl.index > beforeLevel)
+    toast(`<span class="toast-icon">⬆️</span><div><strong>Level up!</strong><br />You're now a ${lvl.name}.</div>`);
+}
+
+window.tcCompleteLab = function (slug) {
+  if (progress.labs().includes(slug)) return;
+  awardAndAnnounce(() => store.set("tc-labs", [...progress.labs(), slug]));
+  const lab = labs.find((l) => l.slug === slug);
+  toast(`<span class="toast-icon">✅</span><div><strong>Lab complete: ${escapeHtml(lab ? lab.title : slug)}</strong><br />+25 XP</div>`);
+  $$(".lab-status").forEach((el) => { el.textContent = "✓ Completed"; el.classList.add("done"); });
+};
+
+// Mission checklist for lab pages. Completing every mission completes the lab.
+// Usage: const m = tcMissions("hash-lab", [{ id: "a", text: "Do a thing" }, …]); m.complete("a");
+window.tcMissions = function (slug, list) {
+  const box = $("#missions");
+  const key = "tc-m-" + slug;
+  let done = store.get(key, []).filter((id) => list.some((m) => m.id === id));
+  const render = () => {
+    if (!box) return;
+    box.innerHTML = `
+      <div class="missions-head"><h2>Missions</h2><span class="missions-count">${done.length}/${list.length}</span></div>
+      <div class="path-bar"><span style="width:${(done.length / list.length) * 100}%"></span></div>
+      <ol class="mission-list">${list.map((m) =>
+        `<li class="${done.includes(m.id) ? "done" : ""}"><span class="check" aria-hidden="true">${done.includes(m.id) ? "✓" : ""}</span><span>${m.text}</span></li>`).join("")}</ol>`;
+  };
+  render();
+  return {
+    isDone: (id) => done.includes(id),
+    complete(id) {
+      if (done.includes(id)) return;
+      done = [...done, id];
+      store.set(key, done);
+      render();
+      const m = list.find((x) => x.id === id);
+      if (done.length < list.length) toast(`<span class="toast-icon">🎯</span><div><strong>Mission complete</strong><br />${m ? m.text : ""}</div>`);
+      else window.tcCompleteLab(slug);
+    },
+  };
+};
+
+// =============================================================
+// SHARED UI
+// =============================================================
 
 // ---------- Theme toggle ----------
 (function theme() {
@@ -89,6 +158,7 @@ const postUrl = (p) => `${BASE}posts/${p.slug}.html`;
     root.dataset.theme = current() === "light" ? "dark" : "light";
     try { localStorage.setItem("tc-theme", root.dataset.theme); } catch { /* ignore */ }
     paint();
+    document.dispatchEvent(new CustomEvent("tc-theme"));
   });
 })();
 
@@ -97,15 +167,21 @@ const year = $("#year");
 if (year) year.textContent = new Date().getFullYear();
 
 // ---------- Back-to-top button ----------
-const toTop = $("#to-top");
-if (toTop) {
-  window.addEventListener("scroll", () => toTop.classList.toggle("show", window.scrollY > 600), { passive: true });
-  toTop.addEventListener("click", () => window.scrollTo({ top: 0 }));
-}
+(function backToTop() {
+  let btn = $("#to-top");
+  if (!btn) {
+    btn = document.createElement("button");
+    btn.type = "button"; btn.className = "to-top"; btn.id = "to-top";
+    btn.setAttribute("aria-label", "Back to top"); btn.textContent = "↑";
+    document.body.append(btn);
+  }
+  window.addEventListener("scroll", () => btn.classList.toggle("show", window.scrollY > 600), { passive: true });
+  btn.addEventListener("click", () => window.scrollTo({ top: 0 }));
+})();
 
 // ---------- Scroll reveal ----------
-(function reveal() {
-  const items = $$(".reveal");
+function observeReveal(root = document) {
+  const items = $$(".reveal:not(.visible)", root);
   if (!items.length) return;
   if (!("IntersectionObserver" in window) || reduceMotion) {
     items.forEach((el) => el.classList.add("visible"));
@@ -115,10 +191,121 @@ if (toTop) {
     (entries) => entries.forEach((e) => {
       if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
     }),
-    { threshold: 0.12 }
+    { threshold: 0, rootMargin: "0px 0px -60px 0px" }
   );
   items.forEach((el) => io.observe(el));
+}
+observeReveal();
+
+// ---------- Command palette (Ctrl/⌘ + K) ----------
+(function palette() {
+  const isMac = /Mac|iPhone|iPad/.test(navigator.platform);
+  $$(".search-btn kbd").forEach((k) => (k.textContent = isMac ? "⌘K" : "Ctrl K"));
+
+  const items = [
+    ...posts.map((p) => ({ kind: "Post", title: p.title, sub: topicLabel(p.topic), href: postUrl(p), text: p.excerpt })),
+    ...labs.map((l) => ({ kind: "Lab", title: l.title, sub: `${l.level} · ${l.minutes} min`, href: labUrl(l), text: l.blurb })),
+    ...Object.entries(TOPICS).map(([k, t]) => ({ kind: "Topic", title: t.label, sub: "Filter posts", href: `${BASE}index.html?topic=${k}#latest`, text: t.blurb })),
+    ...paths.map((p) => ({ kind: "Path", title: p.title, sub: `${p.steps.length} steps`, href: `${BASE}index.html#paths`, text: p.blurb })),
+    ...glossary.map(([t, k, d]) => ({ kind: "Term", title: t, sub: topicLabel(k), text: d })),
+    { kind: "Page", title: "Take the quiz", sub: "5 random questions", href: `${BASE}index.html#quiz`, text: "quiz test knowledge" },
+    { kind: "Page", title: "Your progress", sub: "XP, level and badges", href: `${BASE}index.html#progress`, text: "xp badges level stats" },
+    { kind: "Page", title: "All labs", sub: "Hands-on, in your browser", href: `${BASE}labs/index.html`, text: "labs interactive" },
+  ];
+
+  const overlay = document.createElement("div");
+  overlay.className = "palette";
+  overlay.hidden = true;
+  overlay.innerHTML = `
+    <div class="palette-box" role="dialog" aria-modal="true" aria-label="Search Trendcode">
+      <input type="search" class="palette-input" placeholder="Search posts, labs, terms…" aria-label="Search" />
+      <ul class="palette-list" role="listbox"></ul>
+      <p class="palette-hint"><kbd>↑</kbd><kbd>↓</kbd> to move · <kbd>Enter</kbd> to open · <kbd>Esc</kbd> to close</p>
+    </div>`;
+  document.body.append(overlay);
+  const input = $(".palette-input", overlay);
+  const list = $(".palette-list", overlay);
+  let shown = [], active = 0, lastFocus = null;
+
+  const render = () => {
+    const q = input.value.trim().toLowerCase();
+    shown = !q
+      ? items.filter((i) => i.kind !== "Term").slice(0, 8)
+      : items
+          .map((i) => {
+            const t = i.title.toLowerCase();
+            const score = t.startsWith(q) ? 3 : t.includes(q) ? 2 : `${i.sub} ${i.text}`.toLowerCase().includes(q) ? 1 : 0;
+            return { i, score };
+          })
+          .filter((x) => x.score)
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 9)
+          .map((x) => x.i);
+    active = Math.min(active, Math.max(0, shown.length - 1));
+    list.innerHTML = shown.length
+      ? shown.map((i, n) => `
+        <li role="option" aria-selected="${n === active}" class="${n === active ? "active" : ""}" data-n="${n}">
+          <span class="palette-kind">${i.kind}</span>
+          <span class="palette-title">${escapeHtml(i.title)}<small>${escapeHtml(i.sub)}</small></span>
+          ${i.kind === "Term" && n === active ? `<p class="palette-def">${escapeHtml(i.text)}</p>` : ""}
+        </li>`).join("")
+      : `<li class="palette-empty">Nothing found for “${escapeHtml(input.value)}”.</li>`;
+  };
+  const open = () => {
+    lastFocus = document.activeElement;
+    overlay.hidden = false;
+    document.body.classList.add("no-scroll");
+    input.value = ""; active = 0; render(); input.focus();
+  };
+  const close = () => {
+    overlay.hidden = true;
+    document.body.classList.remove("no-scroll");
+    if (lastFocus) lastFocus.focus();
+  };
+  const go = (n) => {
+    const i = shown[n];
+    if (!i) return;
+    if (i.href) { close(); location.href = i.href; }
+    else { active = n; render(); }
+  };
+
+  input.addEventListener("input", () => { active = 0; render(); });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") { e.preventDefault(); active = (active + 1) % Math.max(1, shown.length); render(); }
+    if (e.key === "ArrowUp") { e.preventDefault(); active = (active - 1 + shown.length) % Math.max(1, shown.length); render(); }
+    if (e.key === "Enter") { e.preventDefault(); go(active); }
+  });
+  list.addEventListener("click", (e) => { const li = e.target.closest("[data-n]"); if (li) go(+li.dataset.n); });
+  overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+  document.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") { e.preventDefault(); overlay.hidden ? open() : close(); }
+    else if (e.key === "Escape" && !overlay.hidden) close();
+  });
+  $$(".search-btn").forEach((b) => b.addEventListener("click", open));
 })();
+
+// ---------- Shared card renderers ----------
+const postCard = (p, read = progress.read()) => `
+  <a class="post-card" href="${postUrl(p)}">
+    <div class="post-thumb"><img src="${imgUrl(p.slug)}" alt="" loading="lazy" width="1200" height="600" /></div>
+    <div class="post-body">
+      <span class="post-meta"><span class="badge">${topicLabel(p.topic)}</span> · ${p.readTime} min${
+        read.includes(p.slug) ? ' · <span class="read-mark">✓ read</span>' : ""}${p.lab ? ' · <span class="lab-mark">🧪 lab</span>' : ""}</span>
+      <h3>${escapeHtml(p.title)}</h3>
+      <p>${escapeHtml(p.excerpt)}</p>
+    </div>
+  </a>`;
+
+const labCard = (l, done = progress.labs()) => `
+  <a class="lab-card${done.includes(l.slug) ? " done" : ""}" href="${labUrl(l)}">
+    <div class="lab-card-top">
+      ${icon(l.topic, "lab-icon")}
+      <span class="lab-level">${l.level} · ${l.minutes} min</span>
+    </div>
+    <h3>${escapeHtml(l.title)}</h3>
+    <p>${escapeHtml(l.blurb)}</p>
+    <span class="lab-cta">${done.includes(l.slug) ? "✓ Completed · play again" : "Start lab →"}</span>
+  </a>`;
 
 // =============================================================
 // HOMEPAGE
@@ -128,7 +315,7 @@ if (toTop) {
 (function rotator() {
   const el = $("#rotator");
   if (!el || reduceMotion) return;
-  const words = ["post-quantum crypto", "AI security", "quantum computing", "WebAssembly", "tomorrow's tech"];
+  const words = ["post-quantum crypto", "AI security", "quantum computing", "machine learning", "web security", "algorithms", "tomorrow's tech"];
   let w = 0, i = words[0].length, deleting = true;
   const tick = () => {
     const word = words[w];
@@ -154,9 +341,9 @@ if (toTop) {
     ["cmd", "$ trendcode suggest"],
     ["ok", "  → key exchange: ML-KEM-768  (FIPS 203)"],
     ["ok", "  → signatures:   ML-DSA-65   (FIPS 204)"],
-    ["", "  tip: run hybrid mode during migration"],
-    ["cmd", "$ trendcode explain --plain-english"],
-    ["ok", "  ✓ 4 explainers ready. Scroll down ↓"],
+    ["cmd", "$ trendcode learn --hands-on"],
+    ["ok", `  ✓ ${posts.length} explainers · ${labs.length} labs · ${Object.keys(TOPICS).length} topics`],
+    ["", "  scroll down to start ↓"],
   ];
   const render = (n, partial = "") =>
     lines.slice(0, n).map(([cls, txt]) => `<span class="t-${cls}">${escapeHtml(txt)}</span>`).join("\n") +
@@ -188,14 +375,11 @@ if (toTop) {
 
 // ---------- Count-up stats ----------
 (function stats() {
-  const nums = $$("[data-count]");
+  const nums = $$("[data-stat]");
   if (!nums.length) return;
-  // Keep the first two stats in sync with the data.
-  const avg = Math.round(posts.reduce((s, p) => s + p.readTime, 0) / posts.length);
-  const values = [posts.length, Object.keys(TOPICS).length, avg];
-  nums.forEach((el, i) => { if (values[i] !== undefined) el.dataset.count = values[i]; });
-  const run = (el) => {
-    const target = +el.dataset.count;
+  const values = { posts: posts.length, labs: labs.length, topics: Object.keys(TOPICS).length, terms: glossary.length };
+  nums.forEach((el) => {
+    const target = values[el.dataset.stat] || 0;
     if (reduceMotion) { el.textContent = target; return; }
     const start = performance.now();
     const step = (t) => {
@@ -204,30 +388,38 @@ if (toTop) {
       if (k < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
-  };
-  nums.forEach(run);
+  });
 })();
 
-// ---------- Post list with search + topic filter ----------
+// ---------- Topics + post grid with search and filter ----------
 (function postList() {
-  const list = $("#post-list");
-  if (!list) return;
+  const grid = $("#post-grid");
+  const topicGrid = $("#topic-grid");
+  if (!grid) return;
   const search = $("#post-search");
   const chips = $("#topic-chips");
   const empty = $("#post-empty");
-  const read = store.get("tc-read", []);
+  const read = progress.read();
 
   const params = new URLSearchParams(location.search);
   let topic = TOPICS[params.get("topic")] ? params.get("topic") : "all";
   let query = "";
 
-  // Post counts on the topic cards
-  $$("[data-count-topic]").forEach((el) => {
-    const n = posts.filter((p) => p.topic === el.dataset.countTopic).length;
-    el.textContent = n ? `${n} post${n > 1 ? "s" : ""} →` : "coming soon";
-  });
+  if (topicGrid) {
+    topicGrid.innerHTML = Object.entries(TOPICS).map(([k, t], i) => {
+      const np = posts.filter((p) => p.topic === k).length;
+      const nl = labs.filter((l) => l.topic === k).length;
+      return `
+        <button class="topic-card" data-topic="${k}" type="button">
+          <span class="topic-top">${icon(k, "topic-icon")}<span class="tag">${String(i + 1).padStart(2, "0")}</span></span>
+          <h3>${t.label}</h3>
+          <p>${t.blurb}</p>
+          <span class="card-count">${np} post${np === 1 ? "" : "s"}${nl ? ` · ${nl} lab${nl === 1 ? "" : "s"}` : ""} →</span>
+        </button>`;
+    }).join("");
+  }
 
-  chips.innerHTML = [["all", "All"], ...Object.entries(TOPICS)]
+  chips.innerHTML = [["all", "All"], ...Object.entries(TOPICS).map(([k, t]) => [k, t.label])]
     .map(([k, label]) => `<button type="button" class="chip" data-topic="${k}">${label}</button>`)
     .join("");
 
@@ -236,23 +428,9 @@ if (toTop) {
     const shown = posts.filter(
       (p) =>
         (topic === "all" || p.topic === topic) &&
-        (!q || `${p.title} ${p.excerpt} ${TOPICS[p.topic]}`.toLowerCase().includes(q))
+        (!q || `${p.title} ${p.excerpt} ${topicLabel(p.topic)}`.toLowerCase().includes(q))
     );
-    list.innerHTML = shown
-      .map(
-        (p) => `
-        <li>
-          <a href="${postUrl(p)}">
-            <span class="post-meta"><span class="badge">${TOPICS[p.topic]}</span> · ${formatDate(p.date)} · ${p.readTime} min${
-              read.includes(p.slug) ? ' · <span class="read-mark">✓ read</span>' : ""
-            }</span>
-            <h3>${escapeHtml(p.title)}</h3>
-            <p>${escapeHtml(p.excerpt)}</p>
-            <span class="arrow" aria-hidden="true">→</span>
-          </a>
-        </li>`
-      )
-      .join("");
+    grid.innerHTML = shown.map((p) => postCard(p, read)).join("");
     empty.hidden = shown.length > 0;
     $$(".chip", chips).forEach((c) => c.classList.toggle("active", c.dataset.topic === topic));
     $$(".topic-card").forEach((c) => c.classList.toggle("active", c.dataset.topic === topic));
@@ -270,23 +448,113 @@ if (toTop) {
     const b = e.target.closest(".chip");
     if (b) setTopic(b.dataset.topic);
   });
-  $$(".topic-card").forEach((card) =>
-    card.addEventListener("click", () => {
-      setTopic(topic === card.dataset.topic ? "all" : card.dataset.topic);
-      $("#latest").scrollIntoView();
-    })
-  );
+  if (topicGrid) topicGrid.addEventListener("click", (e) => {
+    const card = e.target.closest(".topic-card");
+    if (!card) return;
+    setTopic(topic === card.dataset.topic ? "all" : card.dataset.topic);
+    $("#latest").scrollIntoView();
+  });
   search.addEventListener("input", () => { query = search.value; render(); });
 
-  // Press "/" anywhere to jump to search
+  // Press "/" anywhere to jump to the post search
   document.addEventListener("keydown", (e) => {
-    if (e.key === "/" && !/input|textarea/i.test(document.activeElement.tagName)) {
+    if (e.key === "/" && !/input|textarea|select/i.test(document.activeElement.tagName)) {
       e.preventDefault();
       search.focus();
     }
   });
 
   render();
+})();
+
+// ---------- Labs grid (homepage + labs hub) ----------
+(function labsGrid() {
+  const box = $("#labs-grid");
+  if (!box) return;
+  const limit = +box.dataset.limit || labs.length;
+  box.innerHTML = labs.slice(0, limit).map((l) => labCard(l)).join("");
+})();
+
+// ---------- Learning paths ----------
+(function learningPaths() {
+  const box = $("#paths-list");
+  if (!box) return;
+  box.innerHTML = paths.map((path) => {
+    const done = path.steps.filter((s) => progress.stepDone(s)).length;
+    const pct = Math.round((done / path.steps.length) * 100);
+    const nextStep = path.steps.find((s) => !progress.stepDone(s));
+    const steps = path.steps.map((s) => {
+      const [kind, slug] = s;
+      const item = kind === "post" ? posts.find((p) => p.slug === slug) : labs.find((l) => l.slug === slug);
+      if (!item) return "";
+      const href = kind === "post" ? postUrl(item) : labUrl(item);
+      return `<li class="${progress.stepDone(s) ? "done" : ""}${s === nextStep ? " next" : ""}">
+        <a href="${href}"><span class="step-kind">${kind === "post" ? "📖 Read" : "🧪 Lab"}</span>${escapeHtml(item.title)}</a></li>`;
+    }).join("");
+    let cta = "";
+    if (nextStep) {
+      const [kind, slug] = nextStep;
+      const item = kind === "post" ? posts.find((p) => p.slug === slug) : labs.find((l) => l.slug === slug);
+      cta = `<a class="btn btn-small" href="${kind === "post" ? postUrl(item) : labUrl(item)}">${done ? "Continue" : "Start path"} →</a>`;
+    } else {
+      cta = `<span class="path-complete">🏁 Path complete</span>`;
+    }
+    return `
+      <article class="path-card path-${path.color}">
+        <div class="path-head">
+          <h3>${escapeHtml(path.title)}</h3>
+          <span class="path-pct">${pct}%</span>
+        </div>
+        <p>${escapeHtml(path.blurb)}</p>
+        <div class="path-bar"><span style="width:${pct}%"></span></div>
+        <ol class="path-steps">${steps}</ol>
+        ${cta}
+      </article>`;
+  }).join("");
+})();
+
+// ---------- Progress dashboard ----------
+(function dashboard() {
+  const box = $("#progress-box");
+  if (!box) return;
+  const render = () => {
+    const xp = progress.xp();
+    const lvl = levelFor(xp);
+    const pct = lvl.next ? Math.round(((xp - lvl.min) / (lvl.next - lvl.min)) * 100) : 100;
+    const readN = progress.read().filter((s) => posts.some((p) => p.slug === s)).length;
+    const labN = progress.labs().filter((s) => labs.some((l) => l.slug === s)).length;
+    box.innerHTML = `
+      <div class="xp-card">
+        <div class="xp-ring" style="--pct:${pct}"><span>${xp}<small>XP</small></span></div>
+        <div>
+          <p class="eyebrow">// level ${lvl.index + 1}</p>
+          <h3>${lvl.name}</h3>
+          <p class="muted">${lvl.next ? `${lvl.next - xp} XP to ${LEVELS[lvl.index + 1][1]}` : "Max level. You've decoded it all."}</p>
+          <ul class="xp-stats">
+            <li><strong>${readN}/${posts.length}</strong> posts read</li>
+            <li><strong>${labN}/${labs.length}</strong> labs done</li>
+            <li><strong>${progress.quizBest()}/5</strong> best quiz</li>
+          </ul>
+          <p class="xp-rules">+10 XP per post · +25 per lab · +5 per quiz point</p>
+        </div>
+      </div>
+      <div class="badges">
+        ${BADGES.map(([id, emoji, name, desc, test]) => {
+          const got = test();
+          return `<div class="badge-tile${got ? " got" : ""}" title="${escapeHtml(desc)}">
+            <span class="badge-emoji">${got ? emoji : "🔒"}</span>
+            <strong>${name}</strong><small>${desc}</small></div>`;
+        }).join("")}
+      </div>
+      <button type="button" class="link-btn" id="reset-progress">Reset my progress</button>`;
+    $("#reset-progress", box).addEventListener("click", () => {
+      if (!confirm("Reset all your reading, lab and quiz progress on this device?")) return;
+      ["tc-read", "tc-labs", "tc-quiz-best"].forEach((k) => { try { localStorage.removeItem(k); } catch { /* ignore */ } });
+      location.reload();
+    });
+  };
+  render();
+  document.addEventListener("tc-progress", render);
 })();
 
 // ---------- Interactive timeline ----------
@@ -323,69 +591,15 @@ if (toTop) {
   select(0);
 })();
 
-// ---------- Quiz ----------
+// ---------- Quiz (5 random questions from the pool) ----------
 (function quiz() {
   const box = $("#quiz-box");
   if (!box) return;
-  const questions = [
-    {
-      q: "What does \"harvest now, decrypt later\" describe?",
-      options: [
-        "Mining cryptocurrency during off-peak hours",
-        "Stealing encrypted data today to unlock it once quantum computers can",
-        "Backing up keys before rotating them",
-        "Training AI models on scraped data",
-      ],
-      a: 1,
-      why: "Attackers can store encrypted traffic now and wait. Data that must stay secret for years is already at risk.",
-      post: "what-is-post-quantum-cryptography",
-    },
-    {
-      q: "Which NIST standard is used for exchanging keys?",
-      options: ["ML-DSA (FIPS 204)", "SLH-DSA (FIPS 205)", "ML-KEM (FIPS 203)", "SHA-3 (FIPS 202)"],
-      a: 2,
-      why: "ML-KEM is the key-encapsulation mechanism. ML-DSA and SLH-DSA are for digital signatures.",
-      post: "what-is-post-quantum-cryptography",
-    },
-    {
-      q: "Why is indirect prompt injection especially dangerous?",
-      options: [
-        "It only works on very old models",
-        "It requires physical access to the server",
-        "The attacker hides instructions in content the AI reads later, so the user did nothing wrong",
-        "It makes models respond more slowly",
-      ],
-      a: 2,
-      why: "The malicious text lives in a web page, email or document. The victim is the innocent user whose assistant reads it.",
-      post: "prompt-injection-explained",
-    },
-    {
-      q: "What is the real source of a quantum computer's speed-up?",
-      options: [
-        "It literally tries every answer and reports them all",
-        "Interference that cancels wrong answers and reinforces right ones",
-        "Faster clock speeds than classical chips",
-        "Storing more data per transistor",
-      ],
-      a: 1,
-      why: "Measuring gives you just one result, so algorithms are choreographed so wrong answers' amplitudes cancel out.",
-      post: "qubits-without-the-mysticism",
-    },
-    {
-      q: "What can a WebAssembly module access by default?",
-      options: [
-        "Only its own memory, nothing else unless the host grants it",
-        "The full file system",
-        "The network, but not files",
-        "Everything the browser can access",
-      ],
-      a: 0,
-      why: "Wasm is deny-by-default: files, clocks and sockets must be explicitly handed over, for example through WASI.",
-      post: "webassembly-beyond-the-browser",
-    },
-  ];
-  let idx = 0, score = 0;
-  const best = () => store.get("tc-quiz-best", 0);
+  const ROUND = 5;
+  let questions = [], idx = 0, score = 0;
+  const shuffle = (a) => a.map((x) => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map((p) => p[1]);
+
+  const start = () => { questions = shuffle(quizPool).slice(0, ROUND); idx = 0; score = 0; show(); };
 
   const show = () => {
     if (idx >= questions.length) return finish();
@@ -395,7 +609,7 @@ if (toTop) {
       <div class="quiz-bar"><span style="width:${(idx / questions.length) * 100}%"></span></div>
       <h3>${escapeHtml(item.q)}</h3>
       <div class="quiz-options">
-        ${item.options.map((o, i) => `<button type="button" class="quiz-option" data-i="${i}">${escapeHtml(o)}</button>`).join("")}
+        ${item.options.map((o, i) => `<button type="button" class="quiz-option" data-i="${i}"><span class="opt-key">${"ABCD"[i]}</span>${escapeHtml(o)}</button>`).join("")}
       </div>
       <div class="quiz-feedback" aria-live="polite"></div>`;
   };
@@ -418,8 +632,11 @@ if (toTop) {
   };
 
   const finish = () => {
-    const prev = best();
-    if (score > prev) store.set("tc-quiz-best", score);
+    const prev = progress.quizBest();
+    if (score > prev) {
+      awardAndAnnounce(() => store.set("tc-quiz-best", score));
+      document.dispatchEvent(new CustomEvent("tc-progress"));
+    }
     const verdict =
       score === questions.length ? "Fully decoded. You could write these posts." :
       score >= 3 ? "Nicely done. A couple of explainers will fill the gaps." :
@@ -428,9 +645,9 @@ if (toTop) {
       <p class="quiz-progress">Finished</p>
       <p class="quiz-score">${score}/${questions.length}</p>
       <h3>${verdict}</h3>
-      <p class="muted">Your best: ${Math.max(score, prev)}/${questions.length}</p>
+      <p class="muted">Your best: ${Math.max(score, prev)}/${questions.length} · ${quizPool.length} questions in the pool, so every round is different.</p>
       <div class="quiz-actions">
-        <button type="button" class="btn" data-restart>Try again</button>
+        <button type="button" class="btn" data-restart>New round</button>
         <a class="btn btn-ghost" href="#latest">Read the posts</a>
       </div>`;
   };
@@ -439,46 +656,35 @@ if (toTop) {
     const opt = e.target.closest(".quiz-option");
     if (opt && !opt.disabled) return answer(+opt.dataset.i);
     if (e.target.closest("[data-next]")) { idx++; show(); }
-    if (e.target.closest("[data-restart]")) { idx = 0; score = 0; show(); }
+    if (e.target.closest("[data-restart]")) start();
   });
-  show();
+  box.addEventListener("keydown", (e) => {
+    const k = "abcd".indexOf(e.key.toLowerCase());
+    const opts = $$(".quiz-option:not(:disabled)", box);
+    if (k >= 0 && opts[k]) answer(k);
+  });
+  start();
 })();
 
-// ---------- Glossary ----------
-(function glossary() {
+// ---------- Glossary + term of the day ----------
+(function glossaryList() {
   const box = $("#glossary-list");
   if (!box) return;
   const search = $("#glossary-search");
-  const terms = [
-    ["Agent", "ai", "An AI system that can take actions, like browsing, running code or sending email, rather than only producing text."],
-    ["Component Model", "emerging", "A WebAssembly standard that lets modules written in different languages describe their interfaces and plug into each other."],
-    ["Crypto-agility", "pqc", "Designing systems so cryptographic algorithms can be swapped without rebuilding everything. Essential for the post-quantum migration."],
-    ["Decoherence", "quantum", "When a qubit's fragile quantum state is disturbed by its environment, introducing errors into the computation."],
-    ["Entanglement", "quantum", "A link between qubits that makes their measurement outcomes correlated in ways independent bits can't reproduce."],
-    ["Grover's algorithm", "quantum", "A quantum search algorithm with a quadratic speed-up. It weakens symmetric keys somewhat, which is why AES-256 is recommended."],
-    ["Harvest now, decrypt later", "pqc", "Collecting encrypted data today in order to decrypt it once a capable quantum computer exists."],
-    ["Hybrid mode", "pqc", "Combining a classical algorithm with a post-quantum one, so a connection stays secure as long as either one holds."],
-    ["Jailbreak", "ai", "A direct attempt by a user to talk a model out of its safety rules, often through role-play or clever framing."],
-    ["Lattice cryptography", "pqc", "Cryptography based on hard problems involving grids of points in many dimensions. The basis of ML-KEM and ML-DSA."],
-    ["Logical qubit", "quantum", "A reliable qubit built from many noisy physical qubits using error correction."],
-    ["ML-KEM", "pqc", "Module-Lattice Key-Encapsulation Mechanism (FIPS 203), formerly Kyber. The main post-quantum standard for exchanging keys."],
-    ["ML-DSA", "pqc", "Module-Lattice Digital Signature Algorithm (FIPS 204), formerly Dilithium. The main post-quantum signature standard."],
-    ["Prompt injection", "ai", "Getting a language model to follow attacker-written instructions by placing them in text the model processes."],
-    ["Qubit", "quantum", "The basic unit of quantum information, described by amplitudes for 0 and 1 and read out as a single classical bit."],
-    ["Sandbox", "emerging", "An isolated environment where code runs with only the permissions it has been explicitly given."],
-    ["Shor's algorithm", "quantum", "A quantum algorithm that factors large numbers efficiently, threatening RSA, ECC and Diffie-Hellman."],
-    ["Superposition", "quantum", "A qubit state where the amplitudes for both 0 and 1 matter during computation, until measurement."],
-    ["WASI", "emerging", "The WebAssembly System Interface: standard APIs that let Wasm modules use files, clocks and sockets outside a browser."],
-    ["WebAssembly (Wasm)", "emerging", "A portable, fast, sandboxed binary format that many languages compile to, running in browsers and beyond."],
-  ];
+  const tod = $("#term-of-day");
+  if (tod) {
+    const day = Math.floor(Date.now() / 86400000);
+    const [t, k, d] = glossary[day % glossary.length];
+    tod.innerHTML = `<span class="eyebrow">// term of the day</span><h3>${escapeHtml(t)}</h3><p>${escapeHtml(d)}</p><span class="g-topic">${topicLabel(k)}</span>`;
+  }
   const render = () => {
     const q = (search.value || "").trim().toLowerCase();
-    const shown = terms.filter(([t, , d]) => !q || `${t} ${d}`.toLowerCase().includes(q));
+    const shown = glossary.filter(([t, , d]) => !q || `${t} ${d}`.toLowerCase().includes(q));
     box.innerHTML = shown.length
       ? shown.map(([t, k, d]) => `
           <details>
             <summary>${escapeHtml(t)}</summary>
-            <p><span class="g-topic">${TOPICS[k]}</span><br />${escapeHtml(d)}</p>
+            <p><span class="g-topic">${topicLabel(k)}</span><br />${escapeHtml(d)}</p>
           </details>`).join("")
       : `<p class="empty">No term matches "${escapeHtml(q)}".</p>`;
     if (q && shown.length <= 3) $$("details", box).forEach((d) => (d.open = true));
@@ -508,10 +714,12 @@ if (toTop) {
   const article = $(".article");
   const slug = document.body.dataset.slug;
   if (!article || !slug) return;
+  const current = posts.find((p) => p.slug === slug);
 
-  // Remember that this post was read (shown as ✓ on the homepage)
-  const read = store.get("tc-read", []);
-  if (!read.includes(slug)) store.set("tc-read", [...read, slug]);
+  // Mark as read (and announce new badges / levels)
+  if (!progress.read().includes(slug)) {
+    setTimeout(() => awardAndAnnounce(() => store.set("tc-read", [...progress.read(), slug])), 1200);
+  }
 
   // Reading progress bar
   const bar = document.createElement("div");
@@ -540,23 +748,33 @@ if (toTop) {
     toc.innerHTML = `<strong>In this post</strong><ol>${heads
       .map((h) => `<li><a href="#${h.id}">${escapeHtml(h.textContent)}</a></li>`)
       .join("")}</ol>`;
-    const date = $(".article-date", article) || $("h1", article);
-    date.after(toc);
+    const anchor = $(".post-hero", article) || $(".article-date", article) || $("h1", article);
+    anchor.after(toc);
   }
 
-  // Share links + related posts
   const extras = $("#post-extras");
   if (!extras) return;
   extras.className = "post-extras";
-  const current = posts.find((p) => p.slug === slug);
   const url = encodeURIComponent(location.href);
   const title = encodeURIComponent(current ? current.title : document.title);
+  const lab = current && current.lab ? labs.find((l) => l.slug === current.lab) : null;
+  const inPaths = paths.filter((p) => p.steps.some(([, s]) => s === slug));
   const related = posts
     .filter((p) => p.slug !== slug)
-    .sort((a, b) => (b.topic === current?.topic) - (a.topic === current?.topic))
-    .slice(0, 2);
+    .sort((a, b) => (b.topic === current?.topic) - (a.topic === current?.topic) ||
+      (inPaths.some((pa) => pa.steps.some(([, s]) => s === b.slug)) - inPaths.some((pa) => pa.steps.some(([, s]) => s === a.slug))))
+    .slice(0, 3);
 
   extras.innerHTML = `
+    ${lab ? `
+      <a class="try-lab" href="${labUrl(lab)}">
+        ${icon(lab.topic, "lab-icon")}
+        <div><span class="eyebrow">// try it yourself · ${lab.minutes} min lab</span>
+        <strong>${escapeHtml(lab.title)}</strong><p>${escapeHtml(lab.blurb)}</p></div>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>` : ""}
+    ${inPaths.length ? `<p class="in-path">Part of the learning path${inPaths.length > 1 ? "s" : ""}: ${inPaths
+      .map((p) => `<a href="${BASE}index.html#paths">${escapeHtml(p.title)}</a>`).join(", ")}</p>` : ""}
     <div class="share">
       <span>Share:</span>
       <a class="chip" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=${url}">LinkedIn</a>
@@ -565,15 +783,7 @@ if (toTop) {
     </div>
     <div class="related">
       <h3>Keep reading</h3>
-      <ul class="post-list">
-        ${related.map((p) => `
-          <li><a href="${postUrl(p)}">
-            <span class="post-meta"><span class="badge">${TOPICS[p.topic]}</span> · ${p.readTime} min</span>
-            <h3>${escapeHtml(p.title)}</h3>
-            <p>${escapeHtml(p.excerpt)}</p>
-            <span class="arrow" aria-hidden="true">→</span>
-          </a></li>`).join("")}
-      </ul>
+      <div class="post-grid compact">${related.map((p) => postCard(p)).join("")}</div>
     </div>`;
 
   $("#copy-link").addEventListener("click", async (e) => {
@@ -585,4 +795,24 @@ if (toTop) {
     }
     setTimeout(() => (e.target.textContent = "Copy link"), 2000);
   });
+})();
+
+// =============================================================
+// LAB PAGES
+// =============================================================
+(function labPage() {
+  const slug = document.body.dataset.lab;
+  if (!slug) return;
+  const lab = labs.find((l) => l.slug === slug);
+  const status = $(".lab-status");
+  if (status && progress.labs().includes(slug)) { status.textContent = "✓ Completed"; status.classList.add("done"); }
+  const extras = $("#lab-extras");
+  if (!extras || !lab) return;
+  const readFirst = posts.filter((p) => p.lab === slug);
+  const others = labs.filter((l) => l.slug !== slug);
+  const nextLab = others.find((l) => !progress.labs().includes(l.slug)) || others[0];
+  extras.innerHTML = `
+    ${readFirst.length ? `<h3>Read the explainer</h3><div class="post-grid compact">${readFirst.map((p) => postCard(p)).join("")}</div>` : ""}
+    <h3>Next lab</h3>
+    <div class="lab-grid single">${labCard(nextLab)}</div>`;
 })();

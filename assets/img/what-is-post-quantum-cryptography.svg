@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="A padlock floating over a skewed lattice of points, with two basis vectors and a target point">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#141b33"/></linearGradient>
+    <pattern id="lat" width="80" height="80" patternUnits="userSpaceOnUse" patternTransform="skewX(-22) rotate(6)"><circle cx="40" cy="40" r="4" fill="#a78bfa" opacity=".55"/></pattern>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#22d3ee" stop-opacity=".35"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#22d3ee"/></marker>
+  </defs>
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  <rect width="1200" height="600" fill="url(#lat)"/>
+  <circle cx="820" cy="300" r="260" fill="url(#glow)"/>
+  <!-- basis vectors -->
+  <g stroke="#22d3ee" stroke-width="5" fill="none" marker-end="url(#ar)">
+    <path d="M300 420 L392 412"/>
+    <path d="M300 420 L268 342"/>
+  </g>
+  <circle cx="300" cy="420" r="8" fill="#22d3ee"/>
+  <!-- target point -->
+  <circle cx="455" cy="262" r="10" fill="#fbbf24"/>
+  <circle cx="455" cy="262" r="26" fill="none" stroke="#fbbf24" stroke-dasharray="6 6" stroke-width="2"/>
+  <text x="490" y="250" fill="#fbbf24" font-family="ui-monospace,Consolas,monospace" font-size="22">closest point?</text>
+  <!-- padlock -->
+  <g transform="translate(820 300)">
+    <path d="M-70 -20 V-75 a70 70 0 0 1 140 0 V-20" fill="none" stroke="#e5e7eb" stroke-width="22" stroke-linecap="round"/>
+    <rect x="-110" y="-30" width="220" height="180" rx="26" fill="#121826" stroke="#22d3ee" stroke-width="4"/>
+    <circle cx="0" cy="40" r="20" fill="#22d3ee"/>
+    <rect x="-7" y="45" width="14" height="50" rx="7" fill="#22d3ee"/>
+  </g>
+  <text x="820" y="520" text-anchor="middle" fill="#9ca3af" font-family="ui-monospace,Consolas,monospace" font-size="24">ML-KEM · ML-DSA · SLH-DSA</text>
+</svg>

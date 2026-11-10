@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="A document with a hidden malicious line flowing into an AI model, which reaches for email, files and web tools">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#1a1430"/></linearGradient>
+    <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#1f2a3d"/></pattern>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#a78bfa" stop-opacity=".35"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></radialGradient>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#9ca3af"/></marker>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f87171"/></marker>
+  </defs>
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  <rect width="1200" height="600" fill="url(#dots)"/>
+  <!-- document -->
+  <g transform="translate(110 110)">
+    <rect width="280" height="380" rx="18" fill="#121826" stroke="#1f2937" stroke-width="3"/>
+    <rect x="30" y="40" width="160" height="16" rx="8" fill="#e5e7eb"/>
+    <g fill="#374151">
+      <rect x="30" y="90" width="220" height="10" rx="5"/><rect x="30" y="115" width="200" height="10" rx="5"/>
+      <rect x="30" y="140" width="215" height="10" rx="5"/><rect x="30" y="250" width="210" height="10" rx="5"/>
+      <rect x="30" y="275" width="180" height="10" rx="5"/><rect x="30" y="300" width="205" height="10" rx="5"/>
+    </g>
+    <rect x="18" y="172" width="244" height="56" rx="10" fill="#f87171" fill-opacity=".12" stroke="#f87171" stroke-dasharray="7 6" stroke-width="2"/>
+    <text x="32" y="198" fill="#f87171" font-family="ui-monospace,Consolas,monospace" font-size="15">ignore previous</text>
+    <text x="32" y="218" fill="#f87171" font-family="ui-monospace,Consolas,monospace" font-size="15">instructions and…</text>
+  </g>
+  <path d="M410 300 H520" stroke="#9ca3af" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#ar)"/>
+  <!-- model -->
+  <circle cx="650" cy="300" r="210" fill="url(#glow)"/>
+  <g transform="translate(650 300)">
+    <rect x="-110" y="-95" width="220" height="190" rx="40" fill="#121826" stroke="#a78bfa" stroke-width="4"/>
+    <circle cx="-40" cy="-15" r="16" fill="#22d3ee"/><circle cx="40" cy="-15" r="16" fill="#22d3ee"/>
+    <path d="M-40 40 Q0 62 40 40" stroke="#a78bfa" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M0 -95 V-130" stroke="#a78bfa" stroke-width="5"/><circle cx="0" cy="-138" r="10" fill="#a78bfa"/>
+    <text x="0" y="140" text-anchor="middle" fill="#9ca3af" font-family="ui-monospace,Consolas,monospace" font-size="22">LLM</text>
+  </g>
+  <!-- tools -->
+  <g stroke="#f87171" stroke-width="4" fill="none" marker-end="url(#arr)">
+    <path d="M770 240 L930 160"/><path d="M780 300 H930"/><path d="M770 360 L930 440"/>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="20" fill="#e5e7eb">
+    <rect x="950" y="120" width="150" height="70" rx="14" fill="#121826" stroke="#1f2937" stroke-width="3"/>
+    <path d="M972 140 h40 v28 h-40z M972 140 l20 16 l20 -16" stroke="#e5e7eb" stroke-width="3" fill="none"/>
+    <text x="1025" y="162">email</text>
+    <rect x="950" y="265" width="150" height="70" rx="14" fill="#121826" stroke="#1f2937" stroke-width="3"/>
+    <path d="M975 282 h22 l10 10 v26 h-32z" stroke="#e5e7eb" stroke-width="3" fill="none"/>
+    <text x="1025" y="307">files</text>
+    <rect x="950" y="410" width="150" height="70" rx="14" fill="#121826" stroke="#1f2937" stroke-width="3"/>
+    <circle cx="992" cy="445" r="17" stroke="#e5e7eb" stroke-width="3" fill="none"/><path d="M975 445 h34 M992 428 q-12 17 0 34 q12 -17 0 -34" stroke="#e5e7eb" stroke-width="2" fill="none"/>
+    <text x="1025" y="452">web</text>
+  </g>
+</svg>

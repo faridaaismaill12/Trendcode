@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Differential Privacy — Trendcode</title>
+  <meta name="description" content="Why anonymised data isn't anonymous, and how differential privacy uses carefully measured noise to publish useful statistics without exposing individuals." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body data-base="../" data-slug="differential-privacy">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="article">
+      <p class="eyebrow">// <a href="../index.html?topic=privacy#latest">privacy &amp; data</a> · 6 min read</p>
+      <h1>Differential privacy: learning from data without learning about you</h1>
+      <p class="article-date">Published Nov 11, 2026</p>
+      <figure class="post-hero"><img src="../assets/img/differential-privacy.svg" alt="A crowd with one highlighted person feeds a bar chart whose values have small random noise added" width="1200" height="600" /></figure>
+
+      <p>Hospitals, governments and app makers sit on data that could answer important questions. The same data could also reveal deeply personal facts about the people in it. For years the answer was "just anonymise it". That turned out not to work. <strong>Differential privacy</strong> is the mathematically rigorous alternative.</p>
+
+      <h2>Why "anonymous" data isn't</h2>
+      <p>Removing names is not enough, because the remaining details act as a fingerprint. Researcher Latanya Sweeney showed that about 87% of Americans can be uniquely identified by just their ZIP code, birth date and sex. In 2008, researchers re-identified some users in Netflix's "anonymous" movie-rating dataset by matching it against public reviews.</p>
+      <p>Even publishing only totals can leak. If a report says 40 employees earned a bonus on Monday and 41 on Tuesday, and you know exactly who joined the list on Tuesday, you've learned something about one person.</p>
+
+      <h2>The promise</h2>
+      <p>Differential privacy flips the question. Instead of "is this data anonymous?", it guarantees this:</p>
+      <div class="callout">
+        <strong>The result of the analysis would look almost exactly the same whether or not <em>your</em> data was included.</strong> So nobody can learn much about you from it, however much else they know.
+      </div>
+      <p>The strength of that "almost" is a number called <strong>epsilon (ε)</strong>, the privacy budget. Smaller ε means the outputs with and without you are harder to tell apart, so privacy is stronger.</p>
+
+      <h2>How: add just enough noise</h2>
+      <p>The standard trick is to add random noise to each answer. For a count ("how many people have condition X?") one person can change the true answer by at most 1. So the system adds random noise, typically from a <em>Laplace</em> distribution, scaled to <code>1 / ε</code>. A true count of 1,203 might be published as 1,198 or 1,207.</p>
+      <p>Across a large group, a few units of noise barely matter. For any single person, it hides whether they were there at all.</p>
+
+      <h2>Try it: the coin-flip survey</h2>
+      <p>The oldest version of this idea is <strong>randomized response</strong>. Ask a sensitive yes-or-no question, but tell each person to flip a coin first: on heads, answer truthfully; on tails, flip again and answer "yes" for heads, "no" for tails. Any single "yes" is deniable, yet because the noise is known, the true rate can be recovered from many answers.</p>
+
+      <div class="demo" id="rr-demo">
+        <label>True share of people who'd answer "yes": <strong id="rr-true-out">30%</strong>
+          <input type="range" id="rr-true" min="0" max="100" value="30" />
+        </label>
+        <label>Number of respondents: <strong id="rr-n-out">1,000</strong>
+          <input type="range" id="rr-n" min="50" max="20000" step="50" value="1000" />
+        </label>
+        <button type="button" class="btn btn-small" id="rr-run">Run the survey</button>
+        <div class="demo-out" id="rr-out" aria-live="polite"></div>
+      </div>
+
+      <h2>Where it's used</h2>
+      <ul>
+        <li>The <strong>2020 US Census</strong> applied differential privacy to its published statistics.</li>
+        <li><strong>Apple and Google</strong> use local differential privacy to learn things like popular emoji or common crashes without collecting individual users' exact data.</li>
+        <li>Researchers increasingly use it to train machine-learning models that can't memorise individual training records.</li>
+      </ul>
+
+      <h2>The trade-offs</h2>
+      <ul>
+        <li><strong>Privacy has a budget.</strong> Every published answer spends some ε. Answer enough questions and the noise can be averaged away, so systems must track total spend.</li>
+        <li><strong>Small groups get noisy.</strong> Noise that's invisible in a city of a million can swamp a village of 50, which raises hard fairness questions for things like census data.</li>
+      </ul>
+
+      <h2>The takeaway</h2>
+      <p>Differential privacy replaces a vague promise ("we anonymised it") with a measurable one ("your presence changes the output by at most ε"). It's not free, because accuracy is the price, but it's the strongest tool we have for learning from people's data without exposing them.</p>
+
+      <div id="post-extras"></div>
+      <p><a href="../index.html#latest" class="btn btn-ghost">← Back to all posts</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    (function () {
+      var t = document.getElementById("rr-true"), n = document.getElementById("rr-n");
+      var tOut = document.getElementById("rr-true-out"), nOut = document.getElementById("rr-n-out");
+      var out = document.getElementById("rr-out");
+      function labels() { tOut.textContent = t.value + "%"; nOut.textContent = (+n.value).toLocaleString("en-US"); }
+      function run() {
+        var p = t.value / 100, N = +n.value, yes = 0;
+        for (var i = 0; i < N; i++) {
+          var truth = Math.random() < p;
+          var ans = Math.random() < 0.5 ? truth : Math.random() < 0.5;
+          if (ans) yes++;
+        }
+        // P(yes) = 0.5 * p + 0.25  →  p = 2 * P(yes) - 0.5
+        var observed = yes / N, est = Math.min(1, Math.max(0, 2 * observed - 0.5));
+        var err = Math.abs(est - p) * 100;
+        out.innerHTML =
+          "<span>Answered “yes”: <b>" + (observed * 100).toFixed(1) + "%</b></span>" +
+          "<span>Estimated true rate: <b>" + (est * 100).toFixed(1) + "%</b></span>" +
+          "<span>Off by: <b>" + err.toFixed(1) + " pts</b></span>" +
+          "<p>Every individual answer was deniable. Try fewer respondents and watch the estimate get noisier.</p>";
+      }
+      t.addEventListener("input", labels); n.addEventListener("input", labels);
+      document.getElementById("rr-run").addEventListener("click", run);
+      labels(); run();
+    })();
+  </script>
+</body>
+</html>

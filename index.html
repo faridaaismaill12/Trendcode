@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trendcode — Decoding where computing is heading</title>
-  <meta name="description" content="Trendcode explains the biggest computer science trends — post-quantum cryptography, AI security, quantum computing and more — in plain language." />
+  <meta name="description" content="Learn computer science by reading and doing: plain-language explainers and hands-on browser labs on cryptography, AI security, quantum computing, algorithms and more." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -14,9 +14,10 @@
     <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
     <nav>
       <a href="#topics">Topics</a>
-      <a href="#latest">Latest</a>
-      <a href="#quiz">Quiz</a>
-      <a href="#glossary">Glossary</a>
+      <a href="#latest">Posts</a>
+      <a href="labs/index.html">Labs</a>
+      <a href="#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
       <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
       <a href="#subscribe" class="btn btn-small">Subscribe</a>
     </nav>
@@ -27,15 +28,16 @@
       <div class="hero-text">
         <p class="eyebrow">// computer science, decoded</p>
         <h1>Understand the trends shaping <span class="rotator" id="rotator">post-quantum crypto</span><span class="caret" aria-hidden="true">|</span></h1>
-        <p class="lead">Clear, honest explainers on post-quantum cryptography, AI security, quantum computing and whatever comes next. No hype, no jargon walls.</p>
+        <p class="lead">Clear, honest explainers, then hands-on labs that run right in your browser. Read how it works, then break a cipher, train a neuron or flip a qubit yourself.</p>
         <div class="hero-actions">
-          <a href="posts/what-is-post-quantum-cryptography.html" class="btn">Start with Post-Quantum →</a>
-          <a href="#latest" class="btn btn-ghost">Browse all posts</a>
+          <a href="#paths" class="btn">Pick a learning path →</a>
+          <a href="labs/index.html" class="btn btn-ghost">Jump into a lab</a>
         </div>
         <ul class="stats">
-          <li><strong data-count="4">0</strong><span>in-depth explainers</span></li>
-          <li><strong data-count="4">0</strong><span>topics covered</span></li>
-          <li><strong data-count="7">0</strong><span>min average read</span></li>
+          <li><strong data-stat="posts">0</strong><span>explainers</span></li>
+          <li><strong data-stat="labs">0</strong><span>interactive labs</span></li>
+          <li><strong data-stat="topics">0</strong><span>topics</span></li>
+          <li><strong data-stat="terms">0</strong><span>glossary terms</span></li>
         </ul>
       </div>
 
@@ -45,49 +47,72 @@
       </div>
     </section>
 
+    <section class="how reveal" aria-label="How Trendcode works">
+      <div class="how-step"><span>01</span><strong>Read</strong><p>A short explainer with no jargon walls.</p></div>
+      <div class="how-step"><span>02</span><strong>Try</strong><p>A lab where you poke the idea with your own hands.</p></div>
+      <div class="how-step"><span>03</span><strong>Test</strong><p>A quick quiz to check it actually stuck.</p></div>
+      <div class="how-step"><span>04</span><strong>Level up</strong><p>Earn XP and badges as you go. Saved on your device.</p></div>
+    </section>
+
     <section id="topics" class="section reveal">
       <div class="section-head">
         <h2>Topics</h2>
         <p class="muted">Pick a topic to filter the posts below.</p>
       </div>
-      <div class="grid topic-grid">
-        <button class="card topic-card" data-topic="pqc" type="button">
-          <span class="tag">01</span>
-          <h3>Post-Quantum Cryptography</h3>
-          <p>Why today's encryption is at risk, and the new algorithms built to replace it.</p>
-          <span class="card-count" data-count-topic="pqc"></span>
-        </button>
-        <button class="card topic-card" data-topic="ai" type="button">
-          <span class="tag">02</span>
-          <h3>AI Security</h3>
-          <p>Prompt injection, model risk, and how to deploy AI safely.</p>
-          <span class="card-count" data-count-topic="ai"></span>
-        </button>
-        <button class="card topic-card" data-topic="quantum" type="button">
-          <span class="tag">03</span>
-          <h3>Quantum Computing</h3>
-          <p>Qubits, superposition and what quantum machines can really do today.</p>
-          <span class="card-count" data-count-topic="quantum"></span>
-        </button>
-        <button class="card topic-card" data-topic="emerging" type="button">
-          <span class="tag">04</span>
-          <h3>Emerging Tech</h3>
-          <p>The next wave, from WebAssembly to new programming paradigms.</p>
-          <span class="card-count" data-count-topic="emerging"></span>
-        </button>
-      </div>
+      <div class="topic-grid" id="topic-grid"></div>
     </section>
 
     <section id="latest" class="section reveal">
       <div class="section-head">
-        <h2>Latest posts</h2>
+        <h2>Explainers</h2>
         <div class="toolbar">
-          <input type="search" id="post-search" placeholder="Search posts…" aria-label="Search posts" />
+          <input type="search" id="post-search" placeholder="Search posts…  ( / )" aria-label="Search posts" />
         </div>
       </div>
       <div class="chips" id="topic-chips" role="group" aria-label="Filter by topic"></div>
-      <ul class="post-list" id="post-list"></ul>
+      <div class="post-grid" id="post-grid"></div>
       <p class="empty" id="post-empty" hidden>No posts match that yet. <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest it as a topic →</a></p>
+    </section>
+
+    <section id="labs" class="section reveal">
+      <div class="section-head">
+        <div>
+          <h2>Labs</h2>
+          <p class="muted">Interactive experiments that run entirely in your browser. Nothing to install.</p>
+        </div>
+        <a href="labs/index.html" class="btn btn-ghost">All labs →</a>
+      </div>
+      <div class="lab-grid" id="labs-grid"></div>
+    </section>
+
+    <section id="paths" class="section reveal">
+      <div class="section-head">
+        <div>
+          <h2>Learning paths</h2>
+          <p class="muted">Guided routes that mix reading and doing. Your progress is saved as you go.</p>
+        </div>
+      </div>
+      <div class="paths" id="paths-list"></div>
+    </section>
+
+    <section id="progress" class="section reveal">
+      <div class="section-head">
+        <div>
+          <h2>Your progress</h2>
+          <p class="muted">Stored only in this browser. No account needed.</p>
+        </div>
+      </div>
+      <div class="progress-box" id="progress-box"></div>
+    </section>
+
+    <section id="quiz" class="section reveal">
+      <div class="section-head">
+        <div>
+          <h2>Quick check: how decoded are you?</h2>
+          <p class="muted">Five random questions per round. Tip: press A–D to answer.</p>
+        </div>
+      </div>
+      <div class="quiz card" id="quiz-box"></div>
     </section>
 
     <section id="timeline" class="section reveal">
@@ -98,14 +123,6 @@
       <div class="timeline" id="timeline-list"></div>
     </section>
 
-    <section id="quiz" class="section reveal">
-      <div class="section-head">
-        <h2>Quick check: how decoded are you?</h2>
-        <p class="muted">Five questions drawn from our explainers.</p>
-      </div>
-      <div class="quiz card" id="quiz-box"></div>
-    </section>
-
     <section id="glossary" class="section reveal">
       <div class="section-head">
         <h2>Glossary</h2>
@@ -113,12 +130,13 @@
           <input type="search" id="glossary-search" placeholder="Look up a term…" aria-label="Search glossary" />
         </div>
       </div>
+      <div class="term-of-day" id="term-of-day"></div>
       <div class="glossary" id="glossary-list"></div>
     </section>
 
     <section id="subscribe" class="section subscribe reveal">
       <h2>Get one trend, decoded, every week.</h2>
-      <p class="muted">A short email, one topic, no spam. Unsubscribe any time.</p>
+      <p class="muted">A short email, one topic, one lab. No spam. Unsubscribe any time.</p>
       <form id="subscribe-form">
         <input type="email" placeholder="you@example.com" required aria-label="Email address" />
         <button type="submit" class="btn">Subscribe</button>
@@ -134,9 +152,10 @@
         <p class="muted">Built to make tech make sense.</p>
       </div>
       <div>
-        <h4>Explore</h4>
-        <a href="#topics">Topics</a>
-        <a href="#latest">Latest posts</a>
+        <h4>Learn</h4>
+        <a href="#latest">Explainers</a>
+        <a href="labs/index.html">Labs</a>
+        <a href="#paths">Learning paths</a>
         <a href="#glossary">Glossary</a>
       </div>
       <div>
@@ -149,7 +168,7 @@
     <p class="copyright">© <span id="year">2026</span> Trendcode.</p>
   </footer>
 
-  <button type="button" class="to-top" id="to-top" aria-label="Back to top">↑</button>
+  <script src="assets/js/data.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Big-O Notation — Trendcode</title>
+  <meta name="description" content="What Big-O notation means, the common complexity classes with real examples, and how to spot slow code before it reaches production." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body data-base="../" data-slug="big-o-notation">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="article">
+      <p class="eyebrow">// <a href="../index.html?topic=algo#latest">algorithms</a> · 6 min read</p>
+      <h1>Big-O notation: why some code gets slow</h1>
+      <p class="article-date">Published Nov 11, 2026</p>
+      <figure class="post-hero"><img src="../assets/img/big-o-notation.svg" alt="Growth curves for O(1), O(log n), O(n), O(n log n) and O(n squared), with O(n squared) shooting upward fastest" width="1200" height="600" /></figure>
+
+      <p>Your code runs instantly on your test data of 100 items. Then a customer uploads 10 million, and the page times out. Nothing was "wrong" with the code. It just grew badly. <strong>Big-O notation</strong> is the tool for predicting that before it happens.</p>
+
+      <h2>The idea: count growth, not seconds</h2>
+      <p>Seconds depend on your laptop, your language and the weather. Big-O asks a sturdier question: <em>as the input size <code>n</code> grows, how does the amount of work grow?</em></p>
+      <p>It deliberately ignores constant factors and small terms. An algorithm that does <code>3n + 50</code> steps is simply <code>O(n)</code>, because for large <code>n</code> the shape of the curve is what decides your fate.</p>
+
+      <h2>The usual suspects</h2>
+      <ul>
+        <li><strong>O(1), constant:</strong> the work doesn't grow at all. Reading <code>array[42]</code> or looking up a key in a hash map.</li>
+        <li><strong>O(log n), logarithmic:</strong> each step halves the problem. Binary search finds a name among a billion sorted entries in about 30 steps.</li>
+        <li><strong>O(n), linear:</strong> touch every item once. Summing a list, or finding the largest value.</li>
+        <li><strong>O(n log n):</strong> the speed limit for general-purpose sorting. Merge sort and the sorts built into most languages live here.</li>
+        <li><strong>O(n²), quadratic:</strong> usually a loop inside a loop over the same data. Comparing every pair, or bubble sort.</li>
+        <li><strong>O(2ⁿ), exponential:</strong> trying every subset. Fine for 20 items, hopeless for 100.</li>
+      </ul>
+
+      <h2>Why the curve matters so much</h2>
+      <p>Here is roughly how many steps each class needs:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>n</th><th>O(log n)</th><th>O(n)</th><th>O(n log n)</th><th>O(n²)</th></tr></thead>
+          <tbody>
+            <tr><td>10</td><td>3</td><td>10</td><td>33</td><td>100</td></tr>
+            <tr><td>1,000</td><td>10</td><td>1,000</td><td>10,000</td><td>1,000,000</td></tr>
+            <tr><td>1,000,000</td><td>20</td><td>1,000,000</td><td>20,000,000</td><td>1,000,000,000,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>At a million items, the quadratic algorithm does a <em>trillion</em> steps. At a billion simple steps per second that's over 15 minutes, against a fraction of a second for <code>O(n log n)</code>.</p>
+
+      <div class="callout">
+        <strong>Rule of thumb:</strong> when <code>n</code> grows 10×, O(n) gets 10× slower and O(n²) gets 100× slower.
+      </div>
+
+      <h2>A real example</h2>
+      <p>Checking a list for duplicates by comparing every item with every other item is <code>O(n²)</code>. Walking the list once and remembering what you've seen in a <em>set</em> is <code>O(n)</code>, because each set lookup is <code>O(1)</code> on average. Same answer, one extra data structure, and the difference between milliseconds and hours.</p>
+
+      <h2>Fine print</h2>
+      <ul>
+        <li><strong>Worst case vs typical case.</strong> Quicksort is <code>O(n log n)</code> on average but <code>O(n²)</code> on unlucky input, which is why real implementations add safeguards.</li>
+        <li><strong>Space counts too.</strong> Big-O also describes memory. Merge sort needs <code>O(n)</code> extra space; some sorts need almost none.</li>
+        <li><strong>Constants still matter for small n.</strong> For tiny inputs a "worse" algorithm with less overhead can win. That's why many library sorts switch to insertion sort for small chunks.</li>
+      </ul>
+
+      <h2>The takeaway</h2>
+      <p>Big-O is a way of asking "what happens when this gets big?" before your users find out. Open the sorting lab to watch an <code>O(n²)</code> and an <code>O(n log n)</code> algorithm race on the same data, and count the comparisons yourself.</p>
+
+      <div id="post-extras"></div>
+      <p><a href="../index.html#latest" class="btn btn-ghost">← Back to all posts</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

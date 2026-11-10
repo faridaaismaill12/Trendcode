@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Labs — Trendcode</title>
+  <meta name="description" content="Hands-on computer science labs that run in your browser: crack ciphers, mine hashes, flip qubits, train a neuron, race sorting algorithms and defend an AI agent." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/labs.css" />
+</head>
+<body data-base="../">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="index.html" aria-current="page">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main class="lab-page">
+    <section class="lab-hero">
+      <p class="eyebrow">// learn by doing</p>
+      <h1>Labs</h1>
+      <p class="lead">Every lab runs entirely in your browser. No sign-up, no installs. Each one has a few missions. Finish them all to complete the lab, earn 25 XP and move along your learning path.</p>
+      <div class="lab-meta" id="labs-summary"></div>
+    </section>
+
+    <section class="section" style="padding-top:1rem">
+      <div class="lab-grid" id="labs-grid"></div>
+    </section>
+
+    <section class="panel lab-section lesson">
+      <h2>How labs work</h2>
+      <ul>
+        <li><strong>Missions</strong> guide you through each experiment. They tick off automatically when you do the thing.</li>
+        <li><strong>Progress is saved in this browser only</strong>, so there's no account and nothing leaves your device. Clearing site data resets it.</li>
+        <li><strong>Each lab pairs with an explainer.</strong> Read first, or dive in and read afterwards. Both work.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    (function () {
+      var done = [];
+      try { done = JSON.parse(localStorage.getItem("tc-labs") || "[]"); } catch (e) {}
+      var mins = labs.reduce(function (s, l) { return s + l.minutes; }, 0);
+      document.getElementById("labs-summary").innerHTML =
+        '<span class="pill">' + labs.length + ' labs</span>' +
+        '<span class="pill">~' + mins + ' min total</span>' +
+        '<span class="lab-status' + (done.length >= labs.length ? ' done' : '') + '">' +
+        labs.filter(function (l) { return done.indexOf(l.slug) >= 0; }).length + '/' + labs.length + ' completed</span>';
+    })();
+  </script>
+</body>
+</html>

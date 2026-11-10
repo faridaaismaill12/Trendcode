@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Two almost identical inputs, hello world and hello world with an exclamation mark, produce completely different SHA-256 hashes">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#0f1f2a"/></linearGradient>
+    <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#1f2a3d"/></pattern>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#22d3ee" stop-opacity=".35"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#9ca3af"/></marker>
+  </defs>
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  <rect width="1200" height="600" fill="url(#dots)"/>
+  <g font-family="ui-monospace,Consolas,monospace">
+    <rect x="70" y="160" width="250" height="70" rx="14" fill="#121826" stroke="#1f2937" stroke-width="3"/>
+    <text x="95" y="205" fill="#e5e7eb" font-size="26">hello world</text>
+    <rect x="70" y="370" width="250" height="70" rx="14" fill="#121826" stroke="#fbbf24" stroke-width="3"/>
+    <text x="95" y="415" fill="#e5e7eb" font-size="26">hello world<tspan fill="#fbbf24">!</tspan></text>
+    <path d="M330 195 L450 270" stroke="#9ca3af" stroke-width="3" marker-end="url(#ar)"/>
+    <path d="M330 405 L450 330" stroke="#9ca3af" stroke-width="3" marker-end="url(#ar)"/>
+    <circle cx="540" cy="300" r="170" fill="url(#glow)"/>
+    <path d="M460 210 H620 L580 300 L620 390 H460 L500 300 Z" fill="#121826" stroke="#22d3ee" stroke-width="4" stroke-linejoin="round"/>
+    <text x="540" y="308" text-anchor="middle" fill="#22d3ee" font-size="24" font-weight="700">SHA-256</text>
+    <path d="M630 270 L740 195" stroke="#9ca3af" stroke-width="3" marker-end="url(#ar)"/>
+    <path d="M630 330 L740 405" stroke="#9ca3af" stroke-width="3" marker-end="url(#ar)"/>
+    <rect x="750" y="150" width="390" height="90" rx="14" fill="#121826" stroke="#22d3ee" stroke-width="3"/>
+    <text x="772" y="187" fill="#22d3ee" font-size="20">b94d27b9934d3e08a52e</text>
+    <text x="772" y="217" fill="#22d3ee" font-size="20">52d7da7dabfac484ef…</text>
+    <rect x="750" y="360" width="390" height="90" rx="14" fill="#121826" stroke="#a78bfa" stroke-width="3"/>
+    <text x="772" y="397" fill="#a78bfa" font-size="20">7509e5bda0c762d2bac7</text>
+    <text x="772" y="427" fill="#a78bfa" font-size="20">f90d758b5b2263fa01…</text>
+    <text x="945" y="300" text-anchor="middle" fill="#fbbf24" font-size="22">1 char → ~50% of bits flip</text>
+  </g>
+</svg>

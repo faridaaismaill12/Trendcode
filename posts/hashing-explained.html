@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hashing, Explained — Trendcode</title>
+  <meta name="description" content="What a cryptographic hash function is, the properties that make it useful, and where hashes protect you every day: passwords, downloads, Git and blockchains." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body data-base="../" data-slug="hashing-explained">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav>
+      <a href="../index.html#topics">Topics</a>
+      <a href="../index.html#latest">Posts</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../index.html#paths">Paths</a>
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a href="../index.html#subscribe" class="btn btn-small">Subscribe</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="article">
+      <p class="eyebrow">// <a href="../index.html?topic=crypto#latest">cryptography basics</a> · 6 min read</p>
+      <h1>Hashing, explained: the fingerprint of data</h1>
+      <p class="article-date">Published Nov 11, 2026</p>
+      <figure class="post-hero"><img src="../assets/img/hashing-explained.svg" alt="The inputs 'hello world' and 'hello world!' pass through SHA-256 and produce two completely different hashes" width="1200" height="600" /></figure>
+
+      <p>If cryptography had a utility knife, it would be the <strong>hash function</strong>. It quietly protects your passwords, checks your software downloads, names every commit in Git and holds blockchains together. Yet the idea is simple enough to explain in a sentence.</p>
+
+      <h2>What a hash function does</h2>
+      <p>A hash function takes any input (a word, a file, a whole film) and produces a short, fixed-size output called a <strong>hash</strong> or <strong>digest</strong>. The most widely used today, <code>SHA-256</code>, always outputs 256 bits, usually written as 64 hexadecimal characters:</p>
+      <p><code>SHA-256("hello world") = b94d27b9934d3e08…</code></p>
+      <p>Think of it as a fingerprint. It's tiny compared with the original, it identifies the data, and you can't rebuild a person from their fingerprint.</p>
+
+      <h2>The five properties that matter</h2>
+      <ul>
+        <li><strong>Deterministic:</strong> the same input always gives the same hash.</li>
+        <li><strong>Fast to compute:</strong> hashing a large file takes a fraction of a second.</li>
+        <li><strong>One-way (preimage resistance):</strong> given a hash, there's no practical way to find an input that produces it, other than guessing.</li>
+        <li><strong>Collision resistant:</strong> it's practically impossible to find two different inputs with the same hash, even though such pairs must exist mathematically.</li>
+        <li><strong>Avalanche effect:</strong> change a single character and about half the output bits flip. Similar inputs give totally unrelated hashes.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Hashing is not encryption.</strong> Encryption is designed to be reversed by anyone holding the key. A hash has no key and is designed never to be reversed.
+      </div>
+
+      <h2>Where you use hashes every day</h2>
+      <ul>
+        <li><strong>Checking downloads.</strong> Software sites publish the SHA-256 of their installers. If your downloaded file hashes to the same value, not one bit was changed along the way.</li>
+        <li><strong>Storing passwords.</strong> Good websites never store your password, only a hash of it. When you log in, they hash what you typed and compare. Each password gets a random <strong>salt</strong> first, so identical passwords produce different hashes, and they use deliberately <em>slow</em> hashes such as Argon2, scrypt or bcrypt to make mass guessing expensive.</li>
+        <li><strong>Git.</strong> Every commit, file and folder in a Git repository is named by its hash. Change history and every later hash changes too, which is what makes tampering obvious.</li>
+        <li><strong>Digital signatures.</strong> Signing a large document directly would be slow, so systems sign its hash instead.</li>
+        <li><strong>Blockchains.</strong> Each block contains the hash of the previous one, and proof-of-work mining is a race to find an input whose hash starts with enough zeros.</li>
+      </ul>
+
+      <h2>When hash functions break</h2>
+      <p>Hash functions don't last forever. <code>MD5</code> collisions have been easy to produce since the mid-2000s, and in 2017 researchers published the first real <code>SHA-1</code> collision: two different PDF files with the same hash. Both are now considered broken for security use. <code>SHA-256</code> and the newer <code>SHA-3</code> family remain strong.</p>
+      <p>What about quantum computers? Grover's algorithm speeds up brute-force searching, but only by a square root. That weakens hashes far less than it weakens RSA, so SHA-256 and SHA-3 are still considered safe, and the post-quantum signature standard SLH-DSA is built entirely from hash functions.</p>
+
+      <h2>The takeaway</h2>
+      <p>A hash is a small, unforgeable fingerprint of any data. That simple tool gives you integrity checks, safer password storage and tamper-evident history. In the lab you can watch the avalanche effect happen and mine your own proof-of-work hash.</p>
+
+      <div id="post-extras"></div>
+      <p><a href="../index.html#latest" class="btn btn-ghost">← Back to all posts</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
