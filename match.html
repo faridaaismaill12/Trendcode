@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jargon Match — Trendcode</title>
+  <meta name="description" content="A fast matching game: pair computer science terms with their meanings against the clock." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-base="">
+  <header class="site-header">
+    <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="posts.html">Explainers</a>
+      <a href="topics.html">Topics</a>
+      <a href="labs/index.html">Labs</a>
+      <a href="activities.html" aria-current="page">Activities</a>
+      <a href="paths.html">Paths</a>
+      <a href="progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="page-hero">
+      <p class="eyebrow">// jargon match</p>
+      <h1>Jargon Match</h1>
+      <p class="lead">Click a term, then its meaning. Six pairs, one clock. Mistakes cost you a star, and under 45 seconds earns a badge.</p>
+    </section>
+    <section class="panel">
+      <div class="match-bar">
+        <label class="field inline"><span>Topic</span><select id="match-topic" class="input"></select></label>
+        <div class="stat-row">
+          <div class="mini-stat"><small>time</small><strong id="match-timer">0.0s</strong></div>
+          <div class="mini-stat"><small>pairs</small><strong id="match-pairs">0/6</strong></div>
+          <div class="mini-stat"><small>misses</small><strong id="match-misses">0</strong></div>
+          <div class="mini-stat"><small>best</small><strong id="match-best">–</strong></div>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" id="new-round">New round</button>
+      </div>
+      <div class="match-board" id="match-board"></div>
+      <div id="match-result" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="posts.html">Explainers</a>
+        <a href="topics.html">Topics</a>
+        <a href="labs/index.html">Labs</a>
+        <a href="paths.html">Learning paths</a>
+        <a href="resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="daily.html">Daily challenge</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="match.html">Jargon Match</a>
+        <a href="myths.html">Myth or Fact</a>
+        <a href="quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="glossary.html">Glossary</a>
+        <a href="timeline.html">Timelines</a>
+        <a href="progress.html">Your progress</a>
+        <a href="saved.html">Reading list</a>
+        <a href="certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/avatar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/pages/match.js"></script>
+</body>
+</html>

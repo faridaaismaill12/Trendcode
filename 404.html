@@ -4,17 +4,84 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>404 — Trendcode</title>
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="icon" href="/Trendcode/assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="/Trendcode/assets/css/style.css" />
 </head>
-<body>
-  <main>
-    <section class="hero">
+<body data-base="/Trendcode/">
+  <header class="site-header">
+    <a href="/Trendcode/index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="/Trendcode/posts.html">Explainers</a>
+      <a href="/Trendcode/topics.html">Topics</a>
+      <a href="/Trendcode/labs/index.html">Labs</a>
+      <a href="/Trendcode/activities.html">Activities</a>
+      <a href="/Trendcode/paths.html">Paths</a>
+      <a href="/Trendcode/progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="/Trendcode/login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="page-hero">
       <p class="eyebrow">// error 404</p>
       <h1>This page hasn't been decoded yet.</h1>
-      <p class="lead">The link may be broken, or the post may have moved.</p>
-      <a href="/" class="btn">← Back to Trendcode</a>
+      <p class="lead">The link may be broken, or the page may have moved. Press <kbd>Ctrl</kbd> + <kbd>K</kbd> to search, or try one of these:</p>
+      <div class="hero-actions">
+        <a href="/Trendcode/" class="btn">← Back to Trendcode</a>
+        <a href="/Trendcode/daily.html" class="btn btn-ghost">Play the daily challenge</a>
+      </div>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/Trendcode/index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="/Trendcode/index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="/Trendcode/posts.html">Explainers</a>
+        <a href="/Trendcode/topics.html">Topics</a>
+        <a href="/Trendcode/labs/index.html">Labs</a>
+        <a href="/Trendcode/paths.html">Learning paths</a>
+        <a href="/Trendcode/resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="/Trendcode/daily.html">Daily challenge</a>
+        <a href="/Trendcode/flashcards.html">Flashcards</a>
+        <a href="/Trendcode/match.html">Jargon Match</a>
+        <a href="/Trendcode/myths.html">Myth or Fact</a>
+        <a href="/Trendcode/quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="/Trendcode/glossary.html">Glossary</a>
+        <a href="/Trendcode/timeline.html">Timelines</a>
+        <a href="/Trendcode/progress.html">Your progress</a>
+        <a href="/Trendcode/saved.html">Reading list</a>
+        <a href="/Trendcode/certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="/Trendcode/assets/js/data.js"></script>
+  <script src="/Trendcode/assets/js/avatar.js"></script>
+  <script src="/Trendcode/assets/js/main.js"></script>
 </body>
 </html>

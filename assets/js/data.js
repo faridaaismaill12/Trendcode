@@ -61,61 +61,61 @@ const TOPICS = {
 // Posts — newest first. `lab` links a post to its hands-on lab.
 const posts = [
   {
-    slug: "how-neural-networks-learn",
+    slug: "how-neural-networks-learn", short: "Neural nets",
     title: "How neural networks learn (gradient descent without the calculus)",
     excerpt: "A model is a pile of dials. Training is the art of turning them, a little at a time, in the right direction.",
     date: "2026-11-11", topic: "ml", readTime: 7, lab: "perceptron-playground",
   },
   {
-    slug: "hashing-explained",
+    slug: "hashing-explained", short: "Hashing",
     title: "Hashing, explained: the fingerprint of data",
     excerpt: "One function quietly protects your passwords, your downloads and every blockchain. Here's how it works.",
     date: "2026-11-11", topic: "crypto", readTime: 6, lab: "hash-lab",
   },
   {
-    slug: "how-passkeys-work",
+    slug: "how-passkeys-work", short: "Passkeys",
     title: "Passwords are dying. Here's how passkeys replace them.",
     excerpt: "Passkeys use public-key cryptography so there's no secret for a phishing site to steal.",
     date: "2026-11-11", topic: "websec", readTime: 6, lab: "password-lab",
   },
   {
-    slug: "big-o-notation",
+    slug: "big-o-notation", short: "Big-O",
     title: "Big-O notation: why some code gets slow",
     excerpt: "Your code works on 100 items. Will it work on 10 million? Big-O is how you find out before your users do.",
     date: "2026-11-11", topic: "algo", readTime: 6, lab: "sorting-visualizer",
   },
   {
-    slug: "what-happens-when-you-type-a-url",
+    slug: "what-happens-when-you-type-a-url", short: "Typing a URL",
     title: "What actually happens when you type a URL and press Enter",
     excerpt: "DNS, TCP, TLS, HTTP and a rendering engine, all in a few hundred milliseconds.",
     date: "2026-11-11", topic: "systems", readTime: 7,
   },
   {
-    slug: "differential-privacy",
+    slug: "differential-privacy", short: "Diff. privacy",
     title: "Differential privacy: learning from data without learning about you",
     excerpt: "How adding carefully measured noise lets census bureaus and tech companies publish statistics safely.",
     date: "2026-11-11", topic: "privacy", readTime: 6,
   },
   {
-    slug: "prompt-injection-explained",
+    slug: "prompt-injection-explained", short: "Prompt injection",
     title: "Prompt injection, explained: when an AI can't tell data from orders",
     excerpt: "Why language models can be talked into ignoring their instructions, and the defenses that actually help.",
     date: "2026-11-10", topic: "ai", readTime: 7, lab: "injection-lab",
   },
   {
-    slug: "qubits-without-the-mysticism",
+    slug: "qubits-without-the-mysticism", short: "Qubits",
     title: "Qubits without the mysticism: what a quantum computer actually does",
     excerpt: "Superposition, entanglement and interference in plain words, plus how to read quantum headlines.",
     date: "2026-11-10", topic: "quantum", readTime: 7, lab: "qubit-playground",
   },
   {
-    slug: "webassembly-beyond-the-browser",
+    slug: "webassembly-beyond-the-browser", short: "WebAssembly",
     title: "WebAssembly is leaving the browser. Here's why that matters.",
     excerpt: "A small, fast, sandboxed unit of code is turning up in servers, edge networks and plugin systems.",
     date: "2026-11-10", topic: "emerging", readTime: 6,
   },
   {
-    slug: "what-is-post-quantum-cryptography",
+    slug: "what-is-post-quantum-cryptography", short: "Post-quantum",
     title: "What is Post-Quantum Cryptography (and why should you care)?",
     excerpt: "The quantum threat to today's encryption, harvest-now-decrypt-later, and the new NIST standards.",
     date: "2026-11-09", topic: "pqc", readTime: 6, lab: "cipher-lab",
@@ -125,31 +125,31 @@ const posts = [
 // Hands-on labs. Each one lives at labs/<slug>.html.
 const labs = [
   {
-    slug: "cipher-lab", title: "Crack the Cipher", topic: "crypto", level: "Beginner", minutes: 10,
+    slug: "cipher-lab", short: "Cipher lab", title: "Crack the Cipher", topic: "crypto", level: "Beginner", minutes: 10,
     blurb: "Encrypt with a Caesar cipher, then break one using frequency analysis, the trick that beat ciphers for 1,000 years.",
   },
   {
-    slug: "hash-lab", title: "Hash Avalanche & Mining", topic: "crypto", level: "Beginner", minutes: 10,
+    slug: "hash-lab", short: "Hash lab", title: "Hash Avalanche & Mining", topic: "crypto", level: "Beginner", minutes: 10,
     blurb: "Change one letter and watch half the bits of a SHA-256 hash flip. Then mine a hash that starts with zeros.",
   },
   {
-    slug: "qubit-playground", title: "Qubit Playground", topic: "quantum", level: "Intermediate", minutes: 15,
+    slug: "qubit-playground", short: "Qubit lab", title: "Qubit Playground", topic: "quantum", level: "Intermediate", minutes: 15,
     blurb: "Apply real quantum gates to a simulated qubit, watch amplitudes interfere and solve three circuit puzzles.",
   },
   {
-    slug: "injection-lab", title: "Prompt Injection Lab", topic: "ai", level: "Beginner", minutes: 12,
+    slug: "injection-lab", short: "Injection lab", title: "Prompt Injection Lab", topic: "ai", level: "Beginner", minutes: 12,
     blurb: "Spot hidden attacks in emails and web pages, then toggle defenses on a simulated AI agent to see which ones hold.",
   },
   {
-    slug: "sorting-visualizer", title: "Sorting Race", topic: "algo", level: "Beginner", minutes: 10,
+    slug: "sorting-visualizer", short: "Sorting race", title: "Sorting Race", topic: "algo", level: "Beginner", minutes: 10,
     blurb: "Watch bubble, insertion, merge and quick sort work step by step, and count how many comparisons each one needs.",
   },
   {
-    slug: "perceptron-playground", title: "Train a Neuron", topic: "ml", level: "Intermediate", minutes: 15,
+    slug: "perceptron-playground", short: "Neuron lab", title: "Train a Neuron", topic: "ml", level: "Intermediate", minutes: 15,
     blurb: "Drop points on a canvas and watch a single neuron learn to separate them with gradient descent. Then try to break it.",
   },
   {
-    slug: "password-lab", title: "Password Cracking Clock", topic: "websec", level: "Beginner", minutes: 8,
+    slug: "password-lab", short: "Password lab", title: "Password Cracking Clock", topic: "websec", level: "Beginner", minutes: 8,
     blurb: "See how long a password survives an offline attack, and generate a passphrase that's strong and memorable.",
   },
 ];
@@ -291,4 +291,107 @@ const quizPool = [
     options: ["Faster queries", "Less noise and weaker privacy", "More noise and stronger privacy", "Fewer people in the dataset"],
     a: 2, why: "ε is the privacy budget. Shrinking it adds more noise so no individual can be singled out.", post: "differential-privacy",
   },
+];
+
+// Myth or Fact: [statement, isFact, explanation, topic, post slug]
+const myths = [
+  ["Quantum computers work by trying every possible answer at once.", false, "Measuring a quantum computer gives one answer. Its power comes from arranging interference so wrong answers cancel, which only works for problems with special structure.", "quantum", "qubits-without-the-mysticism"],
+  ["Post-quantum cryptography needs a quantum computer to run.", false, "Post-quantum algorithms run on ordinary computers and phones. They're designed to resist attacks from quantum computers, not to use one.", "pqc", "what-is-post-quantum-cryptography"],
+  ["Encrypted data stolen today could be decrypted by a future quantum computer.", true, "That's “harvest now, decrypt later”. Data protected by RSA or elliptic-curve key exchange could be unlocked once a large enough quantum computer exists.", "pqc", "what-is-post-quantum-cryptography"],
+  ["Hashing a password is the same as encrypting it.", false, "Encryption is designed to be reversed with a key. A hash has no key and is designed never to be reversed.", "crypto", "hashing-explained"],
+  ["Changing one character of a file completely changes its SHA-256 hash.", true, "The avalanche effect: about half of the 256 output bits flip, so the new hash looks unrelated to the old one.", "crypto", "hashing-explained"],
+  ["Telling an AI “never follow instructions inside documents” reliably stops prompt injection.", false, "It helps a little and fails often. Attackers can rephrase endlessly, so safe systems also limit what a fooled model is able to do.", "ai", "prompt-injection-explained"],
+  ["When you sign in with a passkey, your private key is sent to the website.", false, "The private key never leaves your device. The site sends a challenge, your device signs it, and the site checks the signature with your public key.", "websec", "how-passkeys-work"],
+  ["Swapping letters for symbols, like P@ssw0rd, makes a password much stronger.", false, "Cracking tools try these substitutions automatically. Length and true randomness matter far more.", "websec", "how-passkeys-work"],
+  ["An O(n²) algorithm can be faster than an O(n log n) one on small inputs.", true, "Big-O ignores constant factors. For tiny inputs, a simple algorithm with little overhead can win, which is why library sorts switch to insertion sort for small chunks.", "algo", "big-o-notation"],
+  ["Removing names from a dataset makes it anonymous.", false, "Details like ZIP code, birth date and sex can identify most people. That's why differential privacy was invented.", "privacy", "differential-privacy"],
+  ["Differential privacy works by adding carefully measured random noise.", true, "Noise scaled to how much one person could change the answer hides any individual while keeping totals useful.", "privacy", "differential-privacy"],
+  ["A WebAssembly module can read your files by default.", false, "Wasm is sandboxed and deny-by-default. A module can only touch what the host explicitly gives it.", "emerging", "webassembly-beyond-the-browser"],
+  ["A single artificial neuron can't learn the XOR pattern.", true, "One neuron can only draw a straight line, and no straight line separates XOR. Hidden layers fix this.", "ml", "how-neural-networks-learn"],
+  ["Neural networks understand what they learn the way people do.", false, "Training nudges numbers to reduce a loss. Models can get very good at a task while learning shortcuts no person would use.", "ml", "how-neural-networks-learn"],
+  ["The padlock icon means a website is trustworthy.", false, "It only means the connection to that domain is encrypted. Phishing sites can have a padlock too.", "systems", "what-happens-when-you-type-a-url"],
+  ["DNS turns domain names like example.com into IP addresses.", true, "It's the internet's phone book, and the very first network step when you visit a new site.", "systems", "what-happens-when-you-type-a-url"],
+  ["AES-256 is considered safe even against quantum computers.", true, "Grover's algorithm only gives a square-root speed-up against symmetric keys, so AES-256 keeps a comfortable margin.", "pqc", "what-is-post-quantum-cryptography"],
+  ["More qubits always means a more powerful quantum computer.", false, "Error rates matter as much as count. What really counts is how many reliable logical qubits a machine can sustain.", "quantum", "qubits-without-the-mysticism"],
+];
+
+// Timelines: key → { title, events: [year, title, detail] }
+const timelines = {
+  pqc: {
+    title: "Post-quantum cryptography",
+    events: [
+      ["1994", "Shor's algorithm", "Peter Shor shows that a large quantum computer could factor numbers and compute discrete logarithms efficiently, the maths behind RSA and elliptic-curve cryptography. The threat is born decades before the hardware."],
+      ["2016", "NIST opens the call", "The US National Institute of Standards and Technology launches a public competition for quantum-resistant algorithms. Cryptographers submit 69 first-round candidates and spend years attacking each other's designs."],
+      ["2022", "Winners announced", "NIST selects CRYSTALS-Kyber for key exchange and CRYSTALS-Dilithium, Falcon and SPHINCS+ for signatures. The same year, candidate SIKE is broken on an ordinary laptop, a reminder of why public scrutiny matters."],
+      ["2024", "First standards final", "FIPS 203 (ML-KEM), FIPS 204 (ML-DSA) and FIPS 205 (SLH-DSA) are published. Browsers and messaging apps begin shipping hybrid post-quantum key exchange to everyday users."],
+      ["2025", "A backup is picked", "NIST selects HQC, a code-based key-exchange scheme, as a second option built on different maths from ML-KEM."],
+      ["2030–35", "Phase-out targets", "Under NIST's proposed transition plan, quantum-vulnerable algorithms like RSA and ECC are deprecated around 2030 and disallowed by 2035."],
+    ],
+  },
+  ai: {
+    title: "Artificial intelligence",
+    events: [
+      ["1950", "Can machines think?", "Alan Turing publishes “Computing Machinery and Intelligence” and proposes the imitation game, later known as the Turing test."],
+      ["1956", "AI gets its name", "The Dartmouth summer workshop coins the term “artificial intelligence” and launches the field."],
+      ["1958", "The perceptron", "Frank Rosenblatt builds the perceptron, a single artificial neuron that learns from examples. It's the same model as our Train a Neuron lab."],
+      ["1969", "The XOR problem", "Minsky and Papert's book “Perceptrons” shows what single-layer networks can't learn, and enthusiasm and funding cool for years."],
+      ["1986", "Backpropagation", "Rumelhart, Hinton and Williams popularise backpropagation, making it practical to train networks with hidden layers."],
+      ["1997", "Deep Blue", "IBM's Deep Blue defeats world chess champion Garry Kasparov in a six-game match."],
+      ["2012", "Deep learning takes off", "AlexNet wins the ImageNet image-recognition challenge by a wide margin using a deep neural network trained on GPUs."],
+      ["2016", "AlphaGo", "DeepMind's AlphaGo beats Lee Sedol at Go, a game long thought too complex for computers to master."],
+      ["2017", "The Transformer", "The paper “Attention Is All You Need” introduces the Transformer, the architecture behind today's large language models."],
+      ["2022", "Chatbots go mainstream", "ChatGPT's release brings large language model chat to hundreds of millions of people, and prompt injection becomes everyone's problem."],
+    ],
+  },
+  web: {
+    title: "The internet & the web",
+    events: [
+      ["1969", "ARPANET's first message", "The first message is sent between UCLA and the Stanford Research Institute over ARPANET. The system crashes after two letters: “LO”."],
+      ["1974", "TCP is designed", "Vint Cerf and Bob Kahn publish the design that becomes TCP/IP, a way to connect different networks into one internet."],
+      ["1983", "Flag day & DNS", "ARPANET switches to TCP/IP on 1 January, and the Domain Name System is specified the same year, replacing a single shared hosts file."],
+      ["1989", "The web is proposed", "Tim Berners-Lee proposes a hypertext system at CERN. The World Wide Web becomes publicly available in 1991."],
+      ["1995", "Encryption arrives", "Netscape ships SSL, encrypting web traffic for online shopping. Its successor, TLS 1.0, follows in 1999."],
+      ["2015", "HTTP/2", "HTTP/2 lets many requests share one connection, making pages with lots of files faster."],
+      ["2017", "WebAssembly ships", "All major browsers ship WebAssembly, bringing near-native speed to the web."],
+      ["2018", "TLS 1.3", "TLS 1.3 cuts the handshake to one round trip and removes old, weak options."],
+      ["2022", "HTTP/3", "HTTP/3 is standardised, running over QUIC on UDP to cut connection setup time and handle lossy networks better."],
+    ],
+  },
+};
+
+// Curated external resources: [title, url, description, topic, kind]
+const resources = [
+  ["NIST Post-Quantum Cryptography project", "https://csrc.nist.gov/projects/post-quantum-cryptography", "The official home of the standards, with background and FAQs.", "pqc", "Official"],
+  ["OWASP Top 10 for LLM Applications", "https://owasp.org/www-project-top-10-for-large-language-model-applications/", "The industry checklist of security risks in AI applications.", "ai", "Guide"],
+  ["Simon Willison on prompt injection", "https://simonwillison.net/series/prompt-injection/", "A long-running, readable series on prompt injection and its defenses.", "ai", "Blog"],
+  ["Quantum Country", "https://quantum.country", "An interactive essay on quantum computing with built-in spaced repetition.", "quantum", "Course"],
+  ["IBM Quantum Learning", "https://learning.quantum.ibm.com", "Free courses that let you run circuits on real quantum hardware.", "quantum", "Course"],
+  ["Cryptopals", "https://cryptopals.com", "Hands-on challenges where you break real (old) cryptography yourself.", "crypto", "Challenges"],
+  ["3Blue1Brown: Neural networks", "https://www.3blue1brown.com/topics/neural-networks", "Beautifully animated videos on how networks learn and what backpropagation does.", "ml", "Video"],
+  ["TensorFlow Playground", "https://playground.tensorflow.org", "Train a small neural network in your browser and watch hidden layers at work.", "ml", "Interactive"],
+  ["passkeys.dev", "https://passkeys.dev", "Developer guide to passkeys and WebAuthn from the people building them.", "websec", "Guide"],
+  ["EFF Dice-Generated Passphrases", "https://www.eff.org/dice", "Make a truly random passphrase with real dice and the EFF word list.", "websec", "Tool"],
+  ["OWASP Top Ten", "https://owasp.org/www-project-top-ten/", "The classic list of the most critical web application security risks.", "websec", "Guide"],
+  ["VisuAlgo", "https://visualgo.net", "Animated visualisations of dozens of algorithms and data structures.", "algo", "Interactive"],
+  ["Big-O Cheat Sheet", "https://www.bigocheatsheet.com", "Time and space complexity of common algorithms on one page.", "algo", "Reference"],
+  ["High Performance Browser Networking", "https://hpbn.co", "A free book on TCP, TLS, HTTP and what makes the web fast.", "systems", "Book"],
+  ["How DNS Works", "https://howdns.works", "A short illustrated comic that explains DNS step by step.", "systems", "Comic"],
+  ["MDN: An overview of HTTP", "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview", "Mozilla's clear reference to how HTTP works.", "systems", "Reference"],
+  ["Programming Differential Privacy", "https://programming-dp.com", "A free online book that teaches differential privacy with runnable code.", "privacy", "Book"],
+  ["WebAssembly.org", "https://webassembly.org", "The official site for the WebAssembly standard, roadmap and specs.", "emerging", "Official"],
+  ["MDN: WebAssembly", "https://developer.mozilla.org/en-US/docs/WebAssembly", "Guides to compiling, loading and using WebAssembly modules.", "emerging", "Reference"],
+];
+
+// Non-lab activities (shown on the Activities hub, homepage and search)
+const activities = [
+  { slug: "daily", title: "Daily Challenge", emoji: "📅", blurb: "One new puzzle every day: ciphers, binary, Big-O and jargon. Keep your streak alive." },
+  { slug: "flashcards", title: "Flashcards", emoji: "🃏", blurb: "Flip through every glossary term. Cards you know move up a box; master each one in three steps." },
+  { slug: "match", title: "Jargon Match", emoji: "🧩", blurb: "Race the clock to pair six terms with their meanings. How fast can you go?" },
+  { slug: "myths", title: "Myth or Fact", emoji: "🧠", blurb: "Ten statements you've probably heard about tech. Which ones are actually true?" },
+  { slug: "quiz", title: "Quiz", emoji: "🎯", blurb: "Five random questions drawn from the explainers. Filter by topic to focus." },
+  { slug: "timeline", title: "Timelines", emoji: "🕰️", blurb: "Click through the history of AI, the internet and post-quantum cryptography." },
+  { slug: "glossary", title: "Glossary", emoji: "📖", blurb: "Every term on the site in plain English, searchable and A to Z." },
+  { slug: "resources", title: "Resources", emoji: "🔗", blurb: "Hand-picked books, courses and tools to go deeper on every topic." },
+  { slug: "certificate", title: "Certificates", emoji: "🎓", blurb: "Finish a learning path and print a certificate with your name on it." },
+  { slug: "saved", title: "Reading list", emoji: "🔖", blurb: "Posts you've saved for later, all in one place." },
 ];

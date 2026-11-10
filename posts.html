@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explainers — Trendcode</title>
+  <meta name="description" content="Every Trendcode explainer: plain-language articles on cryptography, AI security, quantum computing, algorithms, privacy and more." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-base="">
+  <header class="site-header">
+    <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="posts.html" aria-current="page">Explainers</a>
+      <a href="topics.html">Topics</a>
+      <a href="labs/index.html">Labs</a>
+      <a href="activities.html">Activities</a>
+      <a href="paths.html">Paths</a>
+      <a href="progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="page-hero">
+      <p class="eyebrow">// explainers</p>
+      <h1>Explainers</h1>
+      <p class="lead">Short, honest articles that take one big idea and make it make sense. Filter by topic, search, or save some for later with ☆.</p>
+    </section>
+    <section class="section" style="padding-top:1rem">
+      <div class="toolbar-row">
+        <input type="search" id="post-search" class="input" placeholder="Search explainers…  ( / )" aria-label="Search explainers" />
+        <select id="post-sort" class="input" aria-label="Sort">
+          <option value="new">Newest first</option>
+          <option value="short">Shortest read</option>
+          <option value="unread">Unread first</option>
+          <option value="lab">With a lab first</option>
+        </select>
+      </div>
+      <div class="chips" id="topic-chips" role="group" aria-label="Filter by topic"></div>
+      <p class="muted small" id="post-count"></p>
+      <div class="post-grid" id="post-grid"></div>
+      <p class="empty" id="post-empty" hidden>No explainers match that yet. <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest it as a topic →</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="posts.html">Explainers</a>
+        <a href="topics.html">Topics</a>
+        <a href="labs/index.html">Labs</a>
+        <a href="paths.html">Learning paths</a>
+        <a href="resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="daily.html">Daily challenge</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="match.html">Jargon Match</a>
+        <a href="myths.html">Myth or Fact</a>
+        <a href="quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="glossary.html">Glossary</a>
+        <a href="timeline.html">Timelines</a>
+        <a href="progress.html">Your progress</a>
+        <a href="saved.html">Reading list</a>
+        <a href="certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/avatar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/pages/posts.js"></script>
+</body>
+</html>

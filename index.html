@@ -4,159 +4,127 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trendcode — Decoding where computing is heading</title>
-  <meta name="description" content="Learn computer science by reading and doing: plain-language explainers and hands-on browser labs on cryptography, AI security, quantum computing, algorithms and more." />
+  <meta name="description" content="Learn computer science by reading and doing: plain-language explainers, hands-on browser labs, a daily puzzle and games on cryptography, AI, quantum computing and more." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/home.css" />
 </head>
-<body data-base="">
+<body data-base="" class="home">
   <header class="site-header">
     <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
-    <nav>
-      <a href="#topics">Topics</a>
-      <a href="#latest">Posts</a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="posts.html">Explainers</a>
+      <a href="topics.html">Topics</a>
       <a href="labs/index.html">Labs</a>
-      <a href="#paths">Paths</a>
+      <a href="activities.html">Activities</a>
+      <a href="paths.html">Paths</a>
+      <a href="progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
       <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
       <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
-      <a href="#subscribe" class="btn btn-small">Subscribe</a>
-    </nav>
+      <a class="account-btn" id="account-btn" href="login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
   </header>
 
-  <main>
+  <main class="home-main">
     <section class="hero">
       <div class="hero-text">
         <p class="eyebrow">// computer science, decoded</p>
         <h1>Understand the trends shaping <span class="rotator" id="rotator">post-quantum crypto</span><span class="caret" aria-hidden="true">|</span></h1>
-        <p class="lead">Clear, honest explainers, then hands-on labs that run right in your browser. Read how it works, then break a cipher, train a neuron or flip a qubit yourself.</p>
+        <p class="lead">Clear, honest explainers. Hands-on labs in your browser. A daily puzzle, flashcards and games to make it stick. No sign-up, no jargon walls.</p>
         <div class="hero-actions">
-          <a href="#paths" class="btn">Pick a learning path →</a>
-          <a href="labs/index.html" class="btn btn-ghost">Jump into a lab</a>
+          <a href="daily.html" class="btn">Play today's challenge →</a>
+          <a href="posts.html" class="btn btn-ghost">Browse explainers</a>
         </div>
         <ul class="stats">
           <li><strong data-stat="posts">0</strong><span>explainers</span></li>
-          <li><strong data-stat="labs">0</strong><span>interactive labs</span></li>
-          <li><strong data-stat="topics">0</strong><span>topics</span></li>
-          <li><strong data-stat="terms">0</strong><span>glossary terms</span></li>
+          <li><strong data-stat="labs">0</strong><span>labs</span></li>
+          <li><strong data-stat="activities">0</strong><span>activities</span></li>
+          <li><strong data-stat="terms">0</strong><span>terms</span></li>
         </ul>
       </div>
-
       <div class="terminal" aria-label="Animated terminal">
         <div class="terminal-bar"><i></i><i></i><i></i><span>~/trendcode</span></div>
         <pre id="terminal-body" aria-live="off"></pre>
       </div>
     </section>
 
-    <section class="how reveal" aria-label="How Trendcode works">
-      <div class="how-step"><span>01</span><strong>Read</strong><p>A short explainer with no jargon walls.</p></div>
-      <div class="how-step"><span>02</span><strong>Try</strong><p>A lab where you poke the idea with your own hands.</p></div>
-      <div class="how-step"><span>03</span><strong>Test</strong><p>A quick quiz to check it actually stuck.</p></div>
-      <div class="how-step"><span>04</span><strong>Level up</strong><p>Earn XP and badges as you go. Saved on your device.</p></div>
-    </section>
-
-    <section id="topics" class="section reveal">
-      <div class="section-head">
-        <h2>Topics</h2>
-        <p class="muted">Pick a topic to filter the posts below.</p>
+    <!-- TRENDCODE OS: a real, typeable terminal -->
+    <section class="os" id="os" aria-labelledby="os-title">
+      <div class="os-intro">
+        <h2 id="os-title">Skip the menus. <span>Just type.</span></h2>
+        <p>Everything on Trendcode is one command away. Try <button type="button" class="os-try" data-cmd="help">help</button>, <button type="button" class="os-try" data-cmd="whoami">whoami</button> or <button type="button" class="os-try" data-cmd="learn quantum">learn quantum</button>.</p>
       </div>
-      <div class="topic-grid" id="topic-grid"></div>
-    </section>
-
-    <section id="latest" class="section reveal">
-      <div class="section-head">
-        <h2>Explainers</h2>
-        <div class="toolbar">
-          <input type="search" id="post-search" placeholder="Search posts…  ( / )" aria-label="Search posts" />
+      <div class="os-window" id="os-window">
+        <div class="os-bar">
+          <i></i><i></i><i></i>
+          <span class="os-title" id="os-title-bar">guest@trendcode: ~</span>
+          <span class="os-hint"><kbd>Tab</kbd> complete · <kbd>↑</kbd> history</span>
+        </div>
+        <div class="os-body" id="os-body">
+          <div class="os-out" id="os-out" aria-live="polite"></div>
+          <form class="os-prompt" id="os-form" autocomplete="off">
+            <label for="os-in" class="os-ps1" id="os-ps1">guest@trendcode:~$</label>
+            <input id="os-in" class="os-in" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="Type a command" />
+          </form>
         </div>
       </div>
-      <div class="chips" id="topic-chips" role="group" aria-label="Filter by topic"></div>
-      <div class="post-grid" id="post-grid"></div>
-      <p class="empty" id="post-empty" hidden>No posts match that yet. <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest it as a topic →</a></p>
+      <div class="os-dock" id="os-dock" aria-label="Quick commands"></div>
     </section>
 
-    <section id="labs" class="section reveal">
-      <div class="section-head">
-        <div>
-          <h2>Labs</h2>
-          <p class="muted">Interactive experiments that run entirely in your browser. Nothing to install.</p>
-        </div>
-        <a href="labs/index.html" class="btn btn-ghost">All labs →</a>
+    <!-- SHA-256: live hashing -->
+    <section class="chapter" id="touch">
+      <header class="chapter-head">
+        <span class="chapter-no">sha-256</span>
+        <h2>Don't read about it. <em>Touch it.</em></h2>
+        <p>This box runs real SHA-256, the same function that protects passwords and Bitcoin, right here in your browser. Type something. Then change one letter.</p>
+      </header>
+      <div class="hashbox">
+        <label class="hash-label" for="hash-in">input</label>
+        <input id="hash-in" class="hash-in" type="text" value="hello world" spellcheck="false" autocomplete="off" />
+        <span class="hash-label">sha-256</span>
+        <div class="hash-out" id="hash-out" aria-live="polite"></div>
+        <p class="hash-caption" id="hash-caption">Try changing a single character.</p>
       </div>
-      <div class="lab-grid" id="labs-grid"></div>
-    </section>
-
-    <section id="paths" class="section reveal">
-      <div class="section-head">
-        <div>
-          <h2>Learning paths</h2>
-          <p class="muted">Guided routes that mix reading and doing. Your progress is saved as you go.</p>
-        </div>
-      </div>
-      <div class="paths" id="paths-list"></div>
-    </section>
-
-    <section id="progress" class="section reveal">
-      <div class="section-head">
-        <div>
-          <h2>Your progress</h2>
-          <p class="muted">Stored only in this browser. No account needed.</p>
-        </div>
-      </div>
-      <div class="progress-box" id="progress-box"></div>
-    </section>
-
-    <section id="quiz" class="section reveal">
-      <div class="section-head">
-        <div>
-          <h2>Quick check: how decoded are you?</h2>
-          <p class="muted">Five random questions per round. Tip: press A–D to answer.</p>
-        </div>
-      </div>
-      <div class="quiz card" id="quiz-box"></div>
-    </section>
-
-    <section id="timeline" class="section reveal">
-      <div class="section-head">
-        <h2>The post-quantum timeline</h2>
-        <p class="muted">Click a milestone to see why it matters.</p>
-      </div>
-      <div class="timeline" id="timeline-list"></div>
-    </section>
-
-    <section id="glossary" class="section reveal">
-      <div class="section-head">
-        <h2>Glossary</h2>
-        <div class="toolbar">
-          <input type="search" id="glossary-search" placeholder="Look up a term…" aria-label="Search glossary" />
-        </div>
-      </div>
-      <div class="term-of-day" id="term-of-day"></div>
-      <div class="glossary" id="glossary-list"></div>
-    </section>
-
-    <section id="subscribe" class="section subscribe reveal">
-      <h2>Get one trend, decoded, every week.</h2>
-      <p class="muted">A short email, one topic, one lab. No spam. Unsubscribe any time.</p>
-      <form id="subscribe-form">
-        <input type="email" placeholder="you@example.com" required aria-label="Email address" />
-        <button type="submit" class="btn">Subscribe</button>
-      </form>
-      <p class="form-note" id="form-note" role="status"></p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="footer-grid">
-      <div>
+      <div class="footer-brand">
         <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
-        <p class="muted">Built to make tech make sense.</p>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="index.html#subscribe" class="btn btn-small">Get the weekly email</a>
       </div>
       <div>
         <h4>Learn</h4>
-        <a href="#latest">Explainers</a>
+        <a href="posts.html">Explainers</a>
+        <a href="topics.html">Topics</a>
         <a href="labs/index.html">Labs</a>
-        <a href="#paths">Learning paths</a>
-        <a href="#glossary">Glossary</a>
+        <a href="paths.html">Learning paths</a>
+        <a href="resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="daily.html">Daily challenge</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="match.html">Jargon Match</a>
+        <a href="myths.html">Myth or Fact</a>
+        <a href="quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="glossary.html">Glossary</a>
+        <a href="timeline.html">Timelines</a>
+        <a href="progress.html">Your progress</a>
+        <a href="saved.html">Reading list</a>
+        <a href="certificate.html">Certificates</a>
       </div>
       <div>
         <h4>Contribute</h4>
@@ -165,10 +133,12 @@
         <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
       </div>
     </div>
-    <p class="copyright">© <span id="year">2026</span> Trendcode.</p>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
   </footer>
 
   <script src="assets/js/data.js"></script>
+  <script src="assets/js/avatar.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/pages/home.js"></script>
 </body>
 </html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flashcards — Trendcode</title>
+  <meta name="description" content="Study every computer science term on Trendcode with flip cards and simple spaced repetition." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-base="">
+  <header class="site-header">
+    <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="posts.html">Explainers</a>
+      <a href="topics.html">Topics</a>
+      <a href="labs/index.html">Labs</a>
+      <a href="activities.html" aria-current="page">Activities</a>
+      <a href="paths.html">Paths</a>
+      <a href="progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="page-hero">
+      <p class="eyebrow">// flashcards</p>
+      <h1>Flashcards</h1>
+      <p class="lead">Flip, recall, repeat. Cards you know move up a box. Cards you don't come back sooner. It's simple spaced repetition, the most efficient way to remember.</p>
+    </section>
+    <div class="fc-layout">
+      <section class="panel fc-panel">
+        <div class="fc-controls">
+          <label class="field"><span>Deck</span><select id="deck" class="input"></select></label>
+          <label class="field"><span>Show first</span><select id="direction" class="input"><option value="term">Term → meaning</option><option value="def">Meaning → term</option></select></label>
+        </div>
+        <div id="card-stage"></div>
+        <p class="muted small center">Keys: <kbd>Space</kbd> flip · <kbd>1</kbd> still learning · <kbd>2</kbd> got it</p>
+      </section>
+      <aside class="panel">
+        <h2 class="sub-h">This deck</h2>
+        <div id="deck-stats"></div>
+        <button type="button" class="link-btn" id="reset-deck">Reset this deck</button>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="posts.html">Explainers</a>
+        <a href="topics.html">Topics</a>
+        <a href="labs/index.html">Labs</a>
+        <a href="paths.html">Learning paths</a>
+        <a href="resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="daily.html">Daily challenge</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="match.html">Jargon Match</a>
+        <a href="myths.html">Myth or Fact</a>
+        <a href="quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="glossary.html">Glossary</a>
+        <a href="timeline.html">Timelines</a>
+        <a href="progress.html">Your progress</a>
+        <a href="saved.html">Reading list</a>
+        <a href="certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/avatar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/pages/flashcards.js"></script>
+</body>
+</html>
