@@ -12,6 +12,6 @@
 // saved in the visitor's browser only, without sign-in or syncing.
 // =============================================================
 window.TC_CONFIG = {
-  supabaseUrl: "",      // e.g. "https://abcdefghijkl.supabase.co"
-  supabaseAnonKey: "",  // e.g. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  supabaseUrl: "https://jesiwlblubanwndjckup.supabase.co",
+  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Implc2l3bGJsdWJhbnduZGpja3VwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQzMTA4MDIsImV4cCI6MjEwOTg4NjgwMn0.xnjvVhdn_WEKZAO-ESWlUo_VBFMxoBwlGYAxdK50fdQ",
 };

@@ -288,9 +288,26 @@
       },
       subscribe: {
         desc: "get one trend, decoded, every week", arg: "<email>",
-        run([email]) {
+        async run([email]) {
           if (!email || !/^\S+@\S+\.\S+$/.test(email)) return print(`usage: subscribe ${dim("you@example.com")}`);
-          print(`<span class="os-ok">✓ queued:</span> ${escapeHtml(email)} ${dim("(connect a newsletter service to make this real)")}`);
+          await window.tcAccountReady;
+          const c = window.TC_CONFIG || {};
+          if (!c.supabaseUrl || !c.supabaseAnonKey) return print(dim("subscriptions aren't switched on yet."));
+          print(dim(`subscribing ${escapeHtml(email)}…`));
+          try {
+            const res = await fetch(`${c.supabaseUrl}/rest/v1/subscribers`, {
+              method: "POST",
+              headers: { apikey: c.supabaseAnonKey, Authorization: `Bearer ${c.supabaseAnonKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+              body: JSON.stringify({ email: email.trim() }),
+            });
+            if (res.ok) return print(`<span class="os-ok">✓ subscribed:</span> ${escapeHtml(email)} ${dim("— one trend, decoded, every week.")}`);
+            const err = await res.json().catch(() => ({}));
+            if (err.code === "23505") return print(`<span class="os-ok">✓</span> ${escapeHtml(email)} ${dim("is already on the list.")}`);
+            if (err.code === "23514") return print("that doesn't look like a valid email.", "os-err");
+            print("couldn't subscribe right now, try again later.", "os-err");
+          } catch (e) {
+            print("network error, check your connection and try again.", "os-err");
+          }
         },
       },
       history: { desc: "commands you've run", run: () => print(hist.map((h, i) => `${dim(String(i + 1).padStart(3, " "))}  ${c(h)}`).join("<br>") || dim("no history yet.")) },

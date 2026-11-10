@@ -17,7 +17,7 @@ create table if not exists public.profiles (
 
 -- Keep updated_at fresh
 create or replace function public.touch_updated_at() returns trigger
-language plpgsql as $$
+language plpgsql set search_path = '' as $$
 begin
   new.updated_at = now();
   return new;
@@ -45,3 +45,24 @@ create policy "Users update their own profile" on public.profiles
 drop policy if exists "Users delete their own profile" on public.profiles;
 create policy "Users delete their own profile" on public.profiles
   for delete using (auth.uid() = id);
+
+-- =============================================================
+-- Newsletter subscribers (used by the homepage `subscribe` command).
+-- Visitors can only ADD an email. Nobody can read, change or delete
+-- the list with the public key; view it in Supabase → Table Editor.
+-- =============================================================
+create table if not exists public.subscribers (
+  id         bigint generated always as identity primary key,
+  email      text not null,
+  created_at timestamptz not null default now(),
+  constraint subscribers_email_format check (email ~* '^[^@\s]+@[^@\s]+\.[^@\s]+$' and length(email) <= 254)
+);
+create unique index if not exists subscribers_email_lower_key on public.subscribers (lower(email));
+
+alter table public.subscribers enable row level security;
+revoke all on public.subscribers from anon, authenticated;
+grant insert (email) on public.subscribers to anon, authenticated;
+
+drop policy if exists "Anyone can subscribe" on public.subscribers;
+create policy "Anyone can subscribe" on public.subscribers
+  for insert to anon, authenticated with check (true);
