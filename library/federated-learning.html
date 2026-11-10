@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Federated learning — Trendcode</title>
+  <meta name="description" content="Training one AI model across many devices or organisations without collecting their raw data in one place." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/library.css" />
+</head>
+<body data-base="../" data-lib="federated-learning">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="../posts.html">Explainers</a>
+      <a href="../library.html" aria-current="page">Library</a>
+      <a href="../threats.html">Threats</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../compiler.html">Code</a>
+      <a href="../activities.html">Activities</a>
+      <a href="../paths.html">Paths</a>
+      <a href="../progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="../login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article lib-article">
+      <p class="eyebrow">// <a href="../library.html">library</a> · <a href="../library.html#ai">artificial intelligence</a></p>
+      <h1>Federated learning</h1>
+      <p class="lib-summary">Training one AI model across many devices or organisations without collecting their raw data in one place.</p>
+      <div class="lib-meta">
+        <span class="pill">🤖 AI</span>
+        <span class="pill lvl-intermediate">Intermediate</span>
+        <span class="pill">3 min read</span>
+        <span class="lib-read-state" id="lib-read-state"></span>
+      </div>
+
+      <section class="lib-sec" id="in-plain-words">
+        <h2 data-label="In plain words"><span class="sec-no">01</span>In plain words</h2>
+        <p class="lib-lede">Normally, to train a model you gather all the data on one server. <strong>Federated learning</strong> flips this: the model travels to the data instead. Each phone or hospital trains a copy on its own data, and only the <em>lessons learned</em> (model updates) are sent back and combined. The raw data never leaves home.</p>
+      </section>
+
+      <section class="lib-sec" id="why-it-matters">
+        <h2 data-label="Why it matters"><span class="sec-no">02</span>Why it matters</h2>
+        <p>Some of the most valuable data is also the most private: what you type on your phone, patient scans, bank transactions. Laws, contracts and common sense often forbid pooling it. Federated learning lets organisations and devices benefit from shared learning while keeping data local.</p>
+      </section>
+
+      <section class="lib-sec" id="how-it-works">
+        <h2 data-label="How it works"><span class="sec-no">03</span>How it works</h2>
+        <ol class="lib-steps">
+          <li><strong>Broadcast:</strong> a central server sends the current model to a sample of participating clients.</li>
+          <li><strong>Train locally:</strong> each client improves the model on its own data for a few steps.</li>
+          <li><strong>Send updates:</strong> clients send back only the changes to the model's weights.</li>
+          <li><strong>Aggregate:</strong> the server averages the updates, weighted by how much data each client had (the “Federated Averaging” algorithm, McMahan et al., 2017), to produce a better global model.</li>
+          <li><strong>Protect updates:</strong> secure aggregation lets the server see only the combined sum, not any individual update, and differential privacy can add noise for formal guarantees.</li>
+        </ol>
+      </section>
+
+      <section class="lib-sec" id="real-world-example">
+        <h2 data-label="Real-world example"><span class="sec-no">04</span>Real-world example</h2>
+        <div class="lib-example">
+          <h3>Your phone keyboard</h3>
+          <p>Google's Gboard keyboard was one of the first large-scale uses (announced in 2017): next-word suggestions improve by learning from typing on millions of phones, without the text being uploaded. In healthcare, the Federated Tumor Segmentation (FeTS) initiative trained brain-tumour models across dozens of hospitals worldwide without sharing patient scans.</p>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="advantages-and-limitations">
+        <h2 data-label="Advantages & limitations"><span class="sec-no">05</span>Advantages &amp; limitations</h2>
+        <div class="lib-pc">
+          <div class="lib-pros"><h3>Advantages</h3><ul><li>Raw data stays on the device or inside the organisation.</li><li>Unlocks learning from data that could never be centralised.</li><li>Less data transfer than uploading full datasets.</li></ul></div>
+          <div class="lib-cons"><h3>Limitations</h3><ul><li>Client data is uneven (not “IID”), which makes training slower and less stable.</li><li>Communication and coordination across many unreliable devices is complex.</li><li>Harder to debug: you can't inspect the training data.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="security-and-privacy">
+        <h2 data-label="Security & privacy"><span class="sec-no">06</span>Security &amp; privacy implications</h2>
+        <ul class="lib-security"><li>Updates can leak data: “gradient inversion” attacks (for example Deep Leakage from Gradients, 2019) can reconstruct training examples from individual updates, which is why secure aggregation and differential privacy matter.</li><li>Malicious clients can poison the global model or plant backdoors, so robust aggregation and anomaly detection help.</li><li>Federated isn't automatically private. It's a strong foundation that needs extra privacy-enhancing technologies on top.</li></ul>
+      </section>
+
+      <section class="lib-sec" id="related-technologies">
+        <h2 data-label="Related technologies"><span class="sec-no">07</span>Related technologies</h2>
+        <div class="lib-related"><a class="lib-chip" href="../library/differential-privacy.html"><small>library</small>Differential privacy</a><a class="lib-chip" href="../library/privacy-enhancing-technologies.html"><small>library</small>Privacy-enhancing technologies</a><a class="lib-chip" href="../library/data-poisoning.html"><small>library</small>Data poisoning</a><a class="lib-chip" href="../library/homomorphic-encryption.html"><small>library</small>Homomorphic encryption</a><a class="lib-chip post" href="../posts/how-neural-networks-learn.html"><small>explainer</small>How neural networks learn (gradient descent without the calculus)</a></div>
+      </section>
+
+      <section class="lib-sec" id="further-reading">
+        <h2 data-label="Further reading"><span class="sec-no">08</span>Further reading</h2>
+        <ul class="lib-reading"><li><a href="https://arxiv.org/abs/1602.05629" target="_blank" rel="noopener">Communication-Efficient Learning of Deep Networks from Decentralized Data <span aria-hidden="true">↗</span></a><span>arXiv (McMahan et al.)</span></li><li><a href="https://en.wikipedia.org/wiki/Federated_learning" target="_blank" rel="noopener">Federated learning <span aria-hidden="true">↗</span></a><span>Wikipedia</span></li><li><a href="https://flower.ai" target="_blank" rel="noopener">Flower: a friendly federated learning framework <span aria-hidden="true">↗</span></a><span>Flower</span></li></ul>
+      </section>
+
+      <nav class="lib-pager" aria-label="More in Artificial intelligence">
+        <a href="explainable-ai.html"><small>← previous</small>Explainable AI</a>
+        <a href="model-inversion-attacks.html" class="next"><small>next →</small>Model inversion attacks</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="../index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="../posts.html">Explainers</a>
+        <a href="../library.html">The Library</a>
+        <a href="../topics.html">Topics</a>
+        <a href="../labs/index.html">Labs</a>
+        <a href="../compiler.html">Code playground</a>
+        <a href="../paths.html">Learning paths</a>
+        <a href="../resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="../daily.html">Daily challenge</a>
+        <a href="../flashcards.html">Flashcards</a>
+        <a href="../match.html">Jargon Match</a>
+        <a href="../myths.html">Myth or Fact</a>
+        <a href="../quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="../threats.html">Threat landscape</a>
+        <a href="../glossary.html">Glossary</a>
+        <a href="../timeline.html">Timelines</a>
+        <a href="../progress.html">Your progress</a>
+        <a href="../saved.html">Reading list</a>
+        <a href="../certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/avatar.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

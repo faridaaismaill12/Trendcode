@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital identity — Trendcode</title>
+  <meta name="description" content="How people and organisations prove who they are online, and how to do it without over-sharing." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/library.css" />
+</head>
+<body data-base="../" data-lib="digital-identity">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="../posts.html">Explainers</a>
+      <a href="../library.html" aria-current="page">Library</a>
+      <a href="../threats.html">Threats</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../compiler.html">Code</a>
+      <a href="../activities.html">Activities</a>
+      <a href="../paths.html">Paths</a>
+      <a href="../progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="../login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article lib-article">
+      <p class="eyebrow">// <a href="../library.html">library</a> · <a href="../library.html#privacy">privacy &amp; digital security</a></p>
+      <h1>Digital identity</h1>
+      <p class="lib-summary">How people and organisations prove who they are online, and how to do it without over-sharing.</p>
+      <div class="lib-meta">
+        <span class="pill">🛡️ Privacy</span>
+        <span class="pill lvl-beginner">Beginner</span>
+        <span class="pill">3 min read</span>
+        <span class="lib-read-state" id="lib-read-state"></span>
+      </div>
+
+      <section class="lib-sec" id="in-plain-words">
+        <h2 data-label="In plain words"><span class="sec-no">01</span>In plain words</h2>
+        <p class="lib-lede">Offline, you prove who you are with a face, a signature or an ID card. Online, a <strong>digital identity</strong> is the collection of identifiers (usernames, email addresses, account numbers), credentials (passwords, passkeys, digital documents) and attributes (name, age, address) that represent you to websites, employers, banks and governments.</p>
+      </section>
+
+      <section class="lib-sec" id="why-it-matters">
+        <h2 data-label="Why it matters"><span class="sec-no">02</span>Why it matters</h2>
+        <p>Almost everything online depends on knowing who someone is, or at least what they're allowed to do: banking, healthcare, voting, work systems. Weak identity leads to fraud and account takeovers. Over-collected identity leads to surveillance and data breaches. Getting identity right is foundational to both security and privacy.</p>
+      </section>
+
+      <section class="lib-sec" id="how-it-works">
+        <h2 data-label="How it works"><span class="sec-no">03</span>How it works</h2>
+        <ol class="lib-steps">
+          <li><strong>Identity proofing:</strong> establishing that a person is who they claim to be, for example by checking a passport once when opening a bank account.</li>
+          <li><strong>Authentication:</strong> proving it's still you each time, with passwords, one-time codes or, better, phishing-resistant <em>passkeys</em>.</li>
+          <li><strong>Authorisation:</strong> deciding what you're allowed to do once you're identified.</li>
+          <li><strong>Federation:</strong> “Sign in with…” buttons use standards like OAuth 2.0, OpenID Connect and SAML so one identity provider vouches for you to many services.</li>
+          <li><strong>Digital wallets and verifiable credentials:</strong> issuers (a government, a university) sign credentials that you keep in a wallet on your phone and present to others, sometimes revealing only one attribute, such as “over 18”.</li>
+        </ol>
+      </section>
+
+      <section class="lib-sec" id="real-world-example">
+        <h2 data-label="Real-world example"><span class="sec-no">04</span>Real-world example</h2>
+        <div class="lib-example">
+          <h3>National e-IDs and mobile wallets</h3>
+          <p>Estonia's digital ID lets citizens sign documents, file taxes and vote online. India's Aadhaar has enrolled well over a billion people. Under its updated eIDAS regulation, the EU requires member states to offer citizens a European Digital Identity Wallet, and mobile driving licences built on the ISO/IEC 18013-5 standard are rolling out in several countries.</p>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="advantages-and-limitations">
+        <h2 data-label="Advantages & limitations"><span class="sec-no">05</span>Advantages &amp; limitations</h2>
+        <div class="lib-pc">
+          <div class="lib-pros"><h3>Advantages</h3><ul><li>Convenient, fast access to services from anywhere.</li><li>Strong credentials such as passkeys dramatically reduce phishing and account takeover.</li><li>Selective disclosure can reveal less than physical ID cards do.</li></ul></div>
+          <div class="lib-cons"><h3>Limitations</h3><ul><li>Centralised identity systems are high-value targets and potential single points of failure.</li><li>People without smartphones, documents or connectivity can be excluded.</li><li>Account recovery when credentials are lost remains hard.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="security-and-privacy">
+        <h2 data-label="Security & privacy"><span class="sec-no">06</span>Security &amp; privacy implications</h2>
+        <ul class="lib-security"><li>Linking all activity to one identifier enables tracking across services. Unlinkable, pairwise identifiers and minimal disclosure help.</li><li>Identity providers must be protected like critical infrastructure, because a breach there compromises every service that trusts them.</li><li>Prefer phishing-resistant authentication and make recovery processes as strong as sign-in, since attackers target the weakest path.</li></ul>
+      </section>
+
+      <section class="lib-sec" id="related-technologies">
+        <h2 data-label="Related technologies"><span class="sec-no">07</span>Related technologies</h2>
+        <div class="lib-related"><a class="lib-chip post" href="../posts/how-passkeys-work.html"><small>explainer</small>Passwords are dying. Here's how passkeys replace them.</a><a class="lib-chip lab" href="../labs/password-lab.html"><small>lab</small>password lab</a><a class="lib-chip" href="../library/zero-knowledge-proofs.html"><small>library</small>Zero-knowledge proofs</a><a class="lib-chip" href="../library/zero-trust-architecture.html"><small>library</small>Zero trust architecture</a><a class="lib-chip" href="../library/digital-signatures.html"><small>library</small>Digital signatures</a></div>
+      </section>
+
+      <section class="lib-sec" id="further-reading">
+        <h2 data-label="Further reading"><span class="sec-no">08</span>Further reading</h2>
+        <ul class="lib-reading"><li><a href="https://www.w3.org/TR/vc-data-model-2.0/" target="_blank" rel="noopener">Verifiable Credentials Data Model 2.0 <span aria-hidden="true">↗</span></a><span>W3C</span></li><li><a href="https://www.w3.org/TR/did-core/" target="_blank" rel="noopener">Decentralized Identifiers (DIDs) v1.0 <span aria-hidden="true">↗</span></a><span>W3C</span></li><li><a href="https://fidoalliance.org/passkeys/" target="_blank" rel="noopener">Passkeys <span aria-hidden="true">↗</span></a><span>FIDO Alliance</span></li></ul>
+      </section>
+
+      <nav class="lib-pager" aria-label="More in Privacy &amp; digital security">
+        <a href="../library.html"><small>← back to</small>The Library</a>
+        <a href="zero-trust-architecture.html" class="next"><small>next →</small>Zero trust architecture</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="../index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="../posts.html">Explainers</a>
+        <a href="../library.html">The Library</a>
+        <a href="../topics.html">Topics</a>
+        <a href="../labs/index.html">Labs</a>
+        <a href="../compiler.html">Code playground</a>
+        <a href="../paths.html">Learning paths</a>
+        <a href="../resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="../daily.html">Daily challenge</a>
+        <a href="../flashcards.html">Flashcards</a>
+        <a href="../match.html">Jargon Match</a>
+        <a href="../myths.html">Myth or Fact</a>
+        <a href="../quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="../threats.html">Threat landscape</a>
+        <a href="../glossary.html">Glossary</a>
+        <a href="../timeline.html">Timelines</a>
+        <a href="../progress.html">Your progress</a>
+        <a href="../saved.html">Reading list</a>
+        <a href="../certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/avatar.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

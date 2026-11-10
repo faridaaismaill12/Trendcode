@@ -48,6 +48,8 @@ body {
 
 a { color: inherit; text-decoration: none; }
 [hidden] { display: none !important; }
+/* full-bleed bands use 100vw, which includes the scrollbar; never let that cause sideways scrolling */
+html, body { overflow-x: clip; }
 button { font: inherit; color: inherit; }
 .muted { color: var(--muted); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -966,7 +968,7 @@ pre.code { font-family: var(--mono); font-size: 0.92rem; background: var(--bg); 
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-grid > div:first-child { grid-column: 1 / -1; }
 }
-@media (max-width: 980px) {
+@media (max-width: 1180px) {
   .menu-btn { display: flex; }
   #site-nav {
     position: absolute; top: 100%; left: 0; right: 0; margin: 0;

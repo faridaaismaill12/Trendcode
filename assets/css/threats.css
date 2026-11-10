@@ -1,0 +1,205 @@
+/* =============================================================
+   Trendcode threat landscape: a printed field chart
+   Paper, ink and a serif. Deliberately no glow, no neon, no emoji.
+   ============================================================= */
+/* Colours come from the site theme (style.css tokens), so the chart follows dark/light mode.
+   --paper is the chart's own surface, --ink the line colour, --red the highlight accent. */
+.plate {
+  --paper: var(--surface); --paper-2: var(--surface-2); --ink: var(--text); --ink-2: var(--muted);
+  --rule: var(--border); --red: var(--accent); --blue: var(--good);
+  color: var(--ink); margin-top: 2rem;
+}
+.plate + .plate { margin-top: 0; border-top: 1px solid var(--rule); }
+.plate-inner { max-width: 1160px; margin: 0 auto; padding: 3.5rem 0 3rem; }
+.plate a { color: var(--ink); }
+
+/* ---------- Plate header ---------- */
+.plate-kicker {
+  display: flex; justify-content: space-between; gap: 0.5rem 1.5rem; flex-wrap: wrap;
+  border-top: 2px solid var(--ink-2); border-bottom: 1px solid var(--rule); padding: 0.45rem 0;
+  font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2); font-weight: 600;
+}
+.plate-head h2, .plate-head h1, .guide-head h2 {
+  font-family: "Instrument Serif", Georgia, "Times New Roman", serif; font-weight: 400;
+  font-size: clamp(2.6rem, 7vw, 5rem); line-height: 0.95; letter-spacing: -0.015em; margin: 1.6rem 0 0.9rem; color: var(--ink);
+}
+.plate-head em, .guide-head em { color: var(--red); }
+.plate-lede { max-width: 640px; font-size: 1.08rem; line-height: 1.6; color: var(--ink-2); }
+
+/* ---------- Layout ---------- */
+.plate-grid { display: grid; grid-template-columns: minmax(0, 1.38fr) minmax(0, 1fr); gap: 2.6rem; margin-top: 2.4rem; align-items: start; }
+.plate-chart { margin: 0; position: sticky; top: 84px; }
+.plate-chart figcaption { margin-top: 0.6rem; font-size: 0.78rem; color: var(--ink-2); font-style: italic; font-family: "Instrument Serif", Georgia, serif; font-size: 0.98rem; }
+.threat-map { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--paper); }
+
+/* ---------- Chart drawing ---------- */
+.tm-contour { fill: none; stroke: var(--ink); stroke-width: 1; stroke-opacity: 0.55; }
+.tm-contour.minor { stroke-width: 0.6; stroke-opacity: 0.18; }
+.tm-contour.future { stroke: var(--red); stroke-opacity: 0.45; stroke-dasharray: 2 5; }
+.tm-ring-label {
+  font-family: system-ui, sans-serif; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
+  fill: var(--ink-2); paint-order: stroke; stroke: var(--paper); stroke-width: 5px;
+}
+.tm-ring-label.future { fill: var(--red); }
+.tm-route { fill: none; stroke: var(--ink); stroke-width: 1.15; stroke-dasharray: 4 4; stroke-opacity: 0.7; }
+.tm-route.hot { stroke: var(--red); stroke-width: 2; stroke-opacity: 1; animation: tm-march 1.6s linear infinite; }
+.tm-route.prepared { stroke-opacity: 0.22; }
+@keyframes tm-march { to { stroke-dashoffset: -16; } }
+.tm-arrowhead { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+.tm-arrowhead.hot { stroke: var(--red); }
+.tm-centre-disc { fill: var(--paper); stroke: var(--red); stroke-width: 1.4; }
+.tm-centre-dot { fill: var(--red); }
+.tm-crosshair { stroke: var(--red); stroke-width: 1.2; }
+.tm-you { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 14px; fill: var(--red); }
+.tm-compass circle { fill: none; stroke: var(--ink); stroke-width: 0.8; }
+.tm-compass .thin { stroke: var(--ink); stroke-width: 0.5; stroke-opacity: 0.5; }
+.tm-compass .needle { fill: var(--ink); fill-opacity: 0.85; }
+.tm-compass text { font-family: "Instrument Serif", Georgia, serif; font-size: 13px; fill: var(--ink); }
+.tm-marker { cursor: pointer; outline: none; }
+.tm-hit { fill: transparent; }
+.tm-disc { fill: var(--paper); stroke: var(--ink); stroke-width: 1.4; transition: stroke 0.15s; }
+.tm-disc-ring { fill: none; stroke: var(--ink); stroke-width: 0.6; stroke-opacity: 0.45; }
+.tm-hatchfill { fill: url(#tm-hatch); pointer-events: none; }
+.tm-hatchline { stroke: var(--ink); stroke-width: 1; stroke-opacity: 0.4; }
+.tm-glyph { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.tm-glyph .g-fill { fill: var(--ink); stroke: none; }
+.tm-numeral {
+  font-family: "Instrument Serif", Georgia, serif; font-size: 18px; fill: var(--ink);
+  paint-order: stroke; stroke: var(--paper); stroke-width: 6px; stroke-linejoin: round; pointer-events: none;
+}
+.tm-numeral .n { font-style: italic; fill: var(--red); }
+.tm-marker:hover .tm-disc, .tm-marker:focus-visible .tm-disc, .tm-marker.on .tm-disc { stroke: var(--red); stroke-width: 2.2; }
+.tm-marker:hover .tm-glyph, .tm-marker.on .tm-glyph { stroke: var(--red); }
+.tm-marker:hover .tm-glyph .g-fill, .tm-marker.on .tm-glyph .g-fill { fill: var(--red); }
+.tm-marker.on .tm-disc-ring { stroke: var(--red); stroke-opacity: 0.8; }
+.tm-marker:focus-visible .tm-disc-ring { stroke: var(--blue); stroke-width: 2; stroke-opacity: 1; }
+.tm-legend rect { fill: var(--paper); stroke: var(--ink); stroke-width: 0.8; }
+.tm-legend text { font-family: system-ui, sans-serif; font-size: 11px; fill: var(--ink-2); }
+.tm-legend .lg-title { font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; fill: var(--ink); }
+.tm-legend .tm-disc { stroke-width: 1; }
+
+/* ---------- Field note ---------- */
+.field-note { border-top: 3px double var(--rule); padding-top: 1rem; color: var(--ink); }
+.fn-kicker { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+.fn-head { display: flex; align-items: center; gap: 0.8rem; margin: 0.6rem 0 0.2rem; }
+.fn-glyph { fill: none; stroke: var(--ink); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.fn-glyph .g-fill { fill: var(--ink); stroke: none; }
+.fn-head h3 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: 2.2rem; line-height: 1; }
+.fn-tag { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 1.2rem; color: var(--ink-2); margin-bottom: 0.9rem; }
+.fn-facts { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0 1.8rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 0.55rem 0; margin-bottom: 1rem; }
+.fn-facts dt { font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; }
+.fn-facts dd { margin: 0.15rem 0 0; font-size: 0.9rem; }
+.fn-what { font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.4rem; }
+.field-note h4 { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); font-weight: 700; margin: 1.1rem 0 0.45rem; }
+.fn-chain { counter-reset: s; list-style: none; display: grid; gap: 0.25rem; }
+.fn-chain li { counter-increment: s; display: grid; grid-template-columns: 1.6rem 1fr; font-size: 0.9rem; line-height: 1.45; }
+.fn-chain li::before { content: counter(s) "."; font-family: "Instrument Serif", Georgia, serif; font-style: italic; color: var(--red); font-size: 1.05rem; }
+.fn-case { font-size: 0.92rem; line-height: 1.55; padding-left: 0.9rem; border-left: 2px solid var(--rule); color: var(--ink-2); }
+.fn-case em { color: var(--ink); font-style: italic; font-family: "Instrument Serif", Georgia, serif; font-size: 1.08rem; }
+.fn-def { list-style: none; display: grid; gap: 0.25rem; }
+.fn-def li { position: relative; padding-left: 1.2rem; font-size: 0.92rem; line-height: 1.45; }
+.fn-def li::before { content: "—"; position: absolute; left: 0; color: var(--red); }
+.fn-cta {
+  display: inline-flex; gap: 0.4rem; margin-top: 1.3rem; padding-bottom: 0.15rem; border-bottom: 1.5px solid var(--red);
+  font-weight: 600; color: var(--red) !important; font-size: 0.95rem;
+}
+.fn-cta:hover span { transform: translateX(3px); }
+.fn-cta span { transition: transform 0.2s; }
+
+/* impact as small filled squares */
+.impact-scale { display: inline-flex; gap: 3px; vertical-align: -1px; }
+.impact-scale i { width: 9px; height: 9px; border: 1px solid var(--ink); }
+.impact-scale i.on { background: var(--ink); }
+
+/* ---------- Atlas-style index ---------- */
+.plate-index { margin-top: 2.6rem; border-top: 1px solid var(--rule); padding-top: 0.9rem; }
+.ix-title { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.6rem; }
+.ix-list { list-style: none; columns: 2; column-gap: 3rem; }
+.ix-list li { break-inside: avoid; }
+.ix-row {
+  width: 100%; display: grid; grid-template-columns: 2.1rem auto 1fr auto 2.6rem; gap: 0.6rem; align-items: baseline;
+  background: none; border: none; padding: 0.42rem 0; cursor: pointer; color: var(--ink); text-align: left; font: inherit; font-size: 0.95rem;
+  border-bottom: 1px solid transparent;
+}
+.ix-n { font-family: "Instrument Serif", Georgia, serif; font-style: italic; color: var(--red); font-size: 1.05rem; }
+.ix-dots { border-bottom: 1px dotted var(--ink-2); transform: translateY(-4px); opacity: 0.6; }
+.ix-ready { font-size: 0.8rem; color: var(--ink-2); text-align: right; font-variant-numeric: tabular-nums; }
+.ix-ready.ok { color: var(--blue); font-weight: 700; }
+.ix-row:hover .ix-name, .ix-row.on .ix-name { color: var(--red); }
+.ix-row.on { border-bottom-color: var(--red); }
+.ix-row:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.ix-foot { margin-top: 0.9rem; font-size: 0.88rem; color: var(--ink-2); }
+.ix-foot a { color: var(--red) !important; border-bottom: 1px solid currentColor; }
+.plate-more { display: inline-flex; gap: 0.5rem; margin-top: 1.8rem; font-family: "Instrument Serif", Georgia, serif; font-size: 1.3rem; font-style: italic; color: var(--ink) !important; border-bottom: 1px solid var(--ink); }
+.plate-more:hover { color: var(--red) !important; border-color: var(--red); }
+
+/* ---------- Full guide entries ---------- */
+.guide-head { margin-bottom: 1rem; }
+.entry { border-top: 1px solid var(--rule); padding: 2.4rem 0 2.2rem; scroll-margin-top: 80px; }
+.entry-head { display: grid; grid-template-columns: 4.2rem auto minmax(0, 1fr) auto; gap: 1.2rem; align-items: center; }
+.entry-n { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 3.4rem; line-height: 1; color: var(--red); }
+.entry-glyph { fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.entry-glyph .g-fill { fill: var(--ink); stroke: none; }
+.entry-title h3 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.7rem); line-height: 1; }
+.entry-tag { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 1.2rem; color: var(--ink-2); }
+.entry-facts { display: grid; gap: 0.4rem; text-align: right; }
+.entry-facts dt { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; }
+.entry-facts dd { margin: 0; font-size: 0.9rem; }
+.entry-body { display: grid; grid-template-columns: 1fr 1fr; gap: 2.6rem; margin-top: 1.8rem; padding-left: 5.4rem; }
+.entry h4 { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; margin: 1.3rem 0 0.5rem; color: var(--ink); }
+.entry-col h4:first-child { margin-top: 0; }
+.entry-col p { font-size: 0.98rem; line-height: 1.65; color: var(--ink); }
+.entry-chain { counter-reset: s; list-style: none; display: grid; gap: 0.35rem; }
+.entry-chain li { counter-increment: s; display: grid; grid-template-columns: 1.8rem 1fr; line-height: 1.5; font-size: 0.95rem; }
+.entry-chain li::before { content: counter(s) "."; font-family: "Instrument Serif", Georgia, serif; font-style: italic; color: var(--red); font-size: 1.1rem; }
+.entry-case { margin: 0; padding: 0.2rem 0 0.2rem 1rem; border-left: 2px solid var(--red); }
+.entry-case p { font-size: 0.95rem !important; color: var(--ink-2) !important; }
+.entry-case em { font-family: "Instrument Serif", Georgia, serif; font-size: 1.15rem; color: var(--ink); }
+.entry-def { list-style: none; display: grid; gap: 0.3rem; }
+.entry-def li { position: relative; padding-left: 1.3rem; font-size: 0.95rem; line-height: 1.5; }
+.entry-def li::before { content: "—"; position: absolute; left: 0; color: var(--red); }
+.entry-check { margin: 1.8rem 0 0 5.4rem; padding: 1rem 1.3rem 1.1rem; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--paper); }
+.entry-check legend { padding: 0 0.5rem; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; }
+.entry-score { margin-left: 0.6rem; color: var(--ink-2); letter-spacing: 0.06em; }
+.entry-score.ok { color: var(--blue); }
+.entry-check ul { list-style: none; display: grid; gap: 0.15rem; }
+.entry-check label { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem; align-items: start; padding: 0.4rem 0.3rem; cursor: pointer; font-size: 0.95rem; line-height: 1.45; }
+.entry-check input { position: absolute; opacity: 0; pointer-events: none; }
+.entry-check .box { width: 1.05rem; height: 1.05rem; border: 1.5px solid var(--ink); margin-top: 0.18rem; position: relative; background: var(--paper); }
+.entry-check input:checked + .box::after {
+  content: ""; position: absolute; left: 3px; top: -3px; width: 6px; height: 12px;
+  border: solid var(--red); border-width: 0 2.5px 2.5px 0; transform: rotate(40deg);
+}
+.entry-check input:focus-visible + .box { outline: 2px solid var(--blue); outline-offset: 2px; }
+.entry-check input:checked ~ span:last-child { text-decoration: line-through; text-decoration-color: var(--rule); color: var(--ink-2); }
+.entry-foot { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; align-items: baseline; margin: 1.4rem 0 0 5.4rem; font-size: 0.92rem; }
+.entry-foot > span { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; }
+.entry-foot a { border-bottom: 1px solid var(--rule); }
+.entry-foot a:hover { border-color: var(--red); color: var(--red); }
+.entry-foot small { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-right: 0.15rem; }
+.entry-locate { background: none; border: none; color: var(--red); font: inherit; cursor: pointer; padding: 0; margin-left: auto; }
+.entry-locate:hover { text-decoration: underline; }
+
+/* toasts on this page shouldn't show the old icon slot */
+.threats-page .toast { border-color: var(--accent); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .plate-grid { grid-template-columns: 1fr; }
+  .plate-chart { position: static; }
+  .entry-body { grid-template-columns: 1fr; gap: 0.5rem; padding-left: 0; }
+  .entry-check, .entry-foot { margin-left: 0; }
+  .entry-head { grid-template-columns: auto auto minmax(0, 1fr); }
+  .entry-facts { grid-column: 1 / -1; grid-auto-flow: column; justify-content: start; gap: 1.5rem; text-align: left; }
+}
+@media (max-width: 640px) {
+  .plate-inner { padding: 2.5rem 0 2rem; }
+  .ix-list { columns: 1; }
+  .fn-facts { grid-template-columns: 1fr 1fr; gap: 0.5rem 1.2rem; }
+  .entry-n { font-size: 2.4rem; }
+  .entry-glyph { display: none; }
+  .tm-numeral { font-size: 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tm-route.hot { animation: none; }
+}

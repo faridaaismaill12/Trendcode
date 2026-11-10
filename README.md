@@ -48,6 +48,49 @@ Accounts are optional. Without them, profiles and characters still work locally.
 
 How sync works: on sign-in, the browser's progress is **merged** with the account's (nothing is lost on either side). After that, changes are pushed automatically. The Supabase library only loads on the login and profile pages, or when someone is signed in.
 
+## Threat landscape (`threats.html` + homepage dashboard)
+
+Designed as a **printed field chart** (paper, ink and a serif): hand-drawn contour rings around "you are here" (your systems & data, your people & vendors, the wider world, and a dashed ring for the future). Seven threats are marked with Roman numerals and line-drawn icons: quantum threats, AI-powered attacks, ransomware, phishing, data breaches, supply chain attacks and social engineering. Dashed routes with arrowheads show how each one reaches you, and marker size is an editorial estimate of impact (labelled as such in the figure caption).
+
+- **Click a marker** (or a row in the atlas-style index) to read its field note: what it is, how it unfolds, a case on record, and what helps.
+- **Readiness check:** each threat has 5 questions on `threats.html`. At 3 of 5, the marker is hatched over and its route fades. Answers are saved locally and synced for signed-in users.
+- Icons are inline SVG line drawings (`THREAT_GLYPHS`). The design deliberately uses no emoji, glow effects or fake "live" data.
+
+All content lives in `THREATS` in [`assets/js/threatmap.js`](assets/js/threatmap.js). Edit it there; both the homepage and the full page update. Deep links such as `threats.html#phishing` open a specific briefing.
+
+## The Library (`library.html`, `library/*.html`)
+
+35 structured guides in 4 categories: quantum & advanced cryptography, artificial intelligence, emerging computing, and privacy & digital security. Every guide has the same eight sections: in plain words, why it matters, how it works, a real-world example, advantages & limitations, security & privacy implications, related technologies, and further reading.
+
+The content lives in **`content/library/*.js`** (one file per category). To add or edit a guide, change the data, then run:
+
+```bash
+node tools/build-library.js
+```
+
+This regenerates `library.html` and every `library/<slug>.html`, refreshes the search index in `data.js`, and re-stamps the shared header and footer. The build **fails with a clear message** if a guide is missing a section or links to a related guide, post or lab that doesn't exist. Related items use `lib:<slug>`, `post:<slug>`, `lab:<slug>` or plain text. Reading a guide earns 5 XP and counts toward the 🏛️ Librarian badge.
+
+## Code playground (`compiler.html`)
+
+A Monaco (VS Code) editor with 21 languages.
+
+**Runs in the browser, no setup:** Python (Pyodide), JavaScript, TypeScript, Ruby (ruby.wasm), Lua (Fengari), SQL (SQLite via sql.js) and HTML/CSS/JS with a live preview. JS, TS and Python run in a Web Worker, so **Stop** works on infinite loops. Lua stops itself after 8 seconds.
+
+**Runs on a compile server (signed-in users):** C, C++, Java, Go, Rust, C#, Kotlin, PHP, Swift, Bash, R, Haskell, Perl and Scala. These go through the Supabase Edge Function [`supabase/functions/run-code`](supabase/functions/run-code/index.ts), which forwards them to [Judge0](https://judge0.com). To switch them on:
+
+1. Get a Judge0 API key: subscribe to **Judge0 CE** on RapidAPI (it has a free tier), or self-host Judge0.
+2. Install the [Supabase CLI](https://supabase.com/docs/guides/cli), then from the repo root run:
+   ```bash
+   supabase login
+   supabase link --project-ref <your-project-ref>
+   supabase secrets set JUDGE0_KEY=<your RapidAPI key>
+   supabase functions deploy run-code
+   ```
+   If you self-host, also set `JUDGE0_URL` (and leave `JUDGE0_KEY` empty if your server has no key).
+   Optional settings: `ALLOWED_ORIGIN=https://faridaaismaill12.github.io` locks the function to your site, and `RUNS_PER_10_MIN` sets the per-user limit (default 30).
+
+The function only accepts **signed-in users**, caps code at 64 KB, and limits each run to 5 s of CPU time and 256 MB of memory. The Judge0 key stays on the server and is never sent to the browser.
+
 ## Characters
 
 `assets/js/avatar.js` draws characters as SVG from a handful of options (hair, colours, eyes, mouth, outfit, accessory, background, class). Some options unlock with progress. Edit `LOCKS` to change the rules, or add options to `OPTIONS` and a drawing branch in `svg()`.

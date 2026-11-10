@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Library — Trendcode</title>
+  <meta name="description" content="A structured library of plain-language guides to quantum cryptography, AI, emerging computing and digital privacy: how each works, why it matters, real examples, trade-offs and further reading." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/library.css" />
+</head>
+<body data-base="" class="lib-index">
+  <header class="site-header">
+    <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="posts.html">Explainers</a>
+      <a href="library.html" aria-current="page">Library</a>
+      <a href="threats.html">Threats</a>
+      <a href="labs/index.html">Labs</a>
+      <a href="compiler.html">Code</a>
+      <a href="activities.html">Activities</a>
+      <a href="paths.html">Paths</a>
+      <a href="progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="page-hero lib-hero">
+      <p class="eyebrow">// the library</p>
+      <h1>35 technologies, <em>explained properly.</em></h1>
+      <p class="lead">Every guide follows the same eight steps: plain-words explanation, why it matters, how it works, a real example, trade-offs, security &amp; privacy, related tech and further reading. Start anywhere.</p>
+      <div class="lib-stats">
+        <span><strong>35</strong> guides</span>
+        <span><strong>4</strong> categories</span>
+        <span><strong>~2 h</strong> of reading</span>
+        <span id="lib-progress"><strong>0</strong> read</span>
+      </div>
+    </section>
+
+    <div class="lib-tools">
+      <input type="search" class="input" id="lib-search" placeholder="Search the library…  e.g. “privacy”, “quantum”, “agents”" aria-label="Search the library" />
+      <div class="chips" id="lib-cats" role="group" aria-label="Category">
+        <button type="button" class="chip active" data-cat="all">All</button>
+        <button type="button" class="chip" data-cat="crypto">🔐 Cryptography</button>
+        <button type="button" class="chip" data-cat="ai">🤖 AI</button>
+        <button type="button" class="chip" data-cat="emerging">⚡ Emerging</button>
+        <button type="button" class="chip" data-cat="privacy">🛡️ Privacy</button>
+      </div>
+    </div>
+
+    <section class="lib-cat" id="crypto" data-cat="crypto">
+      <header class="lib-cat-head">
+        <span class="lib-cat-icon" aria-hidden="true">🔐</span>
+        <div><h2>Quantum &amp; advanced cryptography</h2><p class="muted">The maths and physics protecting secrets in a world with quantum computers.</p></div>
+        <span class="lib-cat-count">9 guides</span>
+      </header>
+      <ol class="lib-list">
+        <li class="lib-item" data-slug="quantum-key-distribution" data-search="quantum key distribution using the physics of single photons to share a secret key, where any eavesdropping leaves detectable traces. quantum &amp; advanced cryptography imagine sending a secret by writing it on soap bubbles: anyone who touches a bubble pops it, so you'd know someone was snooping. quantum key distribution (qkd) works in a similar spirit. two parties send single particles of light (photons) to each other, and because measuring a quantum state disturbs it, an eavesdropper can't copy the photons without introducing errors the two parties can spot. the result is a shared secret key they can use with ordinary encryption.">
+          <a href="library/quantum-key-distribution.html">
+            <span class="lib-no">01</span>
+            <span class="lib-main"><strong>Quantum key distribution</strong><span>Using the physics of single photons to share a secret key, where any eavesdropping leaves detectable traces.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="quantum-resistant-encryption" data-search="quantum-resistant encryption the new families of algorithms designed to stay secure even against large quantum computers. quantum &amp; advanced cryptography today's internet locks (rsa and elliptic-curve cryptography) are built on maths problems that a big enough quantum computer could solve quickly. quantum-resistant (or post-quantum) encryption swaps those problems for different ones that no known quantum algorithm can crack. the clever part: it runs on ordinary computers and phones. you don't need any quantum hardware to use it.">
+          <a href="library/quantum-resistant-encryption.html">
+            <span class="lib-no">02</span>
+            <span class="lib-main"><strong>Quantum-resistant encryption</strong><span>The new families of algorithms designed to stay secure even against large quantum computers.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="zero-knowledge-proofs" data-search="zero-knowledge proofs proving that something is true, such as “i'm over 18” or “this transaction is valid”, without revealing anything else. quantum &amp; advanced cryptography suppose you want to prove to a friend that you know the password to a locked door, without telling them the password. you could walk in through one door and come out of another every time they ask. after enough rounds they'd be convinced, yet they'd have learned nothing about the password itself. a zero-knowledge proof (zkp) is a mathematical version of this: it convinces a verifier that a statement is true while revealing only that it's true.">
+          <a href="library/zero-knowledge-proofs.html">
+            <span class="lib-no">03</span>
+            <span class="lib-main"><strong>Zero-knowledge proofs</strong><span>Proving that something is true, such as “I'm over 18” or “this transaction is valid”, without revealing anything else.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="homomorphic-encryption" data-search="homomorphic encryption encryption that lets a server compute on your data without ever being able to read it. quantum &amp; advanced cryptography normally, to process data you must first decrypt it, and whoever does the processing can see everything. homomorphic encryption (he) is like a locked glovebox: you can put your hands in and work on what's inside, but you can never take it out or see it. a cloud server can add, multiply or even run a machine-learning model on encrypted numbers, and when you decrypt the result it's exactly what you'd have got on the plain data.">
+          <a href="library/homomorphic-encryption.html">
+            <span class="lib-no">04</span>
+            <span class="lib-main"><strong>Homomorphic encryption</strong><span>Encryption that lets a server compute on your data without ever being able to read it.</span></span>
+            <span class="lib-side"><span class="lvl lvl-advanced">Advanced</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="lattice-based-cryptography" data-search="lattice-based cryptography the geometry of high-dimensional grids that underpins today's main post-quantum standards. quantum &amp; advanced cryptography picture an endless grid of dots, like an orchard planted in perfect rows. that's a lattice. in two dimensions it's easy to find the dot closest to any spot. now imagine a grid in 500 or 1,000 dimensions, slightly skewed, with a bit of random “noise” added. finding the nearest point becomes astronomically hard, for classical and quantum computers. lattice-based cryptography hides secrets in that difficulty.">
+          <a href="library/lattice-based-cryptography.html">
+            <span class="lib-no">05</span>
+            <span class="lib-main"><strong>Lattice-based cryptography</strong><span>The geometry of high-dimensional grids that underpins today's main post-quantum standards.</span></span>
+            <span class="lib-side"><span class="lvl lvl-advanced">Advanced</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="digital-signatures" data-search="digital signatures the cryptographic proof that a message, file or update really came from who it claims, unchanged. quantum &amp; advanced cryptography a handwritten signature is easy to forge and says nothing about whether the page was changed afterwards. a digital signature is far stronger. it's created with a private key only the signer holds, and anyone can check it with the matching public key. if even one bit of the signed data changes, the check fails.">
+          <a href="library/digital-signatures.html">
+            <span class="lib-no">06</span>
+            <span class="lib-main"><strong>Digital signatures</strong><span>The cryptographic proof that a message, file or update really came from who it claims, unchanged.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="cryptographic-agility" data-search="cryptographic agility designing systems so their encryption can be swapped quickly when an algorithm weakens. quantum &amp; advanced cryptography imagine a house where the locks are welded into the doors. if a lock model is ever picked, you'd have to rebuild the house. crypto-agility means installing locks you can swap out with a screwdriver. in software terms, it's the ability to replace one cryptographic algorithm with another without rewriting or redeploying everything.">
+          <a href="library/cryptographic-agility.html">
+            <span class="lib-no">07</span>
+            <span class="lib-main"><strong>Cryptographic agility</strong><span>Designing systems so their encryption can be swapped quickly when an algorithm weakens.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="hybrid-key-exchange" data-search="hybrid key exchange combining a classical and a post-quantum algorithm so a connection stays safe if either one holds. quantum &amp; advanced cryptography when you're not sure which of two locks is stronger, fit both: a burglar has to defeat each one. hybrid key exchange does this for encrypted connections. it runs a trusted classical method (like x25519) and a new post-quantum one (like ml-kem) side by side and mixes their outputs into one key. an attacker must break both.">
+          <a href="library/hybrid-key-exchange.html">
+            <span class="lib-no">08</span>
+            <span class="lib-main"><strong>Hybrid key exchange</strong><span>Combining a classical and a post-quantum algorithm so a connection stays safe if either one holds.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="confidential-computing" data-search="confidential computing hardware-protected “enclaves” that keep data encrypted even while a computer is processing it. quantum &amp; advanced cryptography encryption usually protects data while it's stored or travelling, but the moment a program uses it, it sits unprotected in memory where a compromised operating system, a rogue administrator or the cloud provider could peek. confidential computing uses special cpu features to create a sealed room, a trusted execution environment (tee), where code runs on decrypted data that nothing outside the room can see.">
+          <a href="library/confidential-computing.html">
+            <span class="lib-no">09</span>
+            <span class="lib-main"><strong>Confidential computing</strong><span>Hardware-protected “enclaves” that keep data encrypted even while a computer is processing it.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+      </ol>
+    </section>
+
+    <section class="lib-cat" id="ai" data-cat="ai">
+      <header class="lib-cat-head">
+        <span class="lib-cat-icon" aria-hidden="true">🤖</span>
+        <div><h2>Artificial intelligence</h2><p class="muted">How modern AI systems act, retrieve, learn and fail, and how they're governed.</p></div>
+        <span class="lib-cat-count">10 guides</span>
+      </header>
+      <ol class="lib-list">
+        <li class="lib-item" data-slug="agentic-ai" data-search="agentic ai ai that doesn't just answer questions, but plans and takes actions toward a goal. artificial intelligence a chatbot waits for your question and replies. agentic ai is handed a goal, like “book me a train to leeds under £50” or “fix this failing test”, and works out the steps itself: searching, clicking, running code, checking the result and trying again. the “agentic” part is about autonomy: how much the system decides and does on its own.">
+          <a href="library/agentic-ai.html">
+            <span class="lib-no">01</span>
+            <span class="lib-main"><strong>Agentic AI</strong><span>AI that doesn't just answer questions, but plans and takes actions toward a goal.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="ai-agents" data-search="ai agents the building blocks of an ai agent: how it perceives, decides, remembers and acts. artificial intelligence an ai agent is any software that senses its environment, decides what to do and acts to reach a goal. a thermostat is a very simple agent; a self-driving car is a complex one. today the term usually means a large language model wired up with tools and memory so it can carry out tasks on your behalf. if “agentic ai” is the idea, agents are the actual machines.">
+          <a href="library/ai-agents.html">
+            <span class="lib-no">02</span>
+            <span class="lib-main"><strong>AI agents</strong><span>The building blocks of an AI agent: how it perceives, decides, remembers and acts.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="retrieval-augmented-generation" data-search="retrieval-augmented generation letting an ai look things up in your documents before it answers, so replies are current and cite sources. artificial intelligence a language model only “knows” what was in its training data, which may be out of date and never included your company's documents. retrieval-augmented generation (rag) gives it an open-book exam: before answering, the system searches a collection of documents for relevant passages and pastes them into the prompt. the model then answers using that material and can point to where each fact came from.">
+          <a href="library/retrieval-augmented-generation.html">
+            <span class="lib-no">03</span>
+            <span class="lib-main"><strong>Retrieval-Augmented Generation</strong><span>Letting an AI look things up in your documents before it answers, so replies are current and cite sources.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="ai-model-security" data-search="ai model security protecting ai systems, from training data to model weights to the live application, against attack and misuse. artificial intelligence an ai model is software, but an unusual kind: its behaviour comes from data rather than hand-written rules, and it responds to natural language that anyone can type. ai model security covers all the new ways that can go wrong: tricking the model, stealing it, poisoning what it learns, or using it to leak secrets. it also covers the ordinary software security of everything around it.">
+          <a href="library/ai-model-security.html">
+            <span class="lib-no">04</span>
+            <span class="lib-main"><strong>AI model security</strong><span>Protecting AI systems, from training data to model weights to the live application, against attack and misuse.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="adversarial-machine-learning" data-search="adversarial machine learning how carefully crafted inputs can fool ai models, and how to make models more robust. artificial intelligence show a well-trained image classifier a photo of a panda and it says “panda”. now change the pixels by an amount too small for any human to notice, and it confidently says “gibbon”. that's an adversarial example. adversarial machine learning studies these attacks, which exploit how models see the world differently from us, and the defences against them.">
+          <a href="library/adversarial-machine-learning.html">
+            <span class="lib-no">05</span>
+            <span class="lib-main"><strong>Adversarial machine learning</strong><span>How carefully crafted inputs can fool AI models, and how to make models more robust.</span></span>
+            <span class="lib-side"><span class="lvl lvl-advanced">Advanced</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="explainable-ai" data-search="explainable ai techniques that help people understand why an ai system made a particular decision. artificial intelligence if a bank's ai rejects your loan, “computer says no” isn't good enough. you want to know why. explainable ai (xai) is the set of methods that open up the black box: which factors mattered most, what would have changed the outcome, and whether the model is reasoning in a sensible way at all.">
+          <a href="library/explainable-ai.html">
+            <span class="lib-no">06</span>
+            <span class="lib-main"><strong>Explainable AI</strong><span>Techniques that help people understand why an AI system made a particular decision.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="federated-learning" data-search="federated learning training one ai model across many devices or organisations without collecting their raw data in one place. artificial intelligence normally, to train a model you gather all the data on one server. federated learning flips this: the model travels to the data instead. each phone or hospital trains a copy on its own data, and only the lessons learned (model updates) are sent back and combined. the raw data never leaves home.">
+          <a href="library/federated-learning.html">
+            <span class="lib-no">07</span>
+            <span class="lib-main"><strong>Federated learning</strong><span>Training one AI model across many devices or organisations without collecting their raw data in one place.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="model-inversion-attacks" data-search="model inversion attacks recovering private information about a model's training data just by querying the model. artificial intelligence a trained model is a compressed summary of its training data, and sometimes that summary gives away too much. in a model inversion attack, someone repeatedly queries a model and uses its answers to reconstruct what the training data looked like: a recognisable face, a sensitive medical attribute, or even word-for-word text the model memorised.">
+          <a href="library/model-inversion-attacks.html">
+            <span class="lib-no">08</span>
+            <span class="lib-main"><strong>Model inversion attacks</strong><span>Recovering private information about a model's training data just by querying the model.</span></span>
+            <span class="lib-side"><span class="lvl lvl-advanced">Advanced</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="data-poisoning" data-search="data poisoning corrupting the data an ai learns from to break it, bias it, or plant a hidden backdoor. artificial intelligence a model learns whatever its data teaches it, including lessons someone slipped in on purpose. data poisoning means tampering with training data so the resulting model misbehaves. sometimes it's obvious, like making the model generally worse. sometimes it's sneaky: a hidden backdoor where the model behaves perfectly until it sees a secret trigger.">
+          <a href="library/data-poisoning.html">
+            <span class="lib-no">09</span>
+            <span class="lib-main"><strong>Data poisoning</strong><span>Corrupting the data an AI learns from to break it, bias it, or plant a hidden backdoor.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="ai-governance" data-search="ai governance the rules, processes and laws that make sure ai is built and used safely, fairly and accountably. artificial intelligence ai governance is the grown-up supervision around ai. it answers questions like: who decided to use this model, what could go wrong, who checks it, what happens when it fails, and what does the law require? it spans company policies, technical documentation, independent audits and government regulation.">
+          <a href="library/ai-governance.html">
+            <span class="lib-no">10</span>
+            <span class="lib-main"><strong>AI governance</strong><span>The rules, processes and laws that make sure AI is built and used safely, fairly and accountably.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+      </ol>
+    </section>
+
+    <section class="lib-cat" id="emerging" data-cat="emerging">
+      <header class="lib-cat-head">
+        <span class="lib-cat-icon" aria-hidden="true">⚡</span>
+        <div><h2>Emerging computing</h2><p class="muted">New kinds of computers and interfaces, from brain-like chips to DNA.</p></div>
+        <span class="lib-cat-count">8 guides</span>
+      </header>
+      <ol class="lib-list">
+        <li class="lib-item" data-slug="neuromorphic-computing" data-search="neuromorphic computing chips that compute more like a brain, with spiking neurons, events and very little energy. emerging computing your brain runs on about 20 watts, less than a light bulb, yet it recognises faces and walks through crowds effortlessly. conventional chips burn far more power shuttling data between separate memory and processors. neuromorphic computing builds hardware inspired by the brain: lots of simple “neurons” that hold their own memory and only fire short electrical spikes when something changes.">
+          <a href="library/neuromorphic-computing.html">
+            <span class="lib-no">01</span>
+            <span class="lib-main"><strong>Neuromorphic computing</strong><span>Chips that compute more like a brain, with spiking neurons, events and very little energy.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="edge-computing" data-search="edge computing processing data close to where it's created, instead of sending everything to a distant data centre. emerging computing the “cloud” is a set of giant data centres, often far away. every round trip takes time and bandwidth. edge computing moves some of the work closer to the source of the data: onto the device itself, a gateway in the building, a cell tower, or a server in your city. think of it as having a corner shop instead of driving to a warehouse every time.">
+          <a href="library/edge-computing.html">
+            <span class="lib-no">02</span>
+            <span class="lib-main"><strong>Edge computing</strong><span>Processing data close to where it's created, instead of sending everything to a distant data centre.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="digital-twins" data-search="digital twins a live virtual copy of a real object or system, kept in sync with data so you can watch, test and predict. emerging computing a digital twin is a detailed computer model of something real, like a jet engine, a wind turbine, a building or a whole city, that's continuously updated with data from sensors on the real thing. it's not just a 3d drawing. it behaves like the original, so you can ask “what happens if…?” without touching the real one.">
+          <a href="library/digital-twins.html">
+            <span class="lib-no">03</span>
+            <span class="lib-main"><strong>Digital twins</strong><span>A live virtual copy of a real object or system, kept in sync with data so you can watch, test and predict.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="spatial-computing" data-search="spatial computing computers that understand the 3d world around you and blend digital content into it. emerging computing most computing happens on flat rectangles. spatial computing lets computers understand physical space, where the walls, tables, hands and people are, so digital content can live in the room with you. it covers augmented reality (overlays on the real world), virtual reality (fully digital worlds) and everything in between.">
+          <a href="library/spatial-computing.html">
+            <span class="lib-no">04</span>
+            <span class="lib-main"><strong>Spatial computing</strong><span>Computers that understand the 3D world around you and blend digital content into it.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="brain-computer-interfaces" data-search="brain-computer interfaces systems that read brain signals and turn them into commands, letting people control devices with thought. emerging computing every thought and movement involves electrical activity in your brain. a brain-computer interface (bci) listens to that activity, through sensors on the scalp or tiny electrodes implanted in the brain, and uses software to translate patterns into actions: moving a cursor, typing words, or controlling a robotic arm.">
+          <a href="library/brain-computer-interfaces.html">
+            <span class="lib-no">05</span>
+            <span class="lib-main"><strong>Brain-computer interfaces</strong><span>Systems that read brain signals and turn them into commands, letting people control devices with thought.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="photonic-computing" data-search="photonic computing using light instead of electricity to move and process information faster and with less heat. emerging computing today's chips push electrons through tiny copper wires, which generates heat and limits speed. photonic computing uses particles of light, photons, instead. light travels fast, different colours can share one channel without interfering, and light beams can be combined to do certain maths almost instantly.">
+          <a href="library/photonic-computing.html">
+            <span class="lib-no">06</span>
+            <span class="lib-main"><strong>Photonic computing</strong><span>Using light instead of electricity to move and process information faster and with less heat.</span></span>
+            <span class="lib-side"><span class="lvl lvl-advanced">Advanced</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="dna-computing" data-search="dna computing using molecules of dna to store data and even perform calculations. emerging computing dna is nature's information storage: four chemical “letters” (a, c, g, t) encoding the instructions for life. dna computing uses those molecules as a computer. strands can represent data, and chemical reactions that join or cut strands can perform calculations, with trillions of molecules working in parallel in a single test tube.">
+          <a href="library/dna-computing.html">
+            <span class="lib-no">07</span>
+            <span class="lib-main"><strong>DNA computing</strong><span>Using molecules of DNA to store data and even perform calculations.</span></span>
+            <span class="lib-side"><span class="lvl lvl-advanced">Advanced</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="decentralized-computing" data-search="decentralized computing spreading computation and data across many independent machines, with no single company in charge. emerging computing most online services run on servers owned by one company, which decides the rules and can switch things off. decentralised computing spreads the work across many independent computers owned by different people. together they store files, run programs or keep records, so no single owner controls the system and no single failure takes it down.">
+          <a href="library/decentralized-computing.html">
+            <span class="lib-no">08</span>
+            <span class="lib-main"><strong>Decentralized computing</strong><span>Spreading computation and data across many independent machines, with no single company in charge.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+      </ol>
+    </section>
+
+    <section class="lib-cat" id="privacy" data-cat="privacy">
+      <header class="lib-cat-head">
+        <span class="lib-cat-icon" aria-hidden="true">🛡️</span>
+        <div><h2>Privacy &amp; digital security</h2><p class="muted">Identity, trust, privacy and the practices that keep software and people safe.</p></div>
+        <span class="lib-cat-count">8 guides</span>
+      </header>
+      <ol class="lib-list">
+        <li class="lib-item" data-slug="digital-identity" data-search="digital identity how people and organisations prove who they are online, and how to do it without over-sharing. privacy &amp; digital security offline, you prove who you are with a face, a signature or an id card. online, a digital identity is the collection of identifiers (usernames, email addresses, account numbers), credentials (passwords, passkeys, digital documents) and attributes (name, age, address) that represent you to websites, employers, banks and governments.">
+          <a href="library/digital-identity.html">
+            <span class="lib-no">01</span>
+            <span class="lib-main"><strong>Digital identity</strong><span>How people and organisations prove who they are online, and how to do it without over-sharing.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="zero-trust-architecture" data-search="zero trust architecture a security model that never trusts a request just because it comes from inside the network. privacy &amp; digital security old-style security was like a castle: a strong wall (the firewall) and a moat (the vpn), and once you were inside, you could wander freely. attackers who got past the wall, through one stolen password or an infected laptop, could reach everything. zero trust throws out the idea of a trusted inside. every request, from anyone, anywhere, must prove it should be allowed: never trust, always verify.">
+          <a href="library/zero-trust-architecture.html">
+            <span class="lib-no">02</span>
+            <span class="lib-main"><strong>Zero trust architecture</strong><span>A security model that never trusts a request just because it comes from inside the network.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="privacy-enhancing-technologies" data-search="privacy-enhancing technologies the toolkit of techniques that let us use data while revealing as little as possible about people. privacy &amp; digital security privacy-enhancing technologies (pets) are an umbrella term for methods that protect personal data while still letting it be useful. some hide individuals in statistics, some let computers work on data they can't see, and some let you prove facts without revealing the details. think of them as different tools for the same job: getting value from data without exposing people.">
+          <a href="library/privacy-enhancing-technologies.html">
+            <span class="lib-no">03</span>
+            <span class="lib-main"><strong>Privacy-enhancing technologies</strong><span>The toolkit of techniques that let us use data while revealing as little as possible about people.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="data-anonymization" data-search="data anonymization removing the link between data and the people it describes, and why that's much harder than it sounds. privacy &amp; digital security anonymisation means transforming data so it can no longer be tied back to an individual. the obvious first step is deleting names. the trouble is that other details, like postcode, birth date, the films you rated or the places you go, can act as a fingerprint. real anonymisation means making sure nobody can re-identify people, even by combining the data with other sources.">
+          <a href="library/data-anonymization.html">
+            <span class="lib-no">04</span>
+            <span class="lib-main"><strong>Data anonymization</strong><span>Removing the link between data and the people it describes, and why that's much harder than it sounds.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="differential-privacy" data-search="differential privacy a mathematical guarantee that a result barely changes whether or not your data is included. privacy &amp; digital security differential privacy (dp) is a precise promise: an analysis gives almost the same answer whether or not any single person's data is in the dataset. so nobody can learn much about you from the output, no matter what else they know. it works by adding carefully measured random noise to results. our full explainer has an interactive coin-flip demo.">
+          <a href="library/differential-privacy.html">
+            <span class="lib-no">05</span>
+            <span class="lib-main"><strong>Differential privacy</strong><span>A mathematical guarantee that a result barely changes whether or not your data is included.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="digital-surveillance" data-search="digital surveillance how governments, companies and individuals monitor people through digital technology, and the protections against it. privacy &amp; digital security digital surveillance is the monitoring of people's behaviour, communications or movements using digital tools. it ranges from targeted, court-approved wiretaps to mass collection of phone records, from cookies that follow you across websites to apps that sell your location, and spyware secretly installed on a partner's phone.">
+          <a href="library/digital-surveillance.html">
+            <span class="lib-no">06</span>
+            <span class="lib-main"><strong>Digital surveillance</strong><span>How governments, companies and individuals monitor people through digital technology, and the protections against it.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="supply-chain-security" data-search="supply chain security protecting software and hardware from attacks that sneak in through trusted suppliers, dependencies and build systems. privacy &amp; digital security modern software is assembled, not written from scratch. a typical app pulls in hundreds of open-source packages, uses cloud services and ships through automated build pipelines. a supply chain attack compromises one of those trusted ingredients, so the victim installs the attack themselves, signed and delivered through official updates.">
+          <a href="library/supply-chain-security.html">
+            <span class="lib-no">07</span>
+            <span class="lib-main"><strong>Supply chain security</strong><span>Protecting software and hardware from attacks that sneak in through trusted suppliers, dependencies and build systems.</span></span>
+            <span class="lib-side"><span class="lvl lvl-intermediate">Intermediate</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+        <li class="lib-item" data-slug="secure-software-development" data-search="secure software development building security into every stage of making software, instead of bolting it on at the end. privacy &amp; digital security security bugs are just bugs with consequences, and like all bugs they're cheapest to fix early. secure software development (often called a secure development lifecycle) means thinking about security while planning, designing, writing, testing, releasing and maintaining software, so that fewer vulnerabilities reach users at all.">
+          <a href="library/secure-software-development.html">
+            <span class="lib-no">08</span>
+            <span class="lib-main"><strong>Secure software development</strong><span>Building security into every stage of making software, instead of bolting it on at the end.</span></span>
+            <span class="lib-side"><span class="lvl lvl-beginner">Beginner</span><span>3 min</span><span class="lib-done" aria-label="read"></span></span>
+          </a>
+        </li>
+      </ol>
+    </section>
+
+    <p class="empty" id="lib-empty" hidden>Nothing matches that yet. <a class="text-link" href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a topic →</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="posts.html">Explainers</a>
+        <a href="library.html">The Library</a>
+        <a href="topics.html">Topics</a>
+        <a href="labs/index.html">Labs</a>
+        <a href="compiler.html">Code playground</a>
+        <a href="paths.html">Learning paths</a>
+        <a href="resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="daily.html">Daily challenge</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="match.html">Jargon Match</a>
+        <a href="myths.html">Myth or Fact</a>
+        <a href="quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="threats.html">Threat landscape</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="timeline.html">Timelines</a>
+        <a href="progress.html">Your progress</a>
+        <a href="saved.html">Reading list</a>
+        <a href="certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/avatar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/pages/library.js"></script>
+</body>
+</html>

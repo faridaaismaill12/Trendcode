@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DNA computing — Trendcode</title>
+  <meta name="description" content="Using molecules of DNA to store data and even perform calculations." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/library.css" />
+</head>
+<body data-base="../" data-lib="dna-computing">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="../posts.html">Explainers</a>
+      <a href="../library.html" aria-current="page">Library</a>
+      <a href="../threats.html">Threats</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../compiler.html">Code</a>
+      <a href="../activities.html">Activities</a>
+      <a href="../paths.html">Paths</a>
+      <a href="../progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="../login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article lib-article">
+      <p class="eyebrow">// <a href="../library.html">library</a> · <a href="../library.html#emerging">emerging computing</a></p>
+      <h1>DNA computing</h1>
+      <p class="lib-summary">Using molecules of DNA to store data and even perform calculations.</p>
+      <div class="lib-meta">
+        <span class="pill">⚡ Emerging</span>
+        <span class="pill lvl-advanced">Advanced</span>
+        <span class="pill">3 min read</span>
+        <span class="lib-read-state" id="lib-read-state"></span>
+      </div>
+
+      <section class="lib-sec" id="in-plain-words">
+        <h2 data-label="In plain words"><span class="sec-no">01</span>In plain words</h2>
+        <p class="lib-lede">DNA is nature's information storage: four chemical “letters” (A, C, G, T) encoding the instructions for life. <strong>DNA computing</strong> uses those molecules as a computer. Strands can represent data, and chemical reactions that join or cut strands can perform calculations, with trillions of molecules working in parallel in a single test tube.</p>
+      </section>
+
+      <section class="lib-sec" id="why-it-matters">
+        <h2 data-label="Why it matters"><span class="sec-no">02</span>Why it matters</h2>
+        <p>DNA is astonishingly dense and durable. In theory a few grams could store the world's data, and it can last thousands of years if kept cool and dry. With global data growing explosively, DNA storage is a serious candidate for long-term archives. Molecular computing could also enable “smart” medical diagnostics that compute inside the body.</p>
+      </section>
+
+      <section class="lib-sec" id="how-it-works">
+        <h2 data-label="How it works"><span class="sec-no">03</span>How it works</h2>
+        <ol class="lib-steps">
+          <li><strong>Encode:</strong> binary data is translated into sequences of A, C, G and T, with error-correcting codes added.</li>
+          <li><strong>Synthesise:</strong> machines build the DNA strands chemically.</li>
+          <li><strong>Compute (optional):</strong> designed strands bind to each other according to base-pairing rules. Mixing them explores many possible solutions at once, as in Leonard Adleman's 1994 experiment that solved a small path-finding problem.</li>
+          <li><strong>Store:</strong> DNA is kept dry and cool, needing no power.</li>
+          <li><strong>Read:</strong> DNA sequencing reads the strands back, and the decoder reconstructs the original data.</li>
+        </ol>
+      </section>
+
+      <section class="lib-sec" id="real-world-example">
+        <h2 data-label="Real-world example"><span class="sec-no">04</span>Real-world example</h2>
+        <div class="lib-example">
+          <h3>Archiving files in molecules</h3>
+          <p>In 2016, Microsoft and the University of Washington stored and retrieved about 200 MB of data in DNA, including a music video. In 2019 they demonstrated an automated end-to-end system that wrote and read the word “hello”. Research labs also build DNA logic circuits that detect combinations of molecules, a step toward programmable diagnostics.</p>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="advantages-and-limitations">
+        <h2 data-label="Advantages & limitations"><span class="sec-no">05</span>Advantages &amp; limitations</h2>
+        <div class="lib-pc">
+          <div class="lib-pros"><h3>Advantages</h3><ul><li>Extreme data density and very long lifetime.</li><li>No power needed to keep stored data.</li><li>Massive parallelism for certain search problems.</li><li>DNA won't become obsolete: we'll always be able to read it.</li></ul></div>
+          <div class="lib-cons"><h3>Limitations</h3><ul><li>Slow: writing and reading take hours to days.</li><li>Synthesis and sequencing are still expensive.</li><li>Error-prone chemistry needs heavy error correction.</li><li>Not a general-purpose replacement for electronic computers.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="security-and-privacy">
+        <h2 data-label="Security & privacy"><span class="sec-no">06</span>Security &amp; privacy implications</h2>
+        <ul class="lib-security"><li>In 2017, researchers encoded a software exploit in synthetic DNA that compromised the sequencing software reading it, a reminder that data from any source is untrusted input.</li><li>Long-lived archives must stay encrypted: data secret today may need to stay secret for centuries.</li><li>DNA synthesis raises biosecurity questions, so synthesis providers screen orders for dangerous sequences.</li></ul>
+      </section>
+
+      <section class="lib-sec" id="related-technologies">
+        <h2 data-label="Related technologies"><span class="sec-no">07</span>Related technologies</h2>
+        <div class="lib-related"><a class="lib-chip" href="../library/photonic-computing.html"><small>library</small>Photonic computing</a><a class="lib-chip" href="../library/neuromorphic-computing.html"><small>library</small>Neuromorphic computing</a><a class="lib-chip post" href="../posts/big-o-notation.html"><small>explainer</small>Big-O notation: why some code gets slow</a><a class="lib-chip" href="../library/secure-software-development.html"><small>library</small>Secure software development</a><span class="lib-chip plain">Bioinformatics</span></div>
+      </section>
+
+      <section class="lib-sec" id="further-reading">
+        <h2 data-label="Further reading"><span class="sec-no">08</span>Further reading</h2>
+        <ul class="lib-reading"><li><a href="https://en.wikipedia.org/wiki/DNA_computing" target="_blank" rel="noopener">DNA computing <span aria-hidden="true">↗</span></a><span>Wikipedia</span></li><li><a href="https://en.wikipedia.org/wiki/DNA_digital_data_storage" target="_blank" rel="noopener">DNA digital data storage <span aria-hidden="true">↗</span></a><span>Wikipedia</span></li></ul>
+      </section>
+
+      <nav class="lib-pager" aria-label="More in Emerging computing">
+        <a href="photonic-computing.html"><small>← previous</small>Photonic computing</a>
+        <a href="decentralized-computing.html" class="next"><small>next →</small>Decentralized computing</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="../index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="../posts.html">Explainers</a>
+        <a href="../library.html">The Library</a>
+        <a href="../topics.html">Topics</a>
+        <a href="../labs/index.html">Labs</a>
+        <a href="../compiler.html">Code playground</a>
+        <a href="../paths.html">Learning paths</a>
+        <a href="../resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="../daily.html">Daily challenge</a>
+        <a href="../flashcards.html">Flashcards</a>
+        <a href="../match.html">Jargon Match</a>
+        <a href="../myths.html">Myth or Fact</a>
+        <a href="../quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="../threats.html">Threat landscape</a>
+        <a href="../glossary.html">Glossary</a>
+        <a href="../timeline.html">Timelines</a>
+        <a href="../progress.html">Your progress</a>
+        <a href="../saved.html">Reading list</a>
+        <a href="../certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/avatar.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photonic computing — Trendcode</title>
+  <meta name="description" content="Using light instead of electricity to move and process information faster and with less heat." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/library.css" />
+</head>
+<body data-base="../" data-lib="photonic-computing">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="../posts.html">Explainers</a>
+      <a href="../library.html" aria-current="page">Library</a>
+      <a href="../threats.html">Threats</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../compiler.html">Code</a>
+      <a href="../activities.html">Activities</a>
+      <a href="../paths.html">Paths</a>
+      <a href="../progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="../login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article lib-article">
+      <p class="eyebrow">// <a href="../library.html">library</a> · <a href="../library.html#emerging">emerging computing</a></p>
+      <h1>Photonic computing</h1>
+      <p class="lib-summary">Using light instead of electricity to move and process information faster and with less heat.</p>
+      <div class="lib-meta">
+        <span class="pill">⚡ Emerging</span>
+        <span class="pill lvl-advanced">Advanced</span>
+        <span class="pill">3 min read</span>
+        <span class="lib-read-state" id="lib-read-state"></span>
+      </div>
+
+      <section class="lib-sec" id="in-plain-words">
+        <h2 data-label="In plain words"><span class="sec-no">01</span>In plain words</h2>
+        <p class="lib-lede">Today's chips push electrons through tiny copper wires, which generates heat and limits speed. <strong>Photonic computing</strong> uses particles of light, photons, instead. Light travels fast, different colours can share one channel without interfering, and light beams can be combined to do certain maths almost instantly.</p>
+      </section>
+
+      <section class="lib-sec" id="why-it-matters">
+        <h2 data-label="Why it matters"><span class="sec-no">02</span>Why it matters</h2>
+        <p>AI workloads are dominated by enormous matrix multiplications, and data centres are hitting limits on power and heat. Light can carry data between chips with far less energy (it already does in fibre networks), and optical circuits can perform some AI calculations very efficiently. Photonics is also one of the leading approaches to building quantum computers.</p>
+      </section>
+
+      <section class="lib-sec" id="how-it-works">
+        <h2 data-label="How it works"><span class="sec-no">03</span>How it works</h2>
+        <ol class="lib-steps">
+          <li><strong>Optical interconnects:</strong> lasers and photodetectors move data between chips and servers as light. This is already widespread inside data centres.</li>
+          <li><strong>Integrated photonics:</strong> waveguides, modulators and detectors are fabricated on silicon chips, much like electronic circuits.</li>
+          <li><strong>Computing with interference:</strong> meshes of tunable interferometers combine light beams so the output intensities equal the result of a matrix multiplication, the core operation of neural networks.</li>
+          <li><strong>Hybrid systems:</strong> electronics still handle memory, control and non-linear steps, with light doing the heavy linear algebra.</li>
+        </ol>
+      </section>
+
+      <section class="lib-sec" id="real-world-example">
+        <h2 data-label="Real-world example"><span class="sec-no">04</span>Real-world example</h2>
+        <div class="lib-example">
+          <h3>Light in the data centre</h3>
+          <p>Every large data centre already relies on optical transceivers to link servers, and chip makers are developing “co-packaged optics” that bring light right up to the processor. Start-ups such as Lightmatter have built photonic interconnect and accelerator chips for AI, and companies including PsiQuantum and Xanadu are building quantum computers based on photons.</p>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="advantages-and-limitations">
+        <h2 data-label="Advantages & limitations"><span class="sec-no">05</span>Advantages &amp; limitations</h2>
+        <div class="lib-pc">
+          <div class="lib-pros"><h3>Advantages</h3><ul><li>Very high bandwidth and low latency.</li><li>Potentially much lower energy per operation for linear algebra.</li><li>Less heat than pushing current through dense wiring.</li></ul></div>
+          <div class="lib-cons"><h3>Limitations</h3><ul><li>Non-linear operations and memory are hard to do with light alone.</li><li>Converting between electrical and optical signals costs energy and time.</li><li>Analogue optical computing has limited precision and is sensitive to noise and temperature.</li><li>Manufacturing is less mature than conventional silicon electronics.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="security-and-privacy">
+        <h2 data-label="Security & privacy"><span class="sec-no">06</span>Security &amp; privacy implications</h2>
+        <ul class="lib-security"><li>Optical links can be tapped physically. Fibre isn't inherently confidential, so encrypt data in transit.</li><li>New hardware means new supply chains and new side channels, which need the same scrutiny as electronic chips.</li><li>Photonic quantum computers, if they reach scale, are part of why the post-quantum migration matters.</li></ul>
+      </section>
+
+      <section class="lib-sec" id="related-technologies">
+        <h2 data-label="Related technologies"><span class="sec-no">07</span>Related technologies</h2>
+        <div class="lib-related"><a class="lib-chip" href="../library/neuromorphic-computing.html"><small>library</small>Neuromorphic computing</a><a class="lib-chip" href="../library/quantum-key-distribution.html"><small>library</small>Quantum key distribution</a><a class="lib-chip post" href="../posts/qubits-without-the-mysticism.html"><small>explainer</small>Qubits without the mysticism: what a quantum computer actually does</a><a class="lib-chip" href="../library/edge-computing.html"><small>library</small>Edge computing</a><span class="lib-chip plain">Silicon photonics</span></div>
+      </section>
+
+      <section class="lib-sec" id="further-reading">
+        <h2 data-label="Further reading"><span class="sec-no">08</span>Further reading</h2>
+        <ul class="lib-reading"><li><a href="https://en.wikipedia.org/wiki/Optical_computing" target="_blank" rel="noopener">Optical computing <span aria-hidden="true">↗</span></a><span>Wikipedia</span></li><li><a href="https://en.wikipedia.org/wiki/Silicon_photonics" target="_blank" rel="noopener">Silicon photonics <span aria-hidden="true">↗</span></a><span>Wikipedia</span></li></ul>
+      </section>
+
+      <nav class="lib-pager" aria-label="More in Emerging computing">
+        <a href="brain-computer-interfaces.html"><small>← previous</small>Brain-computer interfaces</a>
+        <a href="dna-computing.html" class="next"><small>next →</small>DNA computing</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="../index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="../posts.html">Explainers</a>
+        <a href="../library.html">The Library</a>
+        <a href="../topics.html">Topics</a>
+        <a href="../labs/index.html">Labs</a>
+        <a href="../compiler.html">Code playground</a>
+        <a href="../paths.html">Learning paths</a>
+        <a href="../resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="../daily.html">Daily challenge</a>
+        <a href="../flashcards.html">Flashcards</a>
+        <a href="../match.html">Jargon Match</a>
+        <a href="../myths.html">Myth or Fact</a>
+        <a href="../quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="../threats.html">Threat landscape</a>
+        <a href="../glossary.html">Glossary</a>
+        <a href="../timeline.html">Timelines</a>
+        <a href="../progress.html">Your progress</a>
+        <a href="../saved.html">Reading list</a>
+        <a href="../certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/avatar.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

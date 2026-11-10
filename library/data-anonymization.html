@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data anonymization — Trendcode</title>
+  <meta name="description" content="Removing the link between data and the people it describes, and why that's much harder than it sounds." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/library.css" />
+</head>
+<body data-base="../" data-lib="data-anonymization">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="../posts.html">Explainers</a>
+      <a href="../library.html" aria-current="page">Library</a>
+      <a href="../threats.html">Threats</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../compiler.html">Code</a>
+      <a href="../activities.html">Activities</a>
+      <a href="../paths.html">Paths</a>
+      <a href="../progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="../login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article lib-article">
+      <p class="eyebrow">// <a href="../library.html">library</a> · <a href="../library.html#privacy">privacy &amp; digital security</a></p>
+      <h1>Data anonymization</h1>
+      <p class="lib-summary">Removing the link between data and the people it describes, and why that's much harder than it sounds.</p>
+      <div class="lib-meta">
+        <span class="pill">🛡️ Privacy</span>
+        <span class="pill lvl-beginner">Beginner</span>
+        <span class="pill">3 min read</span>
+        <span class="lib-read-state" id="lib-read-state"></span>
+      </div>
+
+      <section class="lib-sec" id="in-plain-words">
+        <h2 data-label="In plain words"><span class="sec-no">01</span>In plain words</h2>
+        <p class="lib-lede"><strong>Anonymisation</strong> means transforming data so it can no longer be tied back to an individual. The obvious first step is deleting names. The trouble is that other details, like postcode, birth date, the films you rated or the places you go, can act as a fingerprint. Real anonymisation means making sure nobody can re-identify people, even by combining the data with other sources.</p>
+      </section>
+
+      <section class="lib-sec" id="why-it-matters">
+        <h2 data-label="Why it matters"><span class="sec-no">02</span>Why it matters</h2>
+        <p>Anonymised data can be shared and analysed with far fewer legal restrictions. Under the GDPR, truly anonymous data isn't personal data at all. That makes anonymisation hugely valuable for research, open data and analytics, but getting it wrong has exposed millions of people.</p>
+      </section>
+
+      <section class="lib-sec" id="how-it-works">
+        <h2 data-label="How it works"><span class="sec-no">03</span>How it works</h2>
+        <ol class="lib-steps">
+          <li><strong>Remove direct identifiers:</strong> names, email addresses, ID numbers.</li>
+          <li><strong>Generalise:</strong> replace exact values with ranges (age 34 → 30–39, a full postcode → its first part).</li>
+          <li><strong>Suppress:</strong> remove rare records or values that stand out.</li>
+          <li><strong>k-anonymity:</strong> ensure every combination of identifying attributes is shared by at least k people (Sweeney, 2002). Refinements like l-diversity also make sure sensitive values vary within each group.</li>
+          <li><strong>Add noise or aggregate:</strong> publish statistics rather than records, or use differential privacy for formal guarantees.</li>
+          <li><strong>Pseudonymisation is not anonymisation:</strong> replacing names with codes is reversible with the key, so the data is still personal data.</li>
+        </ol>
+      </section>
+
+      <section class="lib-sec" id="real-world-example">
+        <h2 data-label="Real-world example"><span class="sec-no">04</span>Real-world example</h2>
+        <div class="lib-example">
+          <h3>Search logs and taxi rides</h3>
+          <p>In 2006, AOL released “anonymised” search logs. Within days, journalists identified user No. 4417749 from her searches. In 2014, New York City released taxi trip data with hashed medallion numbers, and because there are few possible medallions, the hashes were quickly reversed, exposing drivers' incomes and, combined with photos, some celebrities' trips.</p>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="advantages-and-limitations">
+        <h2 data-label="Advantages & limitations"><span class="sec-no">05</span>Advantages &amp; limitations</h2>
+        <div class="lib-pc">
+          <div class="lib-pros"><h3>Advantages</h3><ul><li>Enables data sharing for research and public benefit.</li><li>Reduces legal obligations and breach impact when done properly.</li><li>Simple techniques are cheap and widely understood.</li></ul></div>
+          <div class="lib-cons"><h3>Limitations</h3><ul><li>Re-identification risk is real and grows as more data becomes public.</li><li>Stronger anonymisation usually means less useful data.</li><li>Hard to prove a dataset is truly anonymous, especially rich data like location traces.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="security-and-privacy">
+        <h2 data-label="Security & privacy"><span class="sec-no">06</span>Security &amp; privacy implications</h2>
+        <ul class="lib-security"><li>Assume attackers have auxiliary data. Linkage attacks combine datasets to single people out.</li><li>Hashing identifiers isn't anonymisation when the possible values can be guessed or enumerated.</li><li>For high-risk releases, prefer aggregate statistics with differential privacy, or controlled access environments, over publishing records.</li></ul>
+      </section>
+
+      <section class="lib-sec" id="related-technologies">
+        <h2 data-label="Related technologies"><span class="sec-no">07</span>Related technologies</h2>
+        <div class="lib-related"><a class="lib-chip" href="../library/differential-privacy.html"><small>library</small>Differential privacy</a><a class="lib-chip post" href="../posts/differential-privacy.html"><small>explainer</small>Differential privacy: learning from data without learning about you</a><a class="lib-chip" href="../library/privacy-enhancing-technologies.html"><small>library</small>Privacy-enhancing technologies</a><a class="lib-chip" href="../library/model-inversion-attacks.html"><small>library</small>Model inversion attacks</a><a class="lib-chip post" href="../posts/hashing-explained.html"><small>explainer</small>Hashing, explained: the fingerprint of data</a></div>
+      </section>
+
+      <section class="lib-sec" id="further-reading">
+        <h2 data-label="Further reading"><span class="sec-no">08</span>Further reading</h2>
+        <ul class="lib-reading"><li><a href="https://en.wikipedia.org/wiki/Data_anonymization" target="_blank" rel="noopener">Data anonymization <span aria-hidden="true">↗</span></a><span>Wikipedia</span></li><li><a href="https://en.wikipedia.org/wiki/K-anonymity" target="_blank" rel="noopener">k-anonymity <span aria-hidden="true">↗</span></a><span>Wikipedia</span></li></ul>
+      </section>
+
+      <nav class="lib-pager" aria-label="More in Privacy &amp; digital security">
+        <a href="privacy-enhancing-technologies.html"><small>← previous</small>Privacy-enhancing technologies</a>
+        <a href="differential-privacy.html" class="next"><small>next →</small>Differential privacy</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="../index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="../posts.html">Explainers</a>
+        <a href="../library.html">The Library</a>
+        <a href="../topics.html">Topics</a>
+        <a href="../labs/index.html">Labs</a>
+        <a href="../compiler.html">Code playground</a>
+        <a href="../paths.html">Learning paths</a>
+        <a href="../resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="../daily.html">Daily challenge</a>
+        <a href="../flashcards.html">Flashcards</a>
+        <a href="../match.html">Jargon Match</a>
+        <a href="../myths.html">Myth or Fact</a>
+        <a href="../quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="../threats.html">Threat landscape</a>
+        <a href="../glossary.html">Glossary</a>
+        <a href="../timeline.html">Timelines</a>
+        <a href="../progress.html">Your progress</a>
+        <a href="../saved.html">Reading list</a>
+        <a href="../certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/avatar.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

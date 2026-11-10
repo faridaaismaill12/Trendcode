@@ -1,0 +1,94 @@
+/* =============================================================
+   Trendcode code playground
+   ============================================================= */
+.ide-page main.ide-main { max-width: 1440px; padding: 0 3vw 2rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.ide-head { display: flex; justify-content: space-between; align-items: end; gap: 0.5rem 2rem; flex-wrap: wrap; padding: 1.8rem 0 1rem; }
+.ide-head .eyebrow { margin-bottom: 0.3rem; }
+.ide-head h1 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); letter-spacing: -0.03em; line-height: 1.05; }
+.ide-head h1 span { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; color: var(--accent); }
+.ide-sub { font-size: 0.92rem; }
+
+/* ---------- Toolbar ---------- */
+.ide-toolbar {
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; padding: 0.6rem; margin-bottom: 0.75rem;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+}
+.lang-pick select { min-width: 220px; font-weight: 600; padding: 0.5rem 0.75rem; cursor: pointer; }
+.engine-badge { font-family: var(--mono); font-size: 0.72rem; padding: 0.25rem 0.6rem; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); white-space: nowrap; }
+.engine-badge.local { color: var(--good); border-color: color-mix(in srgb, var(--good) 45%, var(--border)); }
+.engine-badge.remote { color: var(--accent-2); border-color: color-mix(in srgb, var(--accent-2) 45%, var(--border)); }
+.tb-spacer { flex: 1; }
+.tb-btn {
+  font-size: 0.85rem; padding: 0.5rem 0.75rem; border-radius: 8px; border: 1px solid transparent; background: none; color: var(--muted); cursor: pointer;
+}
+.tb-btn:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
+.ide-run { padding: 0.55rem 1.3rem; background: var(--good); color: #04140d; }
+.ide-run:disabled { opacity: 0.6; cursor: progress; transform: none; }
+.ide-stop { padding: 0.5rem 1.1rem; border-color: var(--bad); color: var(--bad); }
+
+/* ---------- Layout ---------- */
+.ide-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 0.75rem; height: clamp(480px, calc(100vh - 290px), 900px); }
+.ide-editor-wrap, .ide-panel { background: #0b0f17; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; min-height: 0; }
+:root[data-theme="light"] .ide-editor-wrap, :root[data-theme="light"] .ide-panel { background: #ffffff; }
+.ide-tabbar, .panel-bar {
+  display: flex; align-items: center; gap: 0.75rem; padding: 0.45rem 0.8rem; border-bottom: 1px solid var(--border);
+  background: var(--surface); font-family: var(--mono); font-size: 0.78rem; color: var(--muted); flex: none;
+}
+.file-tab { color: var(--text); padding: 0.2rem 0.6rem; border-radius: 6px; background: var(--bg); border: 1px solid var(--border); }
+.ide-tabbar .small { margin-left: auto; }
+.ide-editor { flex: 1; min-height: 0; position: relative; }
+.ide-side { display: grid; grid-template-rows: minmax(90px, 0.32fr) minmax(0, 1fr); gap: 0.75rem; min-height: 0; }
+.panel-bar .run-meta { margin-left: auto; }
+.panel-btn { background: none; border: none; color: var(--muted); font: inherit; cursor: pointer; }
+.panel-btn:hover { color: var(--text); }
+
+/* fallback editor (if Monaco can't load) */
+.fallback-editor {
+  width: 100%; height: 100%; resize: none; border: none; outline: none; padding: 0.9rem 1rem; tab-size: 4;
+  background: transparent; color: var(--text); font-family: var(--mono); font-size: 14px; line-height: 1.55;
+}
+.editor-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-family: var(--mono); font-size: 0.85rem; }
+
+.stdin {
+  flex: 1; width: 100%; resize: none; border: none; outline: none; padding: 0.7rem 0.9rem;
+  background: transparent; color: var(--text); font-family: var(--mono); font-size: 0.85rem; line-height: 1.5;
+}
+
+/* ---------- Console ---------- */
+.console { flex: 1; overflow: auto; padding: 0.8rem 0.95rem; font-family: var(--mono); font-size: 0.85rem; line-height: 1.55; white-space: pre-wrap; word-break: break-word; color: var(--text); }
+.console .c-out { color: var(--text); }
+.console .c-err { color: var(--bad); }
+.console .c-info { color: var(--muted); }
+.console .c-ok { color: var(--good); }
+.console .c-warn { color: #fbbf24; }
+.console .c-head { display: block; color: var(--accent-2); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; margin: 0.4rem 0 0.2rem; }
+.console .c-empty { color: var(--muted); font-style: italic; }
+.console .c-cta { display: inline-block; margin-top: 0.6rem; }
+.console .spinner { display: inline-block; width: 0.8em; height: 0.8em; border: 2px solid var(--muted); border-right-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: -0.1em; margin-right: 0.4rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.console table { border-collapse: collapse; margin: 0.4rem 0 0.8rem; font-size: 0.8rem; white-space: nowrap; }
+.console th, .console td { border: 1px solid var(--border); padding: 0.3rem 0.6rem; text-align: left; }
+.console th { background: var(--surface); color: var(--accent); }
+.console td.null { color: var(--muted); font-style: italic; }
+.preview { flex: 1; width: 100%; border: none; background: #fff; }
+
+/* ---------- About ---------- */
+.ide-about { margin-top: 1.2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1.2rem; }
+.ide-about summary { cursor: pointer; font-weight: 600; }
+.about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1rem; }
+.about-grid h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+.about-grid p { color: var(--body); font-size: 0.92rem; }
+
+@media (max-width: 980px) {
+  .ide-grid { grid-template-columns: 1fr; height: auto; }
+  .ide-editor-wrap { height: 60vh; min-height: 360px; }
+  .ide-side { grid-template-rows: 130px 340px; }
+  .about-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .lang-pick, .lang-pick select { width: 100%; min-width: 0; }
+  .tb-spacer { display: none; }
+  .ide-run { flex: 1; }
+}

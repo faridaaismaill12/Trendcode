@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homomorphic encryption — Trendcode</title>
+  <meta name="description" content="Encryption that lets a server compute on your data without ever being able to read it." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/library.css" />
+</head>
+<body data-base="../" data-lib="homomorphic-encryption">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="../posts.html">Explainers</a>
+      <a href="../library.html" aria-current="page">Library</a>
+      <a href="../threats.html">Threats</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../compiler.html">Code</a>
+      <a href="../activities.html">Activities</a>
+      <a href="../paths.html">Paths</a>
+      <a href="../progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="../login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article lib-article">
+      <p class="eyebrow">// <a href="../library.html">library</a> · <a href="../library.html#crypto">quantum &amp; advanced cryptography</a></p>
+      <h1>Homomorphic encryption</h1>
+      <p class="lib-summary">Encryption that lets a server compute on your data without ever being able to read it.</p>
+      <div class="lib-meta">
+        <span class="pill">🔐 Cryptography</span>
+        <span class="pill lvl-advanced">Advanced</span>
+        <span class="pill">3 min read</span>
+        <span class="lib-read-state" id="lib-read-state"></span>
+      </div>
+
+      <section class="lib-sec" id="in-plain-words">
+        <h2 data-label="In plain words"><span class="sec-no">01</span>In plain words</h2>
+        <p class="lib-lede">Normally, to process data you must first decrypt it, and whoever does the processing can see everything. <strong>Homomorphic encryption (HE)</strong> is like a locked glovebox: you can put your hands in and work on what's inside, but you can never take it out or see it. A cloud server can add, multiply or even run a machine-learning model on encrypted numbers, and when you decrypt the result it's exactly what you'd have got on the plain data.</p>
+      </section>
+
+      <section class="lib-sec" id="why-it-matters">
+        <h2 data-label="Why it matters"><span class="sec-no">02</span>Why it matters</h2>
+        <p>Encryption traditionally protects data <em>at rest</em> and <em>in transit</em>, but not <em>in use</em>. HE closes that gap, so sensitive data like medical records, financial data or private queries can be analysed by a third party that never sees it. That's a big deal for privacy laws, outsourcing and cloud AI.</p>
+      </section>
+
+      <section class="lib-sec" id="how-it-works">
+        <h2 data-label="How it works"><span class="sec-no">03</span>How it works</h2>
+        <ol class="lib-steps">
+          <li><strong>Encrypt with structure.</strong> Ciphertexts are built so that mathematical operations on them correspond to operations on the hidden values. Most modern schemes are lattice-based.</li>
+          <li><strong>Operate.</strong> Adding two ciphertexts gives an encryption of the sum; multiplying gives the product. Any computation can be built from additions and multiplications.</li>
+          <li><strong>Manage the noise.</strong> Each ciphertext carries a little random noise for security, and it grows with every operation, multiplication especially. Too much noise and decryption fails.</li>
+          <li><strong>Bootstrap.</strong> Craig Gentry's 2009 breakthrough showed how to “refresh” a ciphertext by homomorphically running the decryption itself, resetting the noise. This made <em>fully</em> homomorphic encryption (FHE) possible.</li>
+          <li><strong>Choose a scheme.</strong> BFV and BGV for exact integers, CKKS for approximate real numbers (great for ML), TFHE for fast operations on bits.</li>
+        </ol>
+      </section>
+
+      <section class="lib-sec" id="real-world-example">
+        <h2 data-label="Real-world example"><span class="sec-no">04</span>Real-world example</h2>
+        <div class="lib-example">
+          <h3>Checking leaked passwords privately</h3>
+          <p>Microsoft Edge's Password Monitor uses homomorphic encryption to check your saved passwords against a database of breached credentials, without Microsoft learning your passwords. Apple uses HE for features such as Live Caller ID Lookup, so the server answers a query it can't read. Hospitals and banks are piloting HE to run joint statistics on data neither may share.</p>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="advantages-and-limitations">
+        <h2 data-label="Advantages & limitations"><span class="sec-no">05</span>Advantages &amp; limitations</h2>
+        <div class="lib-pc">
+          <div class="lib-pros"><h3>Advantages</h3><ul><li>Data stays encrypted end to end, even during processing.</li><li>No need to trust the cloud provider or the hardware.</li><li>Built on lattice problems, so it's believed to be quantum-resistant.</li></ul></div>
+          <div class="lib-cons"><h3>Limitations</h3><ul><li>Slow: computations can be thousands to millions of times slower than on plain data, depending on the task.</li><li>Ciphertexts are much larger than the data they hold.</li><li>Programs must be rewritten as fixed circuits. Data-dependent branching and loops are hard.</li><li>Expertise-heavy: picking parameters wrongly can break security or correctness.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="security-and-privacy">
+        <h2 data-label="Security & privacy"><span class="sec-no">06</span>Security &amp; privacy implications</h2>
+        <ul class="lib-security"><li>HE protects confidentiality, not integrity. A malicious server could compute the wrong function, so pair it with verification when that matters.</li><li>Results eventually get decrypted. Make sure outputs themselves don't leak more than intended.</li><li>Access patterns and timing can leak information unless the protocol is designed to hide them.</li></ul>
+      </section>
+
+      <section class="lib-sec" id="related-technologies">
+        <h2 data-label="Related technologies"><span class="sec-no">07</span>Related technologies</h2>
+        <div class="lib-related"><a class="lib-chip" href="../library/lattice-based-cryptography.html"><small>library</small>Lattice-based cryptography</a><a class="lib-chip" href="../library/confidential-computing.html"><small>library</small>Confidential computing</a><a class="lib-chip" href="../library/privacy-enhancing-technologies.html"><small>library</small>Privacy-enhancing technologies</a><a class="lib-chip" href="../library/federated-learning.html"><small>library</small>Federated learning</a><span class="lib-chip plain">Secure multi-party computation</span></div>
+      </section>
+
+      <section class="lib-sec" id="further-reading">
+        <h2 data-label="Further reading"><span class="sec-no">08</span>Further reading</h2>
+        <ul class="lib-reading"><li><a href="https://en.wikipedia.org/wiki/Homomorphic_encryption" target="_blank" rel="noopener">Homomorphic encryption <span aria-hidden="true">↗</span></a><span>Wikipedia</span></li><li><a href="https://www.openfhe.org" target="_blank" rel="noopener">OpenFHE open-source library <span aria-hidden="true">↗</span></a><span>OpenFHE</span></li><li><a href="https://github.com/microsoft/SEAL" target="_blank" rel="noopener">Microsoft SEAL <span aria-hidden="true">↗</span></a><span>Microsoft</span></li></ul>
+      </section>
+
+      <nav class="lib-pager" aria-label="More in Quantum &amp; advanced cryptography">
+        <a href="zero-knowledge-proofs.html"><small>← previous</small>Zero-knowledge proofs</a>
+        <a href="lattice-based-cryptography.html" class="next"><small>next →</small>Lattice-based cryptography</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="../index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="../posts.html">Explainers</a>
+        <a href="../library.html">The Library</a>
+        <a href="../topics.html">Topics</a>
+        <a href="../labs/index.html">Labs</a>
+        <a href="../compiler.html">Code playground</a>
+        <a href="../paths.html">Learning paths</a>
+        <a href="../resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="../daily.html">Daily challenge</a>
+        <a href="../flashcards.html">Flashcards</a>
+        <a href="../match.html">Jargon Match</a>
+        <a href="../myths.html">Myth or Fact</a>
+        <a href="../quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="../threats.html">Threat landscape</a>
+        <a href="../glossary.html">Glossary</a>
+        <a href="../timeline.html">Timelines</a>
+        <a href="../progress.html">Your progress</a>
+        <a href="../saved.html">Reading list</a>
+        <a href="../certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/avatar.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

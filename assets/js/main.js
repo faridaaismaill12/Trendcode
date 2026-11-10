@@ -54,6 +54,7 @@ const progress = {
   mythsBest: () => store.get("tc-myths-best", 0),
   matchBest: () => store.get("tc-match-best", null),
   saved: () => store.get("tc-saved", []).filter((s) => posts.some((p) => p.slug === s)),
+  lib: () => store.get("tc-lib", []).filter((s) => typeof libraryIndex === "undefined" || libraryIndex.some((l) => l[0] === s)),
   mastered() { return Object.values(this.cards()).filter((b) => b >= 3).length; },
   streak() {
     const days = new Set(this.daily());
@@ -69,7 +70,8 @@ const progress = {
   pathPct(path) { return Math.round((path.steps.filter((s) => this.stepDone(s)).length / path.steps.length) * 100); },
   xp() {
     return this.read().length * 10 + this.labs().length * 25 + this.quizBest() * 5 +
-      this.daily().length * 5 + this.mastered() * 2 + this.mythsBest() * 2 + (this.matchBest() ? 10 : 0);
+      this.daily().length * 5 + this.mastered() * 2 + this.mythsBest() * 2 + (this.matchBest() ? 10 : 0) +
+      this.lib().length * 5;
   },
 };
 
@@ -92,6 +94,7 @@ const BADGES = [
   ["card-shark", "🃏", "Card shark", "Master 20 flashcards", () => progress.mastered() >= 20],
   ["myth-buster", "🧠", "Myth buster", "Score 10/10 on Myth or Fact", () => progress.mythsBest() >= 10],
   ["quick", "⚡", "Quick matcher", "Finish Jargon Match in under 45 seconds", () => (progress.matchBest() || Infinity) < 45],
+  ["librarian", "🏛️", "Librarian", "Read 10 Library guides", () => progress.lib().length >= 10],
   ["curator", "🔖", "Curator", "Save 3 posts to your reading list", () => progress.saved().length >= 3],
   ["pathfinder", "🧭", "Pathfinder", "Finish a learning path", () => paths.some((p) => p.steps.every((s) => progress.stepDone(s)))],
   ["polymath", "🌐", "Polymath", "Read a post in 6 different topics", () =>
@@ -330,12 +333,19 @@ window.addEventListener("DOMContentLoaded", () => observeReveal());
 
   const items = [
     ...posts.map((p) => ({ kind: "Post", title: p.title, sub: topicLabel(p.topic), href: postUrl(p), text: p.excerpt })),
+    ...(typeof libraryIndex !== "undefined" ? libraryIndex : []).map(([slug, title, cat, summary]) =>
+      ({ kind: "Library", title, sub: LIBRARY_CATS[cat], href: `${BASE}library/${slug}.html`, text: summary })),
+    { kind: "Page", title: "Threat landscape", sub: "Interactive map of 7 cyber threats + self-check", href: pageUrl("threats"), text: "threats map dashboard ransomware phishing quantum ai attacks data breach supply chain social engineering security" },
+    ...["Quantum threats", "AI-powered attacks", "Ransomware", "Phishing", "Data breaches", "Supply chain attacks", "Social engineering"].map((n, i) =>
+      ({ kind: "Threat", title: n, sub: "Briefing, real case & defences", href: `${pageUrl("threats")}#${["quantum", "ai", "ransomware", "phishing", "breach", "supply", "social"][i]}`, text: n })),
+    { kind: "Page", title: "The Library", sub: "Structured guides to 35 technologies", href: pageUrl("library"), text: "library guides deep dive reference" },
     ...labs.map((l) => ({ kind: "Lab", title: l.title, sub: `${l.level} · ${l.minutes} min`, href: labUrl(l), text: l.blurb })),
     ...activities.map((a) => ({ kind: "Activity", title: a.title, sub: a.blurb, href: pageUrl(a.slug), text: a.blurb })),
     ...Object.entries(TOPICS).map(([k, t]) => ({ kind: "Topic", title: t.label, sub: "Posts, labs & terms", href: topicUrl(k), text: t.blurb })),
     ...paths.map((p) => ({ kind: "Path", title: p.title, sub: `${p.steps.length} steps`, href: pageUrl("paths") + "#" + p.id, text: p.blurb })),
     ...glossary.map(([t, k, d]) => ({ kind: "Term", title: t, sub: topicLabel(k), href: termUrl(t), text: d })),
     { kind: "Page", title: "Your progress", sub: "XP, level, badges, certificates", href: pageUrl("progress"), text: "xp badges level stats" },
+    { kind: "Page", title: "Code playground", sub: "Run Python, JS, C++, Java, Go, Rust… online", href: pageUrl("compiler"), text: "compiler code editor run online ide python javascript typescript c c++ java go rust ruby lua sql html" },
     { kind: "Page", title: "Your profile & character", sub: "Customise your avatar and class", href: pageUrl("profile"), text: "profile character avatar customise class username" },
     { kind: "Page", title: "Sign in", sub: "Sync progress across devices", href: pageUrl("login"), text: "login sign in account register sign up" },
     { kind: "Page", title: "All explainers", sub: "Search and filter every post", href: pageUrl("posts"), text: "posts articles explainers" },
@@ -604,6 +614,57 @@ function resourceCard([title, url, desc, topic, kind]) {
     }
     setTimeout(() => (e.target.textContent = "Copy link"), 2000);
   });
+})();
+
+// =============================================================
+// LIBRARY GUIDE PAGES
+// =============================================================
+(function libraryPage() {
+  const slug = document.body.dataset.lib;
+  const article = $(".lib-article");
+  if (!slug || !article) return;
+
+  const state = $("#lib-read-state");
+  const paintState = () => { if (state) state.innerHTML = progress.lib().includes(slug) ? '<span class="pill ok">✓ read · +5 XP</span>' : ""; };
+  paintState();
+  // Count it as read once the reader reaches the last third of the guide
+  const markRead = () => {
+    if (progress.lib().includes(slug)) return;
+    awardAndAnnounce(() => store.set("tc-lib", [...store.get("tc-lib", []), slug]));
+    toast(`<span class="toast-icon">🏛️</span><div><strong>Guide read</strong><br />+5 XP</div>`);
+    paintState();
+  };
+
+  const bar = document.createElement("div");
+  bar.className = "progress";
+  document.body.prepend(bar);
+  const update = () => {
+    const rect = article.getBoundingClientRect();
+    const total = rect.height - window.innerHeight;
+    const pct = total > 0 ? Math.min(100, Math.max(0, (-rect.top / total) * 100)) : 100;
+    bar.style.width = pct + "%";
+    if (pct > 66) markRead();
+  };
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+
+  // Contents list from the section headings
+  const heads = $$(".lib-sec > h2", article);
+  const toc = document.createElement("nav");
+  toc.className = "toc lib-toc";
+  toc.setAttribute("aria-label", "On this page");
+  toc.innerHTML = `<strong>On this page</strong><ol>${heads.map((h) =>
+    `<li><a href="#${h.parentElement.id}">${escapeHtml(h.dataset.label || h.textContent)}</a></li>`).join("")}</ol>`;
+  $(".lib-meta", article).after(toc);
+  // Highlight the section in view
+  if ("IntersectionObserver" in window) {
+    const links = $$("a", toc);
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) links.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id));
+    }), { rootMargin: "-30% 0px -60% 0px" });
+    heads.forEach((h) => io.observe(h.parentElement));
+  }
 })();
 
 // =============================================================

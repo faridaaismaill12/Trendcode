@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zero trust architecture — Trendcode</title>
+  <meta name="description" content="A security model that never trusts a request just because it comes from inside the network." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/library.css" />
+</head>
+<body data-base="../" data-lib="zero-trust-architecture">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="../posts.html">Explainers</a>
+      <a href="../library.html" aria-current="page">Library</a>
+      <a href="../threats.html">Threats</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../compiler.html">Code</a>
+      <a href="../activities.html">Activities</a>
+      <a href="../paths.html">Paths</a>
+      <a href="../progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="../login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article lib-article">
+      <p class="eyebrow">// <a href="../library.html">library</a> · <a href="../library.html#privacy">privacy &amp; digital security</a></p>
+      <h1>Zero trust architecture</h1>
+      <p class="lib-summary">A security model that never trusts a request just because it comes from inside the network.</p>
+      <div class="lib-meta">
+        <span class="pill">🛡️ Privacy</span>
+        <span class="pill lvl-intermediate">Intermediate</span>
+        <span class="pill">3 min read</span>
+        <span class="lib-read-state" id="lib-read-state"></span>
+      </div>
+
+      <section class="lib-sec" id="in-plain-words">
+        <h2 data-label="In plain words"><span class="sec-no">01</span>In plain words</h2>
+        <p class="lib-lede">Old-style security was like a castle: a strong wall (the firewall) and a moat (the VPN), and once you were inside, you could wander freely. Attackers who got past the wall, through one stolen password or an infected laptop, could reach everything. <strong>Zero trust</strong> throws out the idea of a trusted inside. Every request, from anyone, anywhere, must prove it should be allowed: <em>never trust, always verify</em>.</p>
+      </section>
+
+      <section class="lib-sec" id="why-it-matters">
+        <h2 data-label="Why it matters"><span class="sec-no">02</span>Why it matters</h2>
+        <p>Work now happens on laptops at home, phones on the move and apps spread across many clouds, so there's no single perimeter to defend. Most major breaches involve stolen credentials and attackers moving sideways inside networks. Zero trust limits how far an attacker can get, and governments, including the US federal government, have mandated moving toward it.</p>
+      </section>
+
+      <section class="lib-sec" id="how-it-works">
+        <h2 data-label="How it works"><span class="sec-no">03</span>How it works</h2>
+        <ol class="lib-steps">
+          <li><strong>Strong identity for everything:</strong> users, devices and services all authenticate, ideally with phishing-resistant methods.</li>
+          <li><strong>Check device health:</strong> is the laptop managed, patched and encrypted?</li>
+          <li><strong>Decide per request:</strong> a policy engine evaluates identity, device, location, time and sensitivity for each access, rather than once at login. NIST SP 800-207 describes this as a policy decision point and a policy enforcement point.</li>
+          <li><strong>Least privilege:</strong> grant the minimum access needed, for the shortest time.</li>
+          <li><strong>Micro-segmentation:</strong> split networks and workloads into small zones so a breach in one doesn't expose the rest.</li>
+          <li><strong>Assume breach and monitor:</strong> log everything, watch for anomalies and respond quickly.</li>
+        </ol>
+      </section>
+
+      <section class="lib-sec" id="real-world-example">
+        <h2 data-label="Real-world example"><span class="sec-no">04</span>Real-world example</h2>
+        <div class="lib-example">
+          <h3>Google's BeyondCorp</h3>
+          <p>After the 2009 “Operation Aurora” attacks, Google rebuilt its internal access model so employees reach internal apps the same way from the office or a café. There's no privileged corporate network: an identity-aware proxy checks the user and the device's security state on every request. In 2022, a US government memo (OMB M-22-09) directed federal agencies toward a similar zero-trust strategy.</p>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="advantages-and-limitations">
+        <h2 data-label="Advantages & limitations"><span class="sec-no">05</span>Advantages &amp; limitations</h2>
+        <div class="lib-pc">
+          <div class="lib-pros"><h3>Advantages</h3><ul><li>Greatly limits lateral movement after a breach.</li><li>Fits remote work and multi-cloud environments.</li><li>Gives better visibility into who accesses what.</li><li>Often removes the need for a traditional VPN.</li></ul></div>
+          <div class="lib-cons"><h3>Limitations</h3><ul><li>A long, complex migration, not a single product you can buy.</li><li>Legacy applications may not support modern authentication.</li><li>Poorly tuned policies frustrate users with constant prompts.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="security-and-privacy">
+        <h2 data-label="Security & privacy"><span class="sec-no">06</span>Security &amp; privacy implications</h2>
+        <ul class="lib-security"><li>Zero trust moves the crown jewels to the identity provider and policy engine, which must be extremely well protected.</li><li>Device and behaviour monitoring raises employee privacy questions, so be transparent and collect only what policy decisions need.</li><li>It reduces, but doesn't eliminate, insider risk and stolen-session attacks. Short-lived tokens and continuous evaluation help.</li></ul>
+      </section>
+
+      <section class="lib-sec" id="related-technologies">
+        <h2 data-label="Related technologies"><span class="sec-no">07</span>Related technologies</h2>
+        <div class="lib-related"><a class="lib-chip" href="../library/digital-identity.html"><small>library</small>Digital identity</a><a class="lib-chip post" href="../posts/how-passkeys-work.html"><small>explainer</small>Passwords are dying. Here's how passkeys replace them.</a><a class="lib-chip" href="../library/confidential-computing.html"><small>library</small>Confidential computing</a><a class="lib-chip" href="../library/secure-software-development.html"><small>library</small>Secure software development</a><a class="lib-chip" href="../library/edge-computing.html"><small>library</small>Edge computing</a></div>
+      </section>
+
+      <section class="lib-sec" id="further-reading">
+        <h2 data-label="Further reading"><span class="sec-no">08</span>Further reading</h2>
+        <ul class="lib-reading"><li><a href="https://csrc.nist.gov/pubs/sp/800/207/final" target="_blank" rel="noopener">NIST SP 800-207: Zero Trust Architecture <span aria-hidden="true">↗</span></a><span>NIST</span></li><li><a href="https://www.cisa.gov/zero-trust-maturity-model" target="_blank" rel="noopener">Zero Trust Maturity Model <span aria-hidden="true">↗</span></a><span>CISA</span></li><li><a href="https://en.wikipedia.org/wiki/Zero_trust_security_model" target="_blank" rel="noopener">Zero trust security model <span aria-hidden="true">↗</span></a><span>Wikipedia</span></li></ul>
+      </section>
+
+      <nav class="lib-pager" aria-label="More in Privacy &amp; digital security">
+        <a href="digital-identity.html"><small>← previous</small>Digital identity</a>
+        <a href="privacy-enhancing-technologies.html" class="next"><small>next →</small>Privacy-enhancing technologies</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="../index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="../posts.html">Explainers</a>
+        <a href="../library.html">The Library</a>
+        <a href="../topics.html">Topics</a>
+        <a href="../labs/index.html">Labs</a>
+        <a href="../compiler.html">Code playground</a>
+        <a href="../paths.html">Learning paths</a>
+        <a href="../resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="../daily.html">Daily challenge</a>
+        <a href="../flashcards.html">Flashcards</a>
+        <a href="../match.html">Jargon Match</a>
+        <a href="../myths.html">Myth or Fact</a>
+        <a href="../quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="../threats.html">Threat landscape</a>
+        <a href="../glossary.html">Glossary</a>
+        <a href="../timeline.html">Timelines</a>
+        <a href="../progress.html">Your progress</a>
+        <a href="../saved.html">Reading list</a>
+        <a href="../certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/avatar.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

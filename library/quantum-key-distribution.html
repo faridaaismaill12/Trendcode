@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantum key distribution — Trendcode</title>
+  <meta name="description" content="Using the physics of single photons to share a secret key, where any eavesdropping leaves detectable traces." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/library.css" />
+</head>
+<body data-base="../" data-lib="quantum-key-distribution">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="../posts.html">Explainers</a>
+      <a href="../library.html" aria-current="page">Library</a>
+      <a href="../threats.html">Threats</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../compiler.html">Code</a>
+      <a href="../activities.html">Activities</a>
+      <a href="../paths.html">Paths</a>
+      <a href="../progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="../login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article lib-article">
+      <p class="eyebrow">// <a href="../library.html">library</a> · <a href="../library.html#crypto">quantum &amp; advanced cryptography</a></p>
+      <h1>Quantum key distribution</h1>
+      <p class="lib-summary">Using the physics of single photons to share a secret key, where any eavesdropping leaves detectable traces.</p>
+      <div class="lib-meta">
+        <span class="pill">🔐 Cryptography</span>
+        <span class="pill lvl-intermediate">Intermediate</span>
+        <span class="pill">3 min read</span>
+        <span class="lib-read-state" id="lib-read-state"></span>
+      </div>
+
+      <section class="lib-sec" id="in-plain-words">
+        <h2 data-label="In plain words"><span class="sec-no">01</span>In plain words</h2>
+        <p class="lib-lede">Imagine sending a secret by writing it on soap bubbles: anyone who touches a bubble pops it, so you'd know someone was snooping. <strong>Quantum key distribution (QKD)</strong> works in a similar spirit. Two parties send single particles of light (photons) to each other, and because measuring a quantum state disturbs it, an eavesdropper can't copy the photons without introducing errors the two parties can spot. The result is a shared secret key they can use with ordinary encryption.</p>
+      </section>
+
+      <section class="lib-sec" id="why-it-matters">
+        <h2 data-label="Why it matters"><span class="sec-no">02</span>Why it matters</h2>
+        <p>Most of today's key exchange relies on maths problems that a large quantum computer could solve. QKD takes a completely different route: its security rests on the laws of physics rather than on a problem being hard. That makes it attractive for links that must stay secret for decades, such as government or bank backbones, and it's one of the first practical quantum technologies.</p>
+      </section>
+
+      <section class="lib-sec" id="how-it-works">
+        <h2 data-label="How it works"><span class="sec-no">03</span>How it works</h2>
+        <ol class="lib-steps">
+          <li><strong>Send:</strong> Alice sends Bob a stream of photons, encoding each bit in one of two randomly chosen “bases” (for example, polarisation that is either straight or diagonal). This is the BB84 protocol, proposed by Bennett and Brassard in 1984.</li>
+          <li><strong>Measure:</strong> Bob measures each photon in a basis he also picks at random. When his basis matches Alice's, he reads the right bit; when it doesn't, his result is random.</li>
+          <li><strong>Sift:</strong> Over an ordinary (but authenticated) channel they compare which bases they used, never the bits themselves, and keep only the matching positions.</li>
+          <li><strong>Check for spies:</strong> They reveal a sample of bits. An eavesdropper who measured photons in transit would have disturbed them, pushing the error rate up. If it's too high, they throw the key away.</li>
+          <li><strong>Clean up:</strong> Error correction fixes remaining mismatches, and <em>privacy amplification</em> shrinks the key to squeeze out anything an eavesdropper might have partially learned.</li>
+        </ol>
+      </section>
+
+      <section class="lib-sec" id="real-world-example">
+        <h2 data-label="Real-world example"><span class="sec-no">04</span>Real-world example</h2>
+        <div class="lib-example">
+          <h3>Satellite QKD between continents</h3>
+          <p>In 2017, China's Micius satellite distributed quantum keys between ground stations in China and Austria, and the keys were used for an intercontinental video call. Earlier, in 2007, Geneva used commercial QKD equipment to protect the link carrying election results. Several countries now run metropolitan QKD networks over fibre.</p>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="advantages-and-limitations">
+        <h2 data-label="Advantages & limitations"><span class="sec-no">05</span>Advantages &amp; limitations</h2>
+        <div class="lib-pc">
+          <div class="lib-pros"><h3>Advantages</h3><ul><li>Security is based on physics, not on an unproven assumption that some maths problem is hard.</li><li>Eavesdropping is detectable while the key is being created, not years later.</li><li>Keys are “future-proof”: a future quantum computer can't go back and break a properly generated QKD key.</li></ul></div>
+          <div class="lib-cons"><h3>Limitations</h3><ul><li>Distance is limited (roughly 100 km over fibre) without “trusted relay” nodes, which must themselves be secured.</li><li>Needs specialised, expensive hardware and dedicated fibre or line-of-sight links. It can't run over normal internet connections.</li><li>QKD doesn't authenticate who you're talking to. You still need classical authentication, often pre-shared keys or signatures.</li><li>Real devices have been hacked through implementation flaws (for example, blinding the detectors with bright light), even though the theory is sound.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="security-and-privacy">
+        <h2 data-label="Security & privacy"><span class="sec-no">06</span>Security &amp; privacy implications</h2>
+        <ul class="lib-security"><li>The security proof covers the protocol, not the hardware. Side-channel attacks on detectors and lasers are the main practical risk, so certification and careful engineering matter.</li><li>Trusted relays break end-to-end guarantees: whoever controls a relay node can read the key.</li><li>Security agencies including the US NSA, the UK NCSC and France's ANSSI currently recommend post-quantum cryptography over QKD for most uses, mainly because of cost, authentication and implementation concerns.</li></ul>
+      </section>
+
+      <section class="lib-sec" id="related-technologies">
+        <h2 data-label="Related technologies"><span class="sec-no">07</span>Related technologies</h2>
+        <div class="lib-related"><a class="lib-chip" href="../library/quantum-resistant-encryption.html"><small>library</small>Quantum-resistant encryption</a><a class="lib-chip" href="../library/hybrid-key-exchange.html"><small>library</small>Hybrid key exchange</a><a class="lib-chip post" href="../posts/qubits-without-the-mysticism.html"><small>explainer</small>Qubits without the mysticism: what a quantum computer actually does</a><a class="lib-chip lab" href="../labs/qubit-playground.html"><small>lab</small>qubit playground</a><span class="lib-chip plain">One-time pad</span></div>
+      </section>
+
+      <section class="lib-sec" id="further-reading">
+        <h2 data-label="Further reading"><span class="sec-no">08</span>Further reading</h2>
+        <ul class="lib-reading"><li><a href="https://en.wikipedia.org/wiki/Quantum_key_distribution" target="_blank" rel="noopener">Quantum key distribution <span aria-hidden="true">↗</span></a><span>Wikipedia</span></li><li><a href="https://www.nsa.gov/Cybersecurity/Quantum-Key-Distribution-QKD-and-Quantum-Cryptography-QC/" target="_blank" rel="noopener">Quantum Key Distribution (QKD) and Quantum Cryptography <span aria-hidden="true">↗</span></a><span>NSA</span></li></ul>
+      </section>
+
+      <nav class="lib-pager" aria-label="More in Quantum &amp; advanced cryptography">
+        <a href="../library.html"><small>← back to</small>The Library</a>
+        <a href="quantum-resistant-encryption.html" class="next"><small>next →</small>Quantum-resistant encryption</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="../index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="../posts.html">Explainers</a>
+        <a href="../library.html">The Library</a>
+        <a href="../topics.html">Topics</a>
+        <a href="../labs/index.html">Labs</a>
+        <a href="../compiler.html">Code playground</a>
+        <a href="../paths.html">Learning paths</a>
+        <a href="../resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="../daily.html">Daily challenge</a>
+        <a href="../flashcards.html">Flashcards</a>
+        <a href="../match.html">Jargon Match</a>
+        <a href="../myths.html">Myth or Fact</a>
+        <a href="../quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="../threats.html">Threat landscape</a>
+        <a href="../glossary.html">Glossary</a>
+        <a href="../timeline.html">Timelines</a>
+        <a href="../progress.html">Your progress</a>
+        <a href="../saved.html">Reading list</a>
+        <a href="../certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/avatar.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

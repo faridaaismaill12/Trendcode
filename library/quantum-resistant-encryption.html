@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantum-resistant encryption — Trendcode</title>
+  <meta name="description" content="The new families of algorithms designed to stay secure even against large quantum computers." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/library.css" />
+</head>
+<body data-base="../" data-lib="quantum-resistant-encryption">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="../posts.html">Explainers</a>
+      <a href="../library.html" aria-current="page">Library</a>
+      <a href="../threats.html">Threats</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../compiler.html">Code</a>
+      <a href="../activities.html">Activities</a>
+      <a href="../paths.html">Paths</a>
+      <a href="../progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="../login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article lib-article">
+      <p class="eyebrow">// <a href="../library.html">library</a> · <a href="../library.html#crypto">quantum &amp; advanced cryptography</a></p>
+      <h1>Quantum-resistant encryption</h1>
+      <p class="lib-summary">The new families of algorithms designed to stay secure even against large quantum computers.</p>
+      <div class="lib-meta">
+        <span class="pill">🔐 Cryptography</span>
+        <span class="pill lvl-beginner">Beginner</span>
+        <span class="pill">3 min read</span>
+        <span class="lib-read-state" id="lib-read-state"></span>
+      </div>
+
+      <section class="lib-sec" id="in-plain-words">
+        <h2 data-label="In plain words"><span class="sec-no">01</span>In plain words</h2>
+        <p class="lib-lede">Today's internet locks (RSA and elliptic-curve cryptography) are built on maths problems that a big enough quantum computer could solve quickly. <strong>Quantum-resistant</strong> (or post-quantum) encryption swaps those problems for different ones that no known quantum algorithm can crack. The clever part: it runs on ordinary computers and phones. You don't need any quantum hardware to use it.</p>
+      </section>
+
+      <section class="lib-sec" id="why-it-matters">
+        <h2 data-label="Why it matters"><span class="sec-no">02</span>Why it matters</h2>
+        <p>Attackers can record encrypted traffic today and decrypt it later once quantum computers mature (“harvest now, decrypt later”). Replacing cryptography across every browser, server, phone and device takes many years, so the migration has to start well before the threat arrives. Governments have set target dates in the early 2030s.</p>
+      </section>
+
+      <section class="lib-sec" id="how-it-works">
+        <h2 data-label="How it works"><span class="sec-no">03</span>How it works</h2>
+        <ol class="lib-steps">
+          <li><strong>Pick new hard problems.</strong> Instead of factoring, these schemes use problems such as finding short vectors in a high-dimensional lattice, decoding random error-correcting codes, or inverting hash functions.</li>
+          <li><strong>Key encapsulation (KEM).</strong> To agree on a key, one side encapsulates a random secret using the other's public key. Only the private key can recover it. NIST standardised <code>ML-KEM</code> (FIPS 203) for this.</li>
+          <li><strong>Signatures.</strong> To prove authenticity, NIST standardised <code>ML-DSA</code> (FIPS 204, lattice-based) and <code>SLH-DSA</code> (FIPS 205, hash-based), with Falcon (FN-DSA) to follow.</li>
+          <li><strong>Backups on different maths.</strong> In 2025 NIST also selected HQC, a code-based KEM, so the world doesn't depend on a single family of problems.</li>
+          <li><strong>Deploy alongside classical crypto.</strong> During the transition, most systems combine a post-quantum algorithm with a classical one (hybrid mode).</li>
+        </ol>
+      </section>
+
+      <section class="lib-sec" id="real-world-example">
+        <h2 data-label="Real-world example"><span class="sec-no">04</span>Real-world example</h2>
+        <div class="lib-example">
+          <h3>Your messages are probably already protected</h3>
+          <p>Signal added post-quantum protection (PQXDH, using Kyber) in 2023, Apple's iMessage moved to its PQ3 protocol in 2024, and Chrome and Cloudflare now use a hybrid of X25519 and ML-KEM by default for TLS. If you use an up-to-date browser, much of your web traffic already has a post-quantum layer.</p>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="advantages-and-limitations">
+        <h2 data-label="Advantages & limitations"><span class="sec-no">05</span>Advantages &amp; limitations</h2>
+        <div class="lib-pc">
+          <div class="lib-pros"><h3>Advantages</h3><ul><li>Runs on existing hardware, so it can be rolled out with software updates.</li><li>Standardised after an eight-year public competition with worldwide cryptanalysis.</li><li>Lattice schemes are fast: ML-KEM is competitive with, and sometimes faster than, elliptic-curve key exchange.</li></ul></div>
+          <div class="lib-cons"><h3>Limitations</h3><ul><li>Keys, ciphertexts and signatures are bigger: an ML-KEM-768 public key is 1,184 bytes and an ML-DSA-65 signature is 3,309 bytes, versus tens of bytes for elliptic curves.</li><li>The algorithms are younger, with fewer years of attack attempts. One finalist candidate (SIKE) was broken in 2022.</li><li>Migration is a huge inventory and engineering effort, especially for embedded and long-lived devices.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="security-and-privacy">
+        <h2 data-label="Security & privacy"><span class="sec-no">06</span>Security &amp; privacy implications</h2>
+        <ul class="lib-security"><li>Implementation bugs and timing side channels are a bigger near-term risk than mathematical breaks. Use well-reviewed libraries, never home-made code.</li><li>Hybrid deployment hedges against an unexpected break in a new algorithm.</li><li>Prioritise data with a long secrecy lifetime (health, state, financial records), because that's what harvest-now-decrypt-later targets.</li></ul>
+      </section>
+
+      <section class="lib-sec" id="related-technologies">
+        <h2 data-label="Related technologies"><span class="sec-no">07</span>Related technologies</h2>
+        <div class="lib-related"><a class="lib-chip post" href="../posts/what-is-post-quantum-cryptography.html"><small>explainer</small>What is Post-Quantum Cryptography (and why should you care)?</a><a class="lib-chip" href="../library/lattice-based-cryptography.html"><small>library</small>Lattice-based cryptography</a><a class="lib-chip" href="../library/hybrid-key-exchange.html"><small>library</small>Hybrid key exchange</a><a class="lib-chip" href="../library/cryptographic-agility.html"><small>library</small>Cryptographic agility</a><a class="lib-chip" href="../library/digital-signatures.html"><small>library</small>Digital signatures</a></div>
+      </section>
+
+      <section class="lib-sec" id="further-reading">
+        <h2 data-label="Further reading"><span class="sec-no">08</span>Further reading</h2>
+        <ul class="lib-reading"><li><a href="https://csrc.nist.gov/projects/post-quantum-cryptography" target="_blank" rel="noopener">Post-Quantum Cryptography project <span aria-hidden="true">↗</span></a><span>NIST</span></li><li><a href="https://csrc.nist.gov/pubs/fips/203/final" target="_blank" rel="noopener">FIPS 203: ML-KEM standard <span aria-hidden="true">↗</span></a><span>NIST</span></li><li><a href="https://en.wikipedia.org/wiki/Post-quantum_cryptography" target="_blank" rel="noopener">Post-quantum cryptography <span aria-hidden="true">↗</span></a><span>Wikipedia</span></li></ul>
+      </section>
+
+      <nav class="lib-pager" aria-label="More in Quantum &amp; advanced cryptography">
+        <a href="quantum-key-distribution.html"><small>← previous</small>Quantum key distribution</a>
+        <a href="zero-knowledge-proofs.html" class="next"><small>next →</small>Zero-knowledge proofs</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="../index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="../posts.html">Explainers</a>
+        <a href="../library.html">The Library</a>
+        <a href="../topics.html">Topics</a>
+        <a href="../labs/index.html">Labs</a>
+        <a href="../compiler.html">Code playground</a>
+        <a href="../paths.html">Learning paths</a>
+        <a href="../resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="../daily.html">Daily challenge</a>
+        <a href="../flashcards.html">Flashcards</a>
+        <a href="../match.html">Jargon Match</a>
+        <a href="../myths.html">Myth or Fact</a>
+        <a href="../quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="../threats.html">Threat landscape</a>
+        <a href="../glossary.html">Glossary</a>
+        <a href="../timeline.html">Timelines</a>
+        <a href="../progress.html">Your progress</a>
+        <a href="../saved.html">Reading list</a>
+        <a href="../certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/avatar.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

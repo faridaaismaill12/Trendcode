@@ -1,0 +1,7 @@
+# Source and tooling that the live site doesn't need
+content/
+tools/
+supabase/
+.github/
+README.md
+_*.html

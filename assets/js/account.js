@@ -17,7 +17,7 @@
   });
 
   // ---------- progress <-> localStorage ----------
-  const ARRAY_KEYS = ["tc-read", "tc-labs", "tc-daily", "tc-saved"];
+  const ARRAY_KEYS = ["tc-read", "tc-labs", "tc-daily", "tc-saved", "tc-lib"];
   const MAX_KEYS = ["tc-quiz-best", "tc-myths-best"];
   const missionKeys = () => labs.map((l) => "tc-m-" + l.slug);
 
@@ -25,7 +25,7 @@
     const p = {};
     [...ARRAY_KEYS, ...missionKeys()].forEach((k) => { const v = store.get(k, null); if (v) p[k] = v; });
     MAX_KEYS.forEach((k) => { const v = store.get(k, null); if (v !== null) p[k] = v; });
-    ["tc-match-best", "tc-cards", "tc-cert-dates"].forEach((k) => { const v = store.get(k, null); if (v !== null) p[k] = v; });
+    ["tc-match-best", "tc-cards", "tc-cert-dates", "tc-threat-checks"].forEach((k) => { const v = store.get(k, null); if (v !== null) p[k] = v; });
     return p;
   };
 
@@ -44,6 +44,13 @@
       const l = store.get("tc-cards", {});
       Object.entries(remote["tc-cards"]).forEach(([t, b]) => { l[t] = Math.max(l[t] || 0, +b || 0); });
       store.set("tc-cards", l);
+    }
+    if (remote["tc-threat-checks"] && typeof remote["tc-threat-checks"] === "object") {
+      const l = store.get("tc-threat-checks", {});
+      Object.entries(remote["tc-threat-checks"]).forEach(([id, list]) => {
+        if (Array.isArray(list)) l[id] = [...new Set([...(l[id] || []), ...list])].sort((a, b) => a - b);
+      });
+      store.set("tc-threat-checks", l);
     }
     if (remote["tc-cert-dates"] && typeof remote["tc-cert-dates"] === "object") {
       const l = store.get("tc-cert-dates", {});

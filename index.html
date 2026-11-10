@@ -12,14 +12,17 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/home.css" />
+  <link rel="stylesheet" href="assets/css/threats.css" />
 </head>
 <body data-base="" class="home">
   <header class="site-header">
     <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
     <nav id="site-nav" aria-label="Main">
       <a href="posts.html">Explainers</a>
-      <a href="topics.html">Topics</a>
+      <a href="library.html">Library</a>
+      <a href="threats.html">Threats</a>
       <a href="labs/index.html">Labs</a>
+      <a href="compiler.html">Code</a>
       <a href="activities.html">Activities</a>
       <a href="paths.html">Paths</a>
       <a href="progress.html" class="nav-xp">Progress</a>
@@ -52,6 +55,26 @@
       <div class="terminal" aria-label="Animated terminal">
         <div class="terminal-bar"><i></i><i></i><i></i><span>~/trendcode</span></div>
         <pre id="terminal-body" aria-live="off"></pre>
+      </div>
+    </section>
+
+    <!-- THREAT LANDSCAPE: a printed field chart -->
+    <section class="plate" id="threat-landscape" aria-labelledby="tl-title">
+      <div class="plate-inner">
+        <header class="plate-head">
+          <p class="plate-kicker"><span>Plate 01</span><span>A field guide to the threat landscape</span><span>Trendcode · revised <time id="plate-date"></time></span></p>
+          <h2 id="tl-title">What's coming <em>for you</em></h2>
+          <p class="plate-lede">Seven threats, charted by how close they get. Choose any marker to read its field note: how the attack unfolds, a case on record, and what actually helps.</p>
+        </header>
+        <div class="plate-grid">
+          <figure class="plate-chart">
+            <svg class="threat-map" id="threat-map" aria-label="Chart of seven cyber threats arranged around you"></svg>
+            <figcaption>Fig. 1. Threats placed by the layer they reach first. Marker size is Trendcode's editorial estimate of impact, not measured data.</figcaption>
+          </figure>
+          <article class="field-note" id="tl-brief" aria-live="polite"></article>
+        </div>
+        <div class="plate-index" id="tl-index"></div>
+        <a class="plate-more" href="threats.html">Open the full field guide, with a readiness check for each threat <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
@@ -105,8 +128,10 @@
       <div>
         <h4>Learn</h4>
         <a href="posts.html">Explainers</a>
+        <a href="library.html">The Library</a>
         <a href="topics.html">Topics</a>
         <a href="labs/index.html">Labs</a>
+        <a href="compiler.html">Code playground</a>
         <a href="paths.html">Learning paths</a>
         <a href="resources.html">Resources</a>
       </div>
@@ -120,6 +145,7 @@
       </div>
       <div>
         <h4>Explore</h4>
+        <a href="threats.html">Threat landscape</a>
         <a href="glossary.html">Glossary</a>
         <a href="timeline.html">Timelines</a>
         <a href="progress.html">Your progress</a>
@@ -140,5 +166,10 @@
   <script src="assets/js/avatar.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/pages/home.js"></script>
+  <script src="assets/js/threatmap.js"></script>
+  <script>
+    initThreatDashboard({ map: $("#threat-map"), brief: $("#tl-brief"), index: $("#tl-index") });
+    $("#plate-date").textContent = new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" });
+  </script>
 </body>
 </html>

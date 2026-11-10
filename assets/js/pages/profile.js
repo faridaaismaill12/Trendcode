@@ -14,7 +14,8 @@
     const daily = arr("tc-daily").length;
     const mastered = Object.values(p["tc-cards"] || {}).filter((b) => b >= 3).length;
     const quiz = +p["tc-quiz-best"] || 0, myth = +p["tc-myths-best"] || 0;
-    const xp = read * 10 + labN * 25 + quiz * 5 + daily * 5 + mastered * 2 + myth * 2 + (p["tc-match-best"] ? 10 : 0);
+    const libN = arr("tc-lib").length;
+    const xp = read * 10 + labN * 25 + quiz * 5 + daily * 5 + mastered * 2 + myth * 2 + (p["tc-match-best"] ? 10 : 0) + libN * 5;
     return { read, labN, daily, mastered, quiz, myth, xp };
   };
 

@@ -23,6 +23,7 @@
         ${[
           ["📖", `${progress.read().length}/${posts.length}`, "explainers read", "+10 XP each", pageUrl("posts")],
           ["🧪", `${progress.labs().length}/${labs.length}`, "labs completed", "+25 XP each", `${BASE}labs/index.html`],
+          ["🏛️", `${progress.lib().length}/${typeof libraryIndex !== "undefined" ? libraryIndex.length : 0}`, "library guides read", "+5 XP each", pageUrl("library")],
           ["📅", `${progress.daily().length}`, `daily challenges · 🔥 ${progress.streak()} streak`, "+5 XP each", pageUrl("daily")],
           ["🃏", `${progress.mastered()}/${glossary.length}`, "flashcards mastered", "+2 XP each", pageUrl("flashcards")],
           ["🎯", `${progress.quizBest()}/5`, "best quiz score", "+5 XP per point", pageUrl("quiz")],
@@ -57,7 +58,7 @@
         </div>
       </div>`;
 
-    const KEYS = ["tc-read", "tc-labs", "tc-quiz-best", "tc-daily", "tc-cards", "tc-myths-best", "tc-match-best", "tc-saved", "tc-name", "tc-cert-dates",
+    const KEYS = ["tc-read", "tc-labs", "tc-quiz-best", "tc-daily", "tc-cards", "tc-myths-best", "tc-match-best", "tc-saved", "tc-lib", "tc-threat-checks", "tc-name", "tc-cert-dates",
       ...labs.map((l) => "tc-m-" + l.slug)];
     const BACKUP_EXTRA = ["tc-character", "tc-profile"]; // backed up, but kept on reset
     $("#reset-progress").addEventListener("click", () => {

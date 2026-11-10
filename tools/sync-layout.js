@@ -9,8 +9,11 @@ const root = path.join(__dirname, "..");
 
 const SECTIONS = {
   posts: ["posts.html", "posts/"],
+  library: ["library.html", "library/"],
   topics: ["topics.html", "topic.html"],
+  threats: ["threats.html"],
   labs: ["labs/"],
+  code: ["compiler.html"],
   activities: ["activities.html", "daily.html", "flashcards.html", "match.html", "myths.html", "quiz.html",
     "glossary.html", "timeline.html", "resources.html", "certificate.html"],
   paths: ["paths.html"],
@@ -26,8 +29,10 @@ const header = (p, sec) => {
     <a href="${p}index.html" class="logo">trend<span>code</span><b>_</b></a>
     <nav id="site-nav" aria-label="Main">
       ${link("posts.html", "posts", "Explainers")}
-      ${link("topics.html", "topics", "Topics")}
+      ${link("library.html", "library", "Library")}
+      ${link("threats.html", "threats", "Threats")}
       ${link("labs/index.html", "labs", "Labs")}
+      ${link("compiler.html", "code", "Code")}
       ${link("activities.html", "activities", "Activities")}
       ${link("paths.html", "paths", "Paths")}
       ${link("progress.html", "progress", "Progress", ' class="nav-xp"')}
@@ -51,8 +56,10 @@ const footer = (p) => `<footer class="site-footer">
       <div>
         <h4>Learn</h4>
         <a href="${p}posts.html">Explainers</a>
+        <a href="${p}library.html">The Library</a>
         <a href="${p}topics.html">Topics</a>
         <a href="${p}labs/index.html">Labs</a>
+        <a href="${p}compiler.html">Code playground</a>
         <a href="${p}paths.html">Learning paths</a>
         <a href="${p}resources.html">Resources</a>
       </div>
@@ -66,6 +73,7 @@ const footer = (p) => `<footer class="site-footer">
       </div>
       <div>
         <h4>Explore</h4>
+        <a href="${p}threats.html">Threat landscape</a>
         <a href="${p}glossary.html">Glossary</a>
         <a href="${p}timeline.html">Timelines</a>
         <a href="${p}progress.html">Your progress</a>
@@ -84,14 +92,14 @@ const footer = (p) => `<footer class="site-footer">
 
 const files = [
   ...fs.readdirSync(root).filter((f) => f.endsWith(".html")),
-  ...["posts", "labs"].flatMap((d) => fs.readdirSync(path.join(root, d)).filter((f) => f.endsWith(".html")).map((f) => `${d}/${f}`)),
+  ...["posts", "labs", "library"].filter((d) => fs.existsSync(path.join(root, d))).flatMap((d) => fs.readdirSync(path.join(root, d)).filter((f) => f.endsWith(".html")).map((f) => `${d}/${f}`)),
 ].filter((f) => !path.basename(f).startsWith("_"));
 
 let changed = 0;
 for (const rel of files) {
   const file = path.join(root, rel);
   const src = fs.readFileSync(file, "utf8");
-  const prefix = rel === "404.html" ? "/Trendcode/" : rel.includes("/") ? "../" : "";
+  const prefix = rel === "404.html" ? "/" : rel.includes("/") ? "../" : "";
   let out = src
     .replace(/<header class="site-header">[\s\S]*?<\/header>/, header(prefix, sectionOf(rel)))
     .replace(/<footer class="site-footer">[\s\S]*?<\/footer>/, footer(prefix));

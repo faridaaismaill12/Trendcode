@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Playground — Trendcode</title>
+  <meta name="description" content="Write and run code online in 20+ languages: Python, JavaScript, TypeScript, Ruby, Lua, SQL, HTML, C, C++, Java, Go, Rust and more. No install needed." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/compiler.css" />
+</head>
+<body data-base="" data-auth="compiler" class="ide-page">
+  <header class="site-header">
+    <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="posts.html">Explainers</a>
+      <a href="library.html">Library</a>
+      <a href="threats.html">Threats</a>
+      <a href="labs/index.html">Labs</a>
+      <a href="compiler.html" aria-current="page">Code</a>
+      <a href="activities.html">Activities</a>
+      <a href="paths.html">Paths</a>
+      <a href="progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="ide-main">
+    <div class="ide-head">
+      <div>
+        <p class="eyebrow">// playground</p>
+        <h1>Write code. <span>Run it.</span></h1>
+      </div>
+      <p class="muted ide-sub" id="ide-sub">Pick a language, edit, then press <kbd>Run</kbd> or <kbd>Ctrl</kbd> + <kbd>Enter</kbd>.</p>
+    </div>
+
+    <div class="ide-toolbar">
+      <label class="lang-pick">
+        <span class="sr-only">Language</span>
+        <select id="lang" class="input" aria-label="Language"></select>
+      </label>
+      <span class="engine-badge" id="engine-badge"></span>
+      <div class="tb-spacer"></div>
+      <button type="button" class="tb-btn" id="btn-reset" title="Replace with the example program">↺ Example</button>
+      <button type="button" class="tb-btn" id="btn-share" title="Copy a link to this code">🔗 Share</button>
+      <button type="button" class="tb-btn" id="btn-download" title="Download as a file">⬇ Download</button>
+      <button type="button" class="btn ide-run" id="btn-run">▶ Run</button>
+      <button type="button" class="btn btn-ghost ide-stop" id="btn-stop" hidden>■ Stop</button>
+    </div>
+
+    <div class="ide-grid">
+      <section class="ide-editor-wrap" aria-label="Code editor">
+        <div class="ide-tabbar"><span class="file-tab" id="file-tab">main.py</span><span class="muted small" id="cursor-pos"></span></div>
+        <div class="ide-editor" id="editor"></div>
+      </section>
+
+      <section class="ide-side">
+        <div class="ide-panel stdin-panel">
+          <div class="panel-bar"><span>stdin</span><span class="muted small">input for your program</span></div>
+          <textarea id="stdin" class="stdin" spellcheck="false" placeholder="Anything typed here is fed to input() / scanf / readLine…"></textarea>
+        </div>
+        <div class="ide-panel out-panel">
+          <div class="panel-bar">
+            <span id="out-title">output</span>
+            <span class="run-meta" id="run-meta"></span>
+            <button type="button" class="panel-btn" id="btn-clear" title="Clear output">clear</button>
+          </div>
+          <div class="console" id="console" aria-live="polite"></div>
+          <iframe class="preview" id="preview" title="Web preview" sandbox="allow-scripts allow-modals" hidden></iframe>
+        </div>
+      </section>
+    </div>
+
+    <details class="ide-about">
+      <summary>How does this work?</summary>
+      <div class="about-grid">
+        <div>
+          <h3>🖥 Runs in your browser</h3>
+          <p>JavaScript, TypeScript, Python, Ruby, Lua, SQL and HTML/CSS run <strong>on your own device</strong> using WebAssembly. Your code never leaves the browser. The first run of Python or Ruby downloads its interpreter, which can take a few seconds.</p>
+        </div>
+        <div>
+          <h3>☁️ Runs on a server</h3>
+          <p>C, C++, Java, Go, Rust, C#, Kotlin, PHP, Swift, Bash, R, Haskell, Perl and Scala need a real compiler, so they're sent to a sandboxed compile server. <strong>Sign in</strong> to use them. Runs are limited to a few seconds and 256 MB.</p>
+        </div>
+        <div>
+          <h3>💾 Saved automatically</h3>
+          <p>Your code for each language is saved in this browser as you type. Use <em>Share</em> to get a link with your code in it.</p>
+        </div>
+      </div>
+    </details>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="posts.html">Explainers</a>
+        <a href="library.html">The Library</a>
+        <a href="topics.html">Topics</a>
+        <a href="labs/index.html">Labs</a>
+        <a href="compiler.html">Code playground</a>
+        <a href="paths.html">Learning paths</a>
+        <a href="resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="daily.html">Daily challenge</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="match.html">Jargon Match</a>
+        <a href="myths.html">Myth or Fact</a>
+        <a href="quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="threats.html">Threat landscape</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="timeline.html">Timelines</a>
+        <a href="progress.html">Your progress</a>
+        <a href="saved.html">Reading list</a>
+        <a href="certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/avatar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/pages/compiler.js"></script>
+</body>
+</html>

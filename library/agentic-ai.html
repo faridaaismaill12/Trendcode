@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic AI — Trendcode</title>
+  <meta name="description" content="AI that doesn't just answer questions, but plans and takes actions toward a goal." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/library.css" />
+</head>
+<body data-base="../" data-lib="agentic-ai">
+  <header class="site-header">
+    <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="../posts.html">Explainers</a>
+      <a href="../library.html" aria-current="page">Library</a>
+      <a href="../threats.html">Threats</a>
+      <a href="../labs/index.html">Labs</a>
+      <a href="../compiler.html">Code</a>
+      <a href="../activities.html">Activities</a>
+      <a href="../paths.html">Paths</a>
+      <a href="../progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="../login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article lib-article">
+      <p class="eyebrow">// <a href="../library.html">library</a> · <a href="../library.html#ai">artificial intelligence</a></p>
+      <h1>Agentic AI</h1>
+      <p class="lib-summary">AI that doesn't just answer questions, but plans and takes actions toward a goal.</p>
+      <div class="lib-meta">
+        <span class="pill">🤖 AI</span>
+        <span class="pill lvl-beginner">Beginner</span>
+        <span class="pill">3 min read</span>
+        <span class="lib-read-state" id="lib-read-state"></span>
+      </div>
+
+      <section class="lib-sec" id="in-plain-words">
+        <h2 data-label="In plain words"><span class="sec-no">01</span>In plain words</h2>
+        <p class="lib-lede">A chatbot waits for your question and replies. <strong>Agentic AI</strong> is handed a goal, like “book me a train to Leeds under £50” or “fix this failing test”, and works out the steps itself: searching, clicking, running code, checking the result and trying again. The “agentic” part is about <em>autonomy</em>: how much the system decides and does on its own.</p>
+      </section>
+
+      <section class="lib-sec" id="why-it-matters">
+        <h2 data-label="Why it matters"><span class="sec-no">02</span>Why it matters</h2>
+        <p>Agentic systems can automate multi-step work that used to need a person at every step, such as research, coding, data entry and customer support. That's a major productivity shift. But an AI that can <em>act</em> can also cause real damage when it's wrong or manipulated, so safety, permissions and oversight become central design questions.</p>
+      </section>
+
+      <section class="lib-sec" id="how-it-works">
+        <h2 data-label="How it works"><span class="sec-no">03</span>How it works</h2>
+        <ol class="lib-steps">
+          <li><strong>A goal.</strong> The user (or another system) gives an objective, plus constraints such as budget, deadlines or rules.</li>
+          <li><strong>A reasoning core.</strong> Usually a large language model breaks the goal into steps and decides what to do next.</li>
+          <li><strong>Tools.</strong> The model can call functions: web search, a browser, a code runner, email, databases, company APIs. Standards like the Model Context Protocol (MCP) make connecting tools easier.</li>
+          <li><strong>A loop.</strong> Act, observe the result, update the plan, repeat, until the goal is met or the agent decides to stop and ask for help.</li>
+          <li><strong>Guardrails.</strong> Permissions, spending limits, human approval for risky steps, logging and the ability to stop the agent.</li>
+        </ol>
+      </section>
+
+      <section class="lib-sec" id="real-world-example">
+        <h2 data-label="Real-world example"><span class="sec-no">04</span>Real-world example</h2>
+        <div class="lib-example">
+          <h3>Coding agents</h3>
+          <p>Software teams now use coding agents that read a repository, edit several files, run the test suite, read the failures and iterate until the tests pass, then open a pull request for a human to review. The same pattern appears in IT support agents that reset accounts and in research agents that read dozens of sources and write a summary.</p>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="advantages-and-limitations">
+        <h2 data-label="Advantages & limitations"><span class="sec-no">05</span>Advantages &amp; limitations</h2>
+        <div class="lib-pc">
+          <div class="lib-pros"><h3>Advantages</h3><ul><li>Automates tedious, multi-step tasks end to end.</li><li>Can work continuously and in parallel.</li><li>Adapts to unexpected situations better than rigid scripts.</li></ul></div>
+          <div class="lib-cons"><h3>Limitations</h3><ul><li>Errors compound: a wrong early step can derail everything after it.</li><li>Harder to predict and test than single responses.</li><li>Costly in compute, and slower than a direct answer.</li><li>Unclear accountability when an autonomous system makes a mistake.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="lib-sec" id="security-and-privacy">
+        <h2 data-label="Security & privacy"><span class="sec-no">06</span>Security &amp; privacy implications</h2>
+        <ul class="lib-security"><li><strong>Prompt injection</strong> is the top risk: instructions hidden in web pages, emails or files can hijack an agent that reads them.</li><li><strong>Excessive agency</strong>, giving an agent more permissions than the task needs, is one of OWASP's top risks for LLM applications. Apply least privilege and require human approval for irreversible actions.</li><li>Agents often hold credentials and access private data, so log every action and keep secrets scoped and short-lived.</li></ul>
+      </section>
+
+      <section class="lib-sec" id="related-technologies">
+        <h2 data-label="Related technologies"><span class="sec-no">07</span>Related technologies</h2>
+        <div class="lib-related"><a class="lib-chip" href="../library/ai-agents.html"><small>library</small>AI agents</a><a class="lib-chip post" href="../posts/prompt-injection-explained.html"><small>explainer</small>Prompt injection, explained: when an AI can't tell data from orders</a><a class="lib-chip lab" href="../labs/injection-lab.html"><small>lab</small>injection lab</a><a class="lib-chip" href="../library/retrieval-augmented-generation.html"><small>library</small>Retrieval-Augmented Generation</a><a class="lib-chip" href="../library/ai-governance.html"><small>library</small>AI governance</a></div>
+      </section>
+
+      <section class="lib-sec" id="further-reading">
+        <h2 data-label="Further reading"><span class="sec-no">08</span>Further reading</h2>
+        <ul class="lib-reading"><li><a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Building effective agents <span aria-hidden="true">↗</span></a><span>Anthropic</span></li><li><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noopener">OWASP Top 10 for LLM Applications <span aria-hidden="true">↗</span></a><span>OWASP</span></li><li><a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol <span aria-hidden="true">↗</span></a><span>MCP</span></li></ul>
+      </section>
+
+      <nav class="lib-pager" aria-label="More in Artificial intelligence">
+        <a href="../library.html"><small>← back to</small>The Library</a>
+        <a href="ai-agents.html" class="next"><small>next →</small>AI agents</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="../index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="../posts.html">Explainers</a>
+        <a href="../library.html">The Library</a>
+        <a href="../topics.html">Topics</a>
+        <a href="../labs/index.html">Labs</a>
+        <a href="../compiler.html">Code playground</a>
+        <a href="../paths.html">Learning paths</a>
+        <a href="../resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="../daily.html">Daily challenge</a>
+        <a href="../flashcards.html">Flashcards</a>
+        <a href="../match.html">Jargon Match</a>
+        <a href="../myths.html">Myth or Fact</a>
+        <a href="../quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="../threats.html">Threat landscape</a>
+        <a href="../glossary.html">Glossary</a>
+        <a href="../timeline.html">Timelines</a>
+        <a href="../progress.html">Your progress</a>
+        <a href="../saved.html">Reading list</a>
+        <a href="../certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Contribute</h4>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/avatar.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

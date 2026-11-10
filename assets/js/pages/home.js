@@ -136,6 +136,7 @@
       glossary: "glossary.html", timeline: "timeline.html", timelines: "timeline.html", quiz: "quiz.html", flashcards: "flashcards.html",
       match: "match.html", myths: "myths.html", daily: "daily.html", resources: "resources.html", saved: "saved.html",
       "reading-list": "saved.html", certificate: "certificate.html", certificates: "certificate.html",
+      code: "compiler.html", compiler: "compiler.html", playground: "compiler.html", library: "library.html", threats: "threats.html",
     };
     const lev = (a, b) => {
       const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
@@ -180,9 +181,9 @@
           const t = TOPICS[k];
           print(`<span class="os-hl">${t.label}</span>: ${escapeHtml(t.blurb)}`);
           const ps = posts.filter((p) => p.topic === k), ls = labs.filter((l) => l.topic === k);
-          print(ps.map((p) => `  📖 ${c(`read ${posts.indexOf(p) + 1}`, p.title)}`).join("<br>") +
-            (ls.length ? "<br>" + ls.map((l) => `  🧪 ${c(`lab ${labs.indexOf(l) + 1}`, l.title)}`).join("<br>") : "") +
-            `<br>  🃏 ${c(`open flashcards`, `flashcards: ${glossary.filter((g) => g[1] === k).length} terms`)}  ${dim("·")}  ${c(`open topic ${k}`, "topic page →")}`);
+          print(ps.map((p) => `  ${dim("read ")} ${c(`read ${posts.indexOf(p) + 1}`, p.title)}`).join("<br>") +
+            (ls.length ? "<br>" + ls.map((l) => `  ${dim("lab  ")} ${c(`lab ${labs.indexOf(l) + 1}`, l.title)}`).join("<br>") : "") +
+            `<br>  ${dim("cards")} ${c(`open flashcards`, `flashcards: ${glossary.filter((g) => g[1] === k).length} terms`)}  ${dim("·")}  ${c(`open topic ${k}`, "topic page →")}`);
         },
       },
       read: {
@@ -218,7 +219,7 @@
         desc: "today's puzzle and your streak",
         run() {
           const solved = progress.daily().includes(todayKey());
-          print(`📅 ${solved ? '<span class="os-ok">solved today ✓</span>' : "today's puzzle is waiting"} ${dim("·")} 🔥 streak: <span class="os-hl">${progress.streak()}</span> ${dim("·")} ${c("open daily", solved ? "see the countdown →" : "play now →")}`);
+          print(`${solved ? '<span class="os-ok">solved today ✓</span>' : "today's puzzle is waiting"} ${dim("·")} streak: <span class="os-hl">${progress.streak()}</span> ${dim("·")} ${c("open daily", solved ? "see the countdown →" : "play now →")}`);
         },
       },
       hash: {
@@ -251,9 +252,9 @@
           const xp = progress.xp(), lvl = levelFor(xp);
           const bar = (n, w = 18) => "█".repeat(Math.round(n * w)) + "░".repeat(w - Math.round(n * w));
           const pct = lvl.next ? (xp - lvl.min) / (lvl.next - lvl.min) : 1;
-          print(`<div class="os-who">${TCAvatar.svg(ch, 104)}<div>
+          print(`<div class="os-who">${TCAvatar.svg(ch, 104, { noEmblem: true })}<div>
             <span class="os-hl">${escapeHtml(prof.displayName || user())}</span> ${dim(acct ? "· signed in" : "· local profile")}<br>
-            ${cls.icon} ${cls.name} ${dim("·")} Lv ${lvl.index + 1} ${lvl.name}<br>
+            ${cls.name} ${dim("·")} Lv ${lvl.index + 1} ${lvl.name}<br>
             <span class="os-meter">${bar(pct)}</span> ${xp} XP<br>
             ${dim(`read ${progress.read().length}/${posts.length} · labs ${progress.labs().length}/${labs.length} · streak ${progress.streak()} · badges ${BADGES.filter((b) => b[4]()).length}/${BADGES.length}`)}<br>
             ${c("open profile", "customise character →")} ${acct ? "" : c("login", "sign in to sync →")}</div></div>`);
@@ -265,7 +266,7 @@
         run() {
           const unread = posts.filter((p) => !progress.read().includes(p.slug));
           const p = (unread.length ? unread : posts)[Math.floor(Math.random() * (unread.length || posts.length))];
-          print(`🎲 ${c(`read ${posts.indexOf(p) + 1}`, p.title)} ${dim(`· ${p.readTime} min · ${topicLabel(p.topic)}`)}`);
+          print(`${dim("try:")} ${c(`read ${posts.indexOf(p) + 1}`, p.title)} ${dim(`· ${p.readTime} min · ${topicLabel(p.topic)}`)}`);
         },
       },
       theme: {
@@ -315,10 +316,10 @@
       date: { desc: "today's date", hidden: true, run: () => print(new Date().toString()) },
       echo: { desc: "print text", hidden: true, run: (a, raw) => print(escapeHtml(raw.replace(/^\s*echo\s?/, ""))) },
       about: { desc: "what is this?", run: () => print(`Trendcode explains where computing is heading, then lets you poke it. ${c("ls posts", "read")} · ${c("ls labs", "try")} · ${c("open activities", "practise")}`) },
-      sudo: { hidden: true, run: () => print("sudo: permission denied. Nice try 😄 There's no root here, everything runs in your browser.", "os-err") },
+      sudo: { hidden: true, run: () => print("sudo: permission denied. Nice try. There's no root here, everything runs in your browser.", "os-err") },
       rm: { hidden: true, run: () => print("rm: refusing. This is a learning environment, not a crime scene.", "os-err") },
       exit: { hidden: true, run: () => print(`there is no exit. there is only ${c("random")}.`) },
-      hello: { hidden: true, run: () => print(`hi ${escapeHtml(user())} 👋 try ${c("whoami")}`) },
+      hello: { hidden: true, run: () => print(`hi ${escapeHtml(user())}. try ${c("whoami")}`) },
       coffee: { hidden: true, run: () => print(`<pre class="os-pre">   ( (\n    ) )\n  ........\n  |      |]\n  \\      /\n   \`----'</pre>${dim("brewing… 418 I'm a teapot.")}`) },
     };
     CMDS.hi = CMDS.hello;
@@ -381,8 +382,8 @@
     });
 
     // dock of quick commands
-    const DOCK = [["help", "?"], ["ls posts", "📖"], ["ls labs", "🧪"], ["learn quantum", "⚛️"], ["daily", "📅"], ["hash hello world", "#"], ["define qubit", "📚"], ["whoami", "👤"], ["random", "🎲"]];
-    $("#os-dock").innerHTML = DOCK.map(([cmd, ico]) => `<button type="button" class="dock-btn" data-cmd="${cmd}"><span>${ico}</span>${escapeHtml(cmd)}</button>`).join("");
+    const DOCK = ["help", "ls posts", "ls labs", "learn quantum", "daily", "hash hello world", "define qubit", "whoami", "random"];
+    $("#os-dock").innerHTML = DOCK.map((cmd) => `<button type="button" class="dock-btn" data-cmd="${cmd}"><span>$</span>${escapeHtml(cmd)}</button>`).join("");
 
     // boot message
     const prof = store.get("tc-profile", {});
