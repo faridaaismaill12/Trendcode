@@ -56,7 +56,8 @@
   const herePath = () => {
     const parts = location.pathname.split("/").filter(Boolean);
     const depth = (document.body.dataset.base || "").split("../").length - 1;
-    return parts.slice(-(depth + 1)).join("/") || "index.html";
+    const rel = parts.slice(-(depth + 1)).join("/") || "index.html";
+    return /\.html$/.test(rel) ? rel : rel + ".html"; // clean URLs on Vercel drop the .html; login.html?next= expects it
   };
   const signInHref = (hash = "") => `${BASE}login.html?next=${encodeURIComponent(herePath() + hash)}`;
   const nicerError = (e) => {
