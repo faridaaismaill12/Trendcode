@@ -16,6 +16,7 @@ const SECTIONS = {
   code: ["compiler.html"],
   activities: ["activities.html", "daily.html", "flashcards.html", "match.html", "myths.html", "quiz.html",
     "glossary.html", "timeline.html", "resources.html", "certificate.html"],
+  community: ["predict.html", "chat.html"],
   paths: ["paths.html"],
   progress: ["progress.html", "saved.html", "profile.html", "login.html"],
 };
@@ -34,6 +35,7 @@ const header = (p, sec) => {
       ${link("labs/index.html", "labs", "Labs")}
       ${link("compiler.html", "code", "Code")}
       ${link("activities.html", "activities", "Activities")}
+      ${link("predict.html", "community", "Community")}
       ${link("paths.html", "paths", "Paths")}
       ${link("progress.html", "progress", "Progress", ' class="nav-xp"')}
     </nav>
@@ -81,7 +83,9 @@ const footer = (p) => `<footer class="site-footer">
         <a href="${p}certificate.html">Certificates</a>
       </div>
       <div>
-        <h4>Contribute</h4>
+        <h4>Community</h4>
+        <a href="${p}predict.html">Make a prediction</a>
+        <a href="${p}chat.html">Chat servers</a>
         <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
         <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
         <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
@@ -107,6 +111,14 @@ for (const rel of files) {
   const mainTag = `<script src="${prefix}assets/js/main.js"></script>`;
   const avatarTag = `<script src="${prefix}assets/js/avatar.js"></script>`;
   if (out.includes(mainTag) && !out.includes(avatarTag)) out = out.replace(mainTag, `${avatarTag}\n  ${mainTag}`);
+  // Explainers and Library guides get a discussion thread under the article
+  if (/^(posts|library)\/(?!index\.html$).+\.html$/.test(rel)) {
+    const styleTag = `<link rel="stylesheet" href="${prefix}assets/css/style.css" />`;
+    const cssTag = `<link rel="stylesheet" href="${prefix}assets/css/community.css" />`;
+    const jsTag = `<script src="${prefix}assets/js/community.js"></script>`;
+    if (!out.includes(cssTag)) out = out.replace(styleTag, `${styleTag}\n  ${cssTag}`);
+    if (!out.includes(jsTag)) out = out.replace(mainTag, `${mainTag}\n  ${jsTag}`);
+  }
   if (out !== src) { fs.writeFileSync(file, out); changed++; }
   if (!/<header class="site-header">/.test(src)) console.warn(`! no header placeholder in ${rel}`);
 }

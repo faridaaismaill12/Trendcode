@@ -137,6 +137,7 @@
       match: "match.html", myths: "myths.html", daily: "daily.html", resources: "resources.html", saved: "saved.html",
       "reading-list": "saved.html", certificate: "certificate.html", certificates: "certificate.html",
       code: "compiler.html", compiler: "compiler.html", playground: "compiler.html", library: "library.html", threats: "threats.html",
+      predict: "predict.html", predictions: "predict.html", chat: "chat.html", community: "chat.html",
     };
     const lev = (a, b) => {
       const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);

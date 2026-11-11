@@ -8,7 +8,7 @@
   if (parade) parade.innerHTML = Array.from({ length: 5 }, () => TCAvatar.svg(TCAvatar.random(), 64)).join("");
 
   const next = new URLSearchParams(location.search).get("next") || "profile.html";
-  const safeNext = /^[a-z0-9_-]+\.html(\?[\w=&-]*)?$/i.test(next) ? next : "profile.html";
+  const safeNext = /^((posts|library|labs)\/)?[a-z0-9_-]+\.html(\?[\w=&-]*)?(#[\w-]*)?$/i.test(next) ? next : "profile.html";
   let mode = "signin";
 
   const msg = (text, kind = "") => {

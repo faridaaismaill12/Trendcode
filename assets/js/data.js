@@ -389,6 +389,8 @@ const activities = [
   { slug: "match", title: "Jargon Match", emoji: "🧩", blurb: "Race the clock to pair six terms with their meanings. How fast can you go?" },
   { slug: "myths", title: "Myth or Fact", emoji: "🧠", blurb: "Ten statements you've probably heard about tech. Which ones are actually true?" },
   { slug: "quiz", title: "Quiz", emoji: "🎯", blurb: "Five random questions drawn from the explainers. Filter by topic to focus." },
+  { slug: "predict", title: "Make Your Prediction", emoji: "%", blurb: "Will AI agents run the office by 2030? Pick a side, set your confidence, and see if you called it." },
+  { slug: "chat", title: "Chat servers", emoji: "#", blurb: "Join Trendcode HQ or start your own server. Channels, roles, polls, dice, quizzes and live chat." },
   { slug: "timeline", title: "Timelines", emoji: "🕰️", blurb: "Click through the history of AI, the internet and post-quantum cryptography." },
   { slug: "glossary", title: "Glossary", emoji: "📖", blurb: "Every term on the site in plain English, searchable and A to Z." },
   { slug: "resources", title: "Resources", emoji: "🔗", blurb: "Hand-picked books, courses and tools to go deeper on every topic." },

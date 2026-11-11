@@ -71,8 +71,10 @@ const progress = {
   xp() {
     return this.read().length * 10 + this.labs().length * 25 + this.quizBest() * 5 +
       this.daily().length * 5 + this.mastered() * 2 + this.mythsBest() * 2 + (this.matchBest() ? 10 : 0) +
-      this.lib().length * 5;
+      this.lib().length * 5 + this.forecasts() * 5 + this.hindsight() * 2;
   },
+  forecasts: () => Object.keys(store.get("tc-predictions", {})).length,
+  hindsight: () => Object.keys(store.get("tc-hindsight", {})).length,
 };
 
 const LEVELS = [
@@ -257,14 +259,14 @@ function loadScript(src) {
   });
 }
 // Resolves to window.tcAccount ({ enabled:false } when Supabase isn't configured)
-window.tcAccountReady = (async () => {
+const bootAccount = async (force) => {
   try {
     if (!window.TC_CONFIG) await loadScript(`${BASE}assets/js/config.js`);
     const c = window.TC_CONFIG || {};
     if (!c.supabaseUrl || !c.supabaseAnonKey) return (window.tcAccount = { enabled: false });
     // Only pull in the Supabase library when it's needed: someone is signed in,
-    // we're on the login/profile pages, or we're returning from a sign-in redirect.
-    const needed = store.get("tc-account", null) || document.body.dataset.auth ||
+    // we're on the login/profile/community pages, or we're returning from a sign-in redirect.
+    const needed = force || store.get("tc-account", null) || document.body.dataset.auth ||
       /access_token|refresh_token|[?&]code=|type=recovery/.test(location.href);
     if (!needed) return (window.tcAccount = { enabled: true, lazy: true, user: null });
     if (!window.supabase) await loadScript(SUPABASE_CDN);
@@ -275,7 +277,11 @@ window.tcAccountReady = (async () => {
     console.warn(e.message);
     return (window.tcAccount = { enabled: false });
   }
-})();
+};
+window.tcAccountReady = bootAccount(false);
+// Community features need the database even for signed-out readers.
+let fullAccount = null;
+window.tcAccountLoad = () => (fullAccount ||= window.tcAccountReady.then((a) => (a.enabled && a.lazy ? bootAccount(true) : a)));
 
 function paintAccountButton() {
   const btn = $("#account-btn");
@@ -464,6 +470,8 @@ const activityStat = (slug) => {
     case "glossary": return `${glossary.length} terms`;
     case "resources": return `${resources.length} picks`;
     case "certificate": { const n = paths.filter((p) => progress.pathPct(p) === 100).length; return `${n}/${paths.length} earned`; }
+    case "predict": { const n = progress.forecasts(); return n ? `${n} forecast${n === 1 ? "" : "s"} on record` : "No forecasts yet"; }
+    case "chat": return "Live now";
     case "saved": { const n = progress.saved().length; return n ? `${n} saved` : "Nothing saved yet"; }
     default: return "";
   }

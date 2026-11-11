@@ -48,6 +48,21 @@ Accounts are optional. Without them, profiles and characters still work locally.
 
 How sync works: on sign-in, the browser's progress is **merged** with the account's (nothing is lost on either side). After that, changes are pushed automatically. The Supabase library only loads on the login and profile pages, or when someone is signed in.
 
+## Community (`predict.html`, `chat.html`, article discussions)
+
+All three use tables from `supabase/schema.sql`: `predictions`, `comments`, and `servers` / `channels` / `server_members` / `messages` / `reactions` / `poll_votes` for chat. If you set up accounts before these existed, run the file again; it's safe to re-run. Only signed-in users can post, and only their own rows can be changed or deleted (admins can remove messages in their servers). Triggers limit flooding: 8 chat messages per 10 seconds, 5 comments per 2 minutes.
+
+- **Make Your Prediction** (`assets/js/pages/predict.js`): open questions with a deadline and a clear "counts as yes" rule. A forecast is a yes/no stance, a 50–99% confidence and optional reasoning. It's saved in the browser and, when signed in, published to the crowd forecast (`prediction_stats()`). **To revisit a question**, add dated entries to its `developments` list; anything newer than a reader's forecast is flagged "new since your forecast". When a question is decided, add `resolved: { outcome, date, note }` and everyone's forecast is scored (Brier, 0–100). The hindsight round uses already-decided questions and scores straight away.
+- **Chat servers** (`chat.html`, `assets/js/pages/chat.js`, `assets/css/chat.css`), Discord-style:
+  - Everyone lands in the official **Trendcode HQ** server, which the schema seeds. To own it yourself, run the commented `insert` near the end of `schema.sql` with your username.
+  - Signed-in users can create up to 10 servers from a template (study group, hangout, project team, CTF team, blank). Owners and admins can customise the name, icon text, colour and banner pattern. Servers are public (listed in Explore) or private (invite link only: `chat.html?invite=CODE`).
+  - Owners and admins manage channels (add, rename, reorder, announcement-only), kick members and reset invites. Only the owner can appoint admins.
+  - Messages support replies, emoji reactions, editing (press Up), @mentions, `**bold**`, `*italic*`, `` `code` ``, code blocks, `> quotes` and `||spoilers||`.
+  - Type `/` for commands: `/roll 2d6`, `/flip`, `/8ball`, `/poll Q | A | B`, `/quiz`, `/hash`, `/caesar 3 text`, `/rot13`, `/binary`, `/base64`, `/me`, `/spoiler`, `/shrug`, `/tableflip`, `/nick`, `/topic`.
+  - Live messages, typing indicators, unread and mention badges, and online status use Supabase Realtime.
+  - Link to a channel with `chat.html#hq/crypto` or `chat.html#<server-id>/<channel>`.
+- **Discussions** (`assets/js/community.js`): a comment thread with one level of replies under every explainer and Library guide. `tools/sync-layout.js` adds the script to those pages, and it only loads once a reader scrolls near the end. Each prediction question has its own thread too.
+
 ## Threat landscape (`threats.html` + homepage dashboard)
 
 Designed as a **printed field chart** (paper, ink and a serif): hand-drawn contour rings around "you are here" (your systems & data, your people & vendors, the wider world, and a dashed ring for the future). Seven threats are marked with Roman numerals and line-drawn icons: quantum threats, AI-powered attacks, ransomware, phishing, data breaches, supply chain attacks and social engineering. Dashed routes with arrowheads show how each one reaches you, and marker size is an editorial estimate of impact (labelled as such in the figure caption).

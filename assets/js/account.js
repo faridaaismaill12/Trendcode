@@ -25,7 +25,7 @@
     const p = {};
     [...ARRAY_KEYS, ...missionKeys()].forEach((k) => { const v = store.get(k, null); if (v) p[k] = v; });
     MAX_KEYS.forEach((k) => { const v = store.get(k, null); if (v !== null) p[k] = v; });
-    ["tc-match-best", "tc-cards", "tc-cert-dates", "tc-threat-checks"].forEach((k) => { const v = store.get(k, null); if (v !== null) p[k] = v; });
+    ["tc-match-best", "tc-cards", "tc-cert-dates", "tc-threat-checks", "tc-predictions", "tc-hindsight"].forEach((k) => { const v = store.get(k, null); if (v !== null) p[k] = v; });
     return p;
   };
 
@@ -52,6 +52,14 @@
       });
       store.set("tc-threat-checks", l);
     }
+    ["tc-predictions", "tc-hindsight"].forEach((k) => {
+      if (!remote[k] || typeof remote[k] !== "object") return;
+      const l = store.get(k, {});
+      Object.entries(remote[k]).forEach(([id, f]) => {
+        if (f && f.stance && (!l[id] || Date.parse(f.at) > Date.parse(l[id].at))) l[id] = f; // newest wins
+      });
+      store.set(k, l);
+    });
     if (remote["tc-cert-dates"] && typeof remote["tc-cert-dates"] === "object") {
       const l = store.get("tc-cert-dates", {});
       Object.entries(remote["tc-cert-dates"]).forEach(([id, d]) => { if (!l[id] || d < l[id]) l[id] = d; });

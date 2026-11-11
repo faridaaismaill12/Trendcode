@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Make Your Prediction — Trendcode</title>
+  <meta name="description" content="Forecast the future of technology: AI agents, quantum computers, fusion, privacy law. Pick a side, set your confidence, explain your reasoning, and revisit it as the world answers." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <script>try{var t=localStorage.getItem("tc-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/community.css" />
+</head>
+<body data-base="">
+  <header class="site-header">
+    <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+    <nav id="site-nav" aria-label="Main">
+      <a href="posts.html">Explainers</a>
+      <a href="library.html">Library</a>
+      <a href="threats.html">Threats</a>
+      <a href="labs/index.html">Labs</a>
+      <a href="compiler.html">Code</a>
+      <a href="activities.html">Activities</a>
+      <a href="predict.html" aria-current="page">Community</a>
+      <a href="paths.html">Paths</a>
+      <a href="progress.html" class="nav-xp">Progress</a>
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
+      <a class="account-btn" id="account-btn" href="login.html"><span class="account-name">Sign in</span></a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <header class="cm-head">
+      <p class="cm-kicker"><span>Community</span><a href="predict.html" aria-current="page">Predictions</a><a href="chat.html">Chat</a></p>
+      <h1>Make your <em>prediction</em></h1>
+      <p class="cm-lede">Pick a side, say how sure you are, and write down why. Your forecast is dated. As real developments come in, they're added under each question, so you can come back and see whether you called it.</p>
+    </header>
+
+    <div class="pq-record" id="pq-record" aria-label="Your record"></div>
+
+    <section class="pq-section" aria-labelledby="pq-open-h">
+      <h2 id="pq-open-h">Open questions</h2>
+      <p>None of these have been decided yet. Each one has a deadline and a plain rule for what counts as yes. The bar shows what everyone else thinks; the tick shows you.</p>
+      <div class="chips pq-filters" id="pq-filters" role="group" aria-label="Filter by subject"></div>
+      <ol class="pq-list" id="pq-open"></ol>
+    </section>
+
+    <section class="pq-section" aria-labelledby="pq-past-h">
+      <h2 id="pq-past-h">Hindsight round</h2>
+      <p>Warm up your forecasting on questions the world has already answered. Answer as if it were the date shown, then see what happened. Scoring: 100 for a confident correct call, 75 for a coin flip, 0 for a confident wrong one.</p>
+      <ol class="pq-list" id="pq-past"></ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">trend<span>code</span><b>_</b></a>
+        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
+        <a href="index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <a href="posts.html">Explainers</a>
+        <a href="library.html">The Library</a>
+        <a href="topics.html">Topics</a>
+        <a href="labs/index.html">Labs</a>
+        <a href="compiler.html">Code playground</a>
+        <a href="paths.html">Learning paths</a>
+        <a href="resources.html">Resources</a>
+      </div>
+      <div>
+        <h4>Practise</h4>
+        <a href="daily.html">Daily challenge</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="match.html">Jargon Match</a>
+        <a href="myths.html">Myth or Fact</a>
+        <a href="quiz.html">Quiz</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="threats.html">Threat landscape</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="timeline.html">Timelines</a>
+        <a href="progress.html">Your progress</a>
+        <a href="saved.html">Reading list</a>
+        <a href="certificate.html">Certificates</a>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <a href="predict.html">Make a prediction</a>
+        <a href="chat.html">Chat servers</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=post-idea.md">Suggest a post</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode/issues/new?template=bug-report.md">Report a problem</a>
+        <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/avatar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/community.js"></script>
+  <script src="assets/js/pages/predict.js"></script>
+</body>
+</html>
