@@ -5,6 +5,31 @@
 // =============================================================
 
 const BASE = document.body.dataset.base || "";
+
+// ---------- Clean URLs on the live site ----------
+// Vercel serves /chat for chat.html (vercel.json "cleanUrls"). The source keeps .html links so
+// Live Server / file previews still work; on the deployed site we show and follow clean paths.
+(function cleanUrls() {
+  const local = location.protocol === "file:" || /^(localhost|127\.\d+\.\d+\.\d+|\[::1\]|0\.0\.0\.0)$/.test(location.hostname);
+  if (local) return;
+  const clean = (path) => path.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "");
+  // Tidy the address bar on load (keeps ?query and #hash, e.g. sign-in tokens)
+  if (/\.html$/.test(location.pathname)) {
+    try { history.replaceState(history.state, "", clean(location.pathname) + location.search + location.hash); } catch { /* ignore */ }
+  }
+  // Rewrite links just before they're used: hover (status bar), keyboard focus, click, middle-click
+  const fix = (e) => {
+    const a = e.target.closest && e.target.closest("a[href]");
+    if (!a || a.hasAttribute("download")) return;
+    let u;
+    try { u = new URL(a.href, location.href); } catch { return; }
+    if (u.origin !== location.origin || !/\.html$/.test(u.pathname)) return;
+    u.pathname = clean(u.pathname);
+    a.href = u.href;
+  };
+  ["mouseover", "focusin", "click", "auxclick", "touchstart"].forEach((ev) => document.addEventListener(ev, fix, { capture: true, passive: true }));
+})();
+
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
