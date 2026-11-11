@@ -236,6 +236,32 @@ document.addEventListener("click", (e) => {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") set(false); });
 })();
 
+// ---------- Nav dropdowns (Learn / Practice) ----------
+(function navMenus() {
+  const groups = $$(".nav-group");
+  if (!groups.length) return;
+  const close = (except) => groups.forEach((g) => { if (g !== except) { g.classList.remove("open"); $(".nav-top", g).setAttribute("aria-expanded", "false"); } });
+  groups.forEach((g) => {
+    const b = $(".nav-top", g);
+    b.addEventListener("click", (e) => {
+      const open = !g.classList.contains("open");
+      close(g);
+      g.classList.toggle("open", open);
+      b.setAttribute("aria-expanded", String(open));
+      // Keyboard users (Enter/Space give detail 0) jump into the menu; mouse users don't get a focus ring
+      if (open && e.detail === 0) $(".nav-menu a", g)?.focus({ preventScroll: true });
+    });
+    g.addEventListener("mouseleave", () => { if (g.classList.contains("open") && matchMedia("(hover: hover)").matches) close(); });
+    g.addEventListener("focusout", (e) => { if (!g.contains(e.relatedTarget)) close(); });
+  });
+  document.addEventListener("click", (e) => { if (!e.target.closest(".nav-group")) close(); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    const open = groups.find((g) => g.classList.contains("open"));
+    if (open) { close(); $(".nav-top", open).focus(); }
+  });
+})();
+
 // ---------- XP badge in the nav ----------
 function paintNavXp() {
   $$(".nav-xp").forEach((a) => {
@@ -461,7 +487,7 @@ const labCard = (l, done = progress.labs()) => `
 
 const activityStat = (slug) => {
   switch (slug) {
-    case "daily": { const s = progress.streak(); return s ? `🔥 ${s}-day streak` : "Today's puzzle is waiting"; }
+    case "daily": { const s = progress.streak(); return s ? `${s}-day streak` : "Today's puzzle is waiting"; }
     case "flashcards": return `${progress.mastered()}/${glossary.length} mastered`;
     case "match": return progress.matchBest() ? `Best: ${progress.matchBest().toFixed(1)}s` : "No best time yet";
     case "myths": return progress.mythsBest() ? `Best: ${progress.mythsBest()}/10` : "Not played yet";
@@ -476,9 +502,9 @@ const activityStat = (slug) => {
     default: return "";
   }
 };
-const activityCard = (a) => `
+const activityCard = (a, i = 0) => `
   <a class="activity-card" href="${pageUrl(a.slug)}">
-    <span class="activity-emoji" aria-hidden="true">${a.emoji}</span>
+    <span class="activity-num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
     <h3>${escapeHtml(a.title)}</h3>
     <p>${escapeHtml(a.blurb)}</p>
     <span class="activity-stat">${activityStat(a.slug)}</span>

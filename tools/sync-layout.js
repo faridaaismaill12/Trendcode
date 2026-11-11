@@ -7,39 +7,59 @@ const fs = require("fs");
 const path = require("path");
 const root = path.join(__dirname, "..");
 
+// Which top-level nav item each page belongs to
 const SECTIONS = {
-  posts: ["posts.html", "posts/"],
-  library: ["library.html", "library/"],
-  topics: ["topics.html", "topic.html"],
+  learn: ["posts.html", "posts/", "library.html", "library/", "labs/", "compiler.html", "paths.html", "topics.html", "topic.html", "resources.html"],
+  practice: ["activities.html", "daily.html", "flashcards.html", "match.html", "myths.html", "quiz.html", "glossary.html", "timeline.html", "certificate.html"],
   threats: ["threats.html"],
-  labs: ["labs/"],
-  code: ["compiler.html"],
-  activities: ["activities.html", "daily.html", "flashcards.html", "match.html", "myths.html", "quiz.html",
-    "glossary.html", "timeline.html", "resources.html", "certificate.html"],
-  community: ["predict.html", "chat.html"],
-  paths: ["paths.html"],
+  predict: ["predict.html"],
+  chat: ["chat.html"],
   progress: ["progress.html", "saved.html", "profile.html", "login.html"],
 };
 const sectionOf = (rel) =>
   Object.keys(SECTIONS).find((s) => SECTIONS[s].some((m) => (m.endsWith("/") ? rel.startsWith(m) : rel === m))) || "";
 
-const header = (p, sec) => {
-  const link = (href, key, label, extra = "") =>
-    `<a href="${p}${href}"${sec === key ? ' aria-current="page"' : ""}${extra}>${label}</a>`;
+const MENUS = {
+  learn: [
+    ["posts.html", "Explainers", "Plain-English deep dives"],
+    ["library.html", "The Library", "35 structured guides"],
+    ["labs/index.html", "Labs", "Hands-on experiments"],
+    ["compiler.html", "Code playground", "Run code in 10+ languages"],
+    ["paths.html", "Learning paths", "Step-by-step tracks"],
+    ["topics.html", "Topics", "Browse by subject"],
+  ],
+  practice: [
+    ["daily.html", "Daily challenge", "A new puzzle every day"],
+    ["quiz.html", "Quiz", "Five quick questions"],
+    ["flashcards.html", "Flashcards", "Master the jargon"],
+    ["match.html", "Jargon Match", "Race the clock"],
+    ["myths.html", "Myth or Fact", "Ten things you've heard"],
+    ["activities.html", "All activities", "Glossary, timelines and more"],
+  ],
+};
+const CHEVRON = `<svg class="nav-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>`;
+
+const header = (p, sec, rel) => {
+  const cur = (href) => (href === rel || (href === "labs/index.html" && rel.startsWith("labs/")) ? ' aria-current="page"' : "");
+  const group = (key, label) => `<div class="nav-group${sec === key ? " is-current" : ""}">
+        <button type="button" class="nav-top" aria-expanded="false" aria-controls="menu-${key}">${label}${CHEVRON}</button>
+        <div class="nav-menu" id="menu-${key}">
+          ${MENUS[key].map(([href, title, sub]) => `<a href="${p}${href}"${cur(href)}><b>${title}</b><small>${sub}</small></a>`).join("\n          ")}
+        </div>
+      </div>`;
+  const top = (href, key, label, extra = "") =>
+    `<a class="nav-top${extra}" href="${p}${href}"${sec === key ? ' aria-current="page"' : ""}>${label}</a>`;
   return `<header class="site-header">
     <a href="${p}index.html" class="logo">trend<span>code</span><b>_</b></a>
     <nav id="site-nav" aria-label="Main">
-      ${link("posts.html", "posts", "Explainers")}
-      ${link("library.html", "library", "Library")}
-      ${link("threats.html", "threats", "Threats")}
-      ${link("labs/index.html", "labs", "Labs")}
-      ${link("compiler.html", "code", "Code")}
-      ${link("activities.html", "activities", "Activities")}
-      ${link("predict.html", "community", "Community")}
-      ${link("paths.html", "paths", "Paths")}
-      ${link("progress.html", "progress", "Progress", ' class="nav-xp"')}
+      ${group("learn", "Learn")}
+      ${group("practice", "Practice")}
+      ${top("threats.html", "threats", "Threats")}
+      ${top("predict.html", "predict", "Predict")}
+      ${top("progress.html", "progress", "Progress", " nav-xp")}
     </nav>
     <div class="header-tools">
+      <a class="chat-btn" href="${p}chat.html"${sec === "chat" ? ' aria-current="page"' : ""}><span class="live-dot" aria-hidden="true"></span>Chat</a>
       <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
       <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
       <a class="account-btn" id="account-btn" href="${p}login.html"><span class="account-name">Sign in</span></a>
@@ -52,8 +72,8 @@ const footer = (p) => `<footer class="site-footer">
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="${p}index.html" class="logo">trend<span>code</span><b>_</b></a>
-        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
-        <a href="${p}index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+        <p class="muted">Don&#39;t just follow the future. Decode it.</p>
+        <a href="${p}index.html#subscribe" class="btn btn-small">Get the weekly email <span aria-hidden="true">→</span></a>
       </div>
       <div>
         <h4>Learn</h4>
@@ -91,7 +111,7 @@ const footer = (p) => `<footer class="site-footer">
         <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
       </div>
     </div>
-    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+    <p class="copyright">© <span id="year">2026</span> Trendcode.</p>
   </footer>`;
 
 const files = [
@@ -105,7 +125,7 @@ for (const rel of files) {
   const src = fs.readFileSync(file, "utf8");
   const prefix = rel === "404.html" ? "/" : rel.includes("/") ? "../" : "";
   let out = src
-    .replace(/<header class="site-header">[\s\S]*?<\/header>/, header(prefix, sectionOf(rel)))
+    .replace(/<header class="site-header">[\s\S]*?<\/header>/, header(prefix, sectionOf(rel), rel))
     .replace(/<footer class="site-footer">[\s\S]*?<\/footer>/, footer(prefix));
   // Every page needs the character renderer, loaded right before main.js
   const mainTag = `<script src="${prefix}assets/js/main.js"></script>`;

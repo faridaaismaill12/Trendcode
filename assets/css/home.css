@@ -73,26 +73,29 @@
 .dock-btn:hover { border-color: var(--accent); color: var(--text); transform: translateY(-2px); }
 
 /* ---------- SHA-256 section (unchanged design) ---------- */
-.chapter { padding: 6rem 0 3rem; position: relative; }
-.chapter-head { display: grid; grid-template-columns: 5rem minmax(0, 1fr); column-gap: 1rem; margin-bottom: 2.5rem; }
-.chapter-no { font-family: var(--mono); color: var(--accent); font-size: 0.8rem; padding-top: 1rem; grid-row: span 2; }
-.chapter-head h2 { text-wrap: balance; font-size: clamp(2.5rem, 6.5vw, 4.8rem); line-height: 0.98; letter-spacing: -0.035em; font-weight: 750; }
+.chapter { padding: 6rem 0 4rem; position: relative; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.chapter-head { margin: 0; }
+.chapter-no { display: block; font-family: var(--mono); color: var(--accent); font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.chapter-head h2 { text-wrap: balance; font-size: clamp(2.5rem, 4.6vw, 4.4rem); line-height: 0.98; letter-spacing: -0.035em; font-weight: 750; }
 .chapter-head h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; color: var(--accent); }
 .chapter-head p { max-width: 560px; color: var(--muted); font-size: 1.1rem; margin-top: 1rem; }
-.hashbox { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 0.9rem 1rem; align-items: baseline; padding: 0.5rem 0 2.5rem; }
+.hashbox { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem 1.25rem; align-items: baseline; padding: clamp(1.5rem, 3vw, 2.5rem); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
 .hash-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
 .hash-in {
   width: 100%; background: transparent; border: none; border-bottom: 2px solid var(--border); color: var(--text);
-  font-family: var(--mono); font-size: clamp(1.4rem, 4.2vw, 2.7rem); padding: 0.2rem 0 0.5rem; caret-color: var(--accent);
+  font-family: var(--mono); font-size: clamp(1.4rem, 2.6vw, 2.3rem); padding: 0.2rem 0 0.5rem; caret-color: var(--accent);
 }
 .hash-in:focus { outline: none; border-color: var(--accent); }
-.hash-out { font-family: var(--mono); font-size: clamp(0.95rem, 2.3vw, 1.45rem); letter-spacing: 0.08em; line-height: 1.6; color: var(--muted); word-break: break-all; min-height: 2.4em; }
+.hash-out { font-family: var(--mono); font-size: clamp(0.9rem, 1.4vw, 1.2rem); letter-spacing: 0.06em; line-height: 1.6; color: var(--muted); word-break: break-all; min-height: 2.4em; }
 .hash-out span { display: inline-block; }
 .hash-out .flip { color: var(--accent); animation: flipin 0.55s ease; animation-delay: var(--d); }
 @keyframes flipin { 0% { transform: translateY(-0.4em); color: var(--accent-2); } 100% { transform: none; } }
 .hash-caption { grid-column: 2; color: var(--body); font-size: 1rem; min-height: 1.6em; }
 
 @media (max-width: 860px) {
+  .chapter { grid-template-columns: 1fr; padding-top: 4rem; }
+  .hashbox { grid-template-columns: 1fr; gap: 0.4rem; }
+  .hash-caption { grid-column: 1; }
   .os { padding-top: 3.5rem; }
   .os-body { height: 60vh; font-size: 0.84rem; padding: 0.9rem; }
   .os-hint { display: none; }

@@ -9,6 +9,9 @@
   if (!C || !app) return;
 
   const HQ = "00000000-0000-4000-8000-000000000001";
+  // messages links to profiles directly (author) and via reactions/poll_votes,
+  // so name the author link explicitly or Supabase can't pick one.
+  const MSG_AUTHOR = "profiles!messages_user_id_fkey(username, display_name, character)";
   const PAGE = 50;
   const EMOJI = ["👍", "❤️", "😂", "🔥", "🤯", "👀", "🎉", "🤔", "✅", "💯", "🧠", "🚀", "😭", "🙏", "👏", "💀", "⭐", "🤝"];
   const COLORS = ["#22d3ee", "#a78bfa", "#34d399", "#f87171", "#fbbf24", "#f472b6", "#60a5fa", "#fb923c", "#94a3b8"];
@@ -201,14 +204,14 @@
     if (!m.get(r.emoji).size) m.delete(r.emoji);
   }
   async function loadMessages(before) {
-    let q = S.client.from("messages").select(`*, ${C.AUTHOR}`).eq("channel_id", S.channel.id).order("created_at", { ascending: false }).limit(PAGE);
+    let q = S.client.from("messages").select(`*, ${MSG_AUTHOR}`).eq("channel_id", S.channel.id).order("created_at", { ascending: false }).limit(PAGE);
     if (before) q = q.lt("created_at", before);
     const { data, error } = await q;
     if (error) throw error;
     C.remember(data);
     const replyIds = data.map((m) => m.reply_to).filter((id) => id && !data.some((x) => x.id === id) && !S.msgs.some((x) => x.id === id));
     if (replyIds.length) {
-      const { data: refs } = await S.client.from("messages").select(`id, user_id, body, kind, ${C.AUTHOR}`).in("id", replyIds);
+      const { data: refs } = await S.client.from("messages").select(`id, user_id, body, kind, ${MSG_AUTHOR}`).in("id", replyIds);
       C.remember(refs || []);
       (refs || []).forEach((r) => S.refCache.set(r.id, r));
     }

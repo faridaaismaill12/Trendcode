@@ -12,17 +12,34 @@
   <header class="site-header">
     <a href="/index.html" class="logo">trend<span>code</span><b>_</b></a>
     <nav id="site-nav" aria-label="Main">
-      <a href="/posts.html">Explainers</a>
-      <a href="/library.html">Library</a>
-      <a href="/threats.html">Threats</a>
-      <a href="/labs/index.html">Labs</a>
-      <a href="/compiler.html">Code</a>
-      <a href="/activities.html">Activities</a>
-      <a href="/predict.html">Community</a>
-      <a href="/paths.html">Paths</a>
-      <a href="/progress.html" class="nav-xp">Progress</a>
+      <div class="nav-group">
+        <button type="button" class="nav-top" aria-expanded="false" aria-controls="menu-learn">Learn<svg class="nav-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="nav-menu" id="menu-learn">
+          <a href="/posts.html"><b>Explainers</b><small>Plain-English deep dives</small></a>
+          <a href="/library.html"><b>The Library</b><small>35 structured guides</small></a>
+          <a href="/labs/index.html"><b>Labs</b><small>Hands-on experiments</small></a>
+          <a href="/compiler.html"><b>Code playground</b><small>Run code in 10+ languages</small></a>
+          <a href="/paths.html"><b>Learning paths</b><small>Step-by-step tracks</small></a>
+          <a href="/topics.html"><b>Topics</b><small>Browse by subject</small></a>
+        </div>
+      </div>
+      <div class="nav-group">
+        <button type="button" class="nav-top" aria-expanded="false" aria-controls="menu-practice">Practice<svg class="nav-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="nav-menu" id="menu-practice">
+          <a href="/daily.html"><b>Daily challenge</b><small>A new puzzle every day</small></a>
+          <a href="/quiz.html"><b>Quiz</b><small>Five quick questions</small></a>
+          <a href="/flashcards.html"><b>Flashcards</b><small>Master the jargon</small></a>
+          <a href="/match.html"><b>Jargon Match</b><small>Race the clock</small></a>
+          <a href="/myths.html"><b>Myth or Fact</b><small>Ten things you've heard</small></a>
+          <a href="/activities.html"><b>All activities</b><small>Glossary, timelines and more</small></a>
+        </div>
+      </div>
+      <a class="nav-top" href="/threats.html">Threats</a>
+      <a class="nav-top" href="/predict.html">Predict</a>
+      <a class="nav-top nav-xp" href="/progress.html">Progress</a>
     </nav>
     <div class="header-tools">
+      <a class="chat-btn" href="/chat.html"><span class="live-dot" aria-hidden="true"></span>Chat</a>
       <button type="button" class="search-btn" id="search-btn" aria-label="Search the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 11m-7 0a7 7 0 1 0 14 0a7 7 0 1 0-14 0M20 20l-4-4"/></svg><kbd>Ctrl K</kbd></button>
       <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme"></button>
       <a class="account-btn" id="account-btn" href="/login.html"><span class="account-name">Sign in</span></a>
@@ -46,8 +63,8 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="/index.html" class="logo">trend<span>code</span><b>_</b></a>
-        <p class="muted">Computer science, decoded. Read it, try it, test it.</p>
-        <a href="/index.html#subscribe" class="btn btn-small">Get the weekly email</a>
+        <p class="muted">Don&#39;t just follow the future. Decode it.</p>
+        <a href="/index.html#subscribe" class="btn btn-small">Get the weekly email <span aria-hidden="true">→</span></a>
       </div>
       <div>
         <h4>Learn</h4>
@@ -85,7 +102,7 @@
         <a href="https://github.com/faridaaismaill12/Trendcode">Source on GitHub</a>
       </div>
     </div>
-    <p class="copyright">© <span id="year">2026</span> Trendcode. Built to make tech make sense.</p>
+    <p class="copyright">© <span id="year">2026</span> Trendcode.</p>
   </footer>
 
   <script src="/assets/js/data.js"></script>

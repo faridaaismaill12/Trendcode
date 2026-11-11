@@ -1,6 +1,6 @@
 # Trendcode
 
-> Computer science, decoded. Explainers, hands-on browser labs, daily puzzles and games on cryptography, AI security, quantum computing, algorithms and more.
+> Don't just follow the future. Decode it. Explainers, hands-on browser labs, daily puzzles and games on cryptography, AI security, quantum computing, algorithms and more.
 
 🌐 **Live site:** https://faridaaismaill12.github.io/Trendcode/
 

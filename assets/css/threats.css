@@ -10,7 +10,7 @@
   color: var(--ink); margin-top: 2rem;
 }
 .plate + .plate { margin-top: 0; border-top: 1px solid var(--rule); }
-.plate-inner { max-width: 1160px; margin: 0 auto; padding: 3.5rem 0 3rem; }
+.plate-inner { margin: 0 auto; padding: 3.5rem 0 3rem; }
 .plate a { color: var(--ink); }
 
 /* ---------- Plate header ---------- */
