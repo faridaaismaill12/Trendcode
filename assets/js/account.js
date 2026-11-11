@@ -69,7 +69,18 @@
 
   const sanitizeUsername = (s) => (s || "").toLowerCase().replace(/[^a-z0-9_]/g, "").slice(0, 20);
 
-  let user = null, profile = null, pushTimer = 0, syncing = false;
+  let user = null, profile = null, pushTimer = 0, syncing = false, signingOut = false;
+
+  // Remove everything this account put in the browser (progress, profile, character,
+  // chat state, the Supabase session). Keeps only the colour theme.
+  const KEEP = new Set(["tc-theme"]);
+  function clearLocalAccount() {
+    try {
+      Object.keys(localStorage).forEach((k) => {
+        if ((k.startsWith("tc-") && !KEEP.has(k)) || /^sb-.*-auth-token/.test(k)) localStorage.removeItem(k);
+      });
+    } catch { /* storage blocked: nothing to clear */ }
+  }
 
   const cache = () => {
     if (user && profile) store.set("tc-account", { id: user.id, email: user.email, username: profile.username, displayName: profile.display_name });
@@ -118,8 +129,10 @@
   async function push(now = false) {
     if (!user || !profile) return;
     clearTimeout(pushTimer);
+    const uid = user.id; // capture now: a delayed push must never run after sign-out
     const run = async () => {
-      const { error } = await client.from("profiles").update({ progress: collect(), character: TCAvatar.get() }).eq("id", user.id);
+      if (!user || user.id !== uid) return;
+      const { error } = await client.from("profiles").update({ progress: collect(), character: TCAvatar.get() }).eq("id", uid);
       if (error) console.warn("Trendcode sync failed:", error.message);
     };
     if (now) return run();
@@ -146,6 +159,8 @@
   const ready = client.auth.getSession().then(({ data }) => onSession(data.session));
   client.auth.onAuthStateChange((event, session) => {
     if (event === "PASSWORD_RECOVERY") document.dispatchEvent(new CustomEvent("tc-password-recovery"));
+    // Signed out in another tab: clear this tab too
+    if (event === "SIGNED_OUT" && user && !signingOut) { user = null; profile = null; clearLocalAccount(); location.reload(); return; }
     setTimeout(() => onSession(session), 0); // never await Supabase calls inside this callback
   });
 
@@ -164,9 +179,25 @@
     signUp: (email, password) => client.auth.signUp({ email, password, options: { emailRedirectTo: here("profile.html") } }),
     signIn: (email, password) => client.auth.signInWithPassword({ email, password }),
     signInWithGitHub: () => client.auth.signInWithOAuth({ provider: "github", options: { redirectTo: here("profile.html") } }),
+    signInWithGoogle: () => client.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: here("profile.html"), queryParams: { prompt: "select_account" } }, // always let people pick which Google account
+    }),
     resetPassword: (email) => client.auth.resetPasswordForEmail(email, { redirectTo: here("login.html") }),
     updatePassword: (password) => client.auth.updateUser({ password }),
-    async signOut() { await client.auth.signOut(); user = null; profile = null; announce(); },
+    // Save progress, end the session, wipe this account's data from the browser, then reload clean.
+    async signOut() {
+      signingOut = true;
+      clearTimeout(pushTimer);
+      try { await push(true); } catch { /* offline: progress is still on the server from earlier syncs */ }
+      try {
+        const { error } = await client.auth.signOut();
+        if (error) await client.auth.signOut({ scope: "local" }); // server unreachable or token expired: still sign out here
+      } catch { try { await client.auth.signOut({ scope: "local" }); } catch { /* fall through to manual cleanup */ } }
+      user = null; profile = null;
+      clearLocalAccount();
+      location.reload();
+    },
     async saveProfile(fields) {
       if (!user) throw new Error("Not signed in");
       const patch = {
@@ -195,9 +226,13 @@
     },
     async deleteAccountData() {
       if (!user) return;
+      signingOut = true;
+      clearTimeout(pushTimer);
       await client.from("profiles").delete().eq("id", user.id);
-      await client.auth.signOut();
-      user = null; profile = null; announce();
+      try { await client.auth.signOut(); } catch { try { await client.auth.signOut({ scope: "local" }); } catch { /* manual cleanup below */ } }
+      user = null; profile = null;
+      clearLocalAccount();
+      location.reload();
     },
     syncNow: () => push(true),
   };

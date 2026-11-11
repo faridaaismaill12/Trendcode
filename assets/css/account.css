@@ -21,6 +21,13 @@
 }
 .btn-github svg { width: 1.2rem; height: 1.2rem; }
 .btn-github:hover { background: #32383f; }
+/* Google's own button style: white, grey outline, coloured G */
+.btn-google {
+  display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; padding: 0.75rem;
+  border-radius: 999px; border: 1px solid #dadce0; background: #fff; color: #1f1f1f; font-weight: 600; cursor: pointer;
+}
+.btn-google svg { width: 1.15rem; height: 1.15rem; }
+.btn-google:hover { background: #f7f8f8; border-color: #c4c7c5; }
 .or { display: flex; align-items: center; gap: 0.8rem; color: var(--muted); font-size: 0.82rem; }
 .or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 .auth-form { display: grid; gap: 0.2rem; }
